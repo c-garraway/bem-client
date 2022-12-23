@@ -86,7 +86,7 @@ export default function EntityDetails() {
         color="primary"
         sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
 
-        >Add Business Filing
+        >Add Business Name Filing
       </Button>
         <BNFList/>
       </TabPanel>

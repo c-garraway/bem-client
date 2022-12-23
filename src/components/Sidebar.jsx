@@ -1,16 +1,23 @@
-import { Add } from "@mui/icons-material";
+import { Add} from "@mui/icons-material";
 import { Box, Button, ListItem, ListItemButton, ListItemText, TextField } from "@mui/material";
 import React from "react";
 import { FixedSizeList } from 'react-window';
+import {store} from '../app/store'
+import { setCurrentEntity } from "../features/entityData/currentEntitySlice";
 
+const entities = store.getState().entityData;
 
 function renderRow(props) {
     const { index, style } = props;
-  
+
+    const changeCurrentEntity = () => {
+        store.dispatch(setCurrentEntity(index))
+    }
+
     return (
       <ListItem style={style} key={index} component="div" disablePadding>
-        <ListItemButton>
-          <ListItemText primary={`Entity ${index + 1}`} />
+        <ListItemButton onClick={changeCurrentEntity}>
+          <ListItemText primary={entities[index].name} />
         </ListItemButton>
       </ListItem>
     );
@@ -42,7 +49,7 @@ function Sidebar() {
         height={400}
         /* width={'100%'} */
         itemSize={46}
-        itemCount={10}
+        itemCount={entities.length}
         overscanCount={5}
       >
         {renderRow}

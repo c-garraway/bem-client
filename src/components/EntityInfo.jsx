@@ -1,11 +1,17 @@
 import {  Box, TextField, Typography } from "@mui/material";
 import React from "react";
-
+import { useSelector } from "react-redux"
+import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
+import { selectEntityData } from "../features/entityData/entityDataSlice";
 
 function EntityInfo() {
+    const entityIndex = useSelector(selectCurrentEntity);
+    const entities = useSelector(selectEntityData);
+    const currentEntity = entities[entityIndex];
+
   return (
     <>
-        <Typography variant="h6" marginLeft={1}>Entity 1 General Information</Typography>
+        <Typography variant="h6" marginLeft={1}>General Information</Typography>
         <Box
             flex={1} 
             component="form"
@@ -20,42 +26,42 @@ function EntityInfo() {
                 id="outlined-required"
                 label="Name"
                 /* defaultValue="Furniture Corporation" */
-                value="Furniture Corporation"
+                value={currentEntity.name}
                 />
                 <TextField
 
                 id="outlined-disabled"
                 label="Address"
-                value="1234 Second Street, Mississauga, ON"
+                value={currentEntity.address}
                 />
                 <TextField
 
                 id="outlined-disabled"
                 label="Jurisdiction(s)"
-                value="BC, MB, ON, PQ"
+                value={currentEntity.jurisdictions.map(jurisdictions => {
+                    return ` ${jurisdictions.jurisdiction}`
+                })}
                 />
                 <TextField
 
                 id="outlined-required"
                 label="Date Created"
-                value="September 1, 1999"
+                value={currentEntity.dateCreated}
                 />
                 <TextField
 
                 id="outlined-disabled"
                 label="Status"
-                value="ACTIVE"
+                value={currentEntity.status}
                 />
                 <TextField
                 /* disabled */
                 id="outlined-disabled"
                 label="Corporate ID"
-                value="455FE6"
-                />
-                
+                value={currentEntity.corpID}
+                />                
             </div>
-        </Box>           
-                    
+        </Box>                     
     </>
   );
 }
