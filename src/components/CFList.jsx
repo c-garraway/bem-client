@@ -43,7 +43,7 @@ export default function CFList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={crypto.randomUUID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               {/* <TableCell component="th" scope="row">

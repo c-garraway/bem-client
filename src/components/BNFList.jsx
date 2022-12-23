@@ -12,22 +12,7 @@ import {store} from '../app/store'
 import { useSelector } from "react-redux"
 import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
 
-
-/* function createData(bname, jurisdiction, sname, dueDate, confirmation) {
-  return { bname, jurisdiction, sname, dueDate, confirmation };
-} */
-
-/* const rows = [
-  createData('The Brick', 'ON', 'Jane Doe','September 1, 2001',  'S:/filings/thebrick2001on.pdf'),
-  createData('The Brick', 'BC','Jane Doe','September 1, 2001',  'S:/filings/thebrick2001bc.pdf'),
-  createData('Ethan Allen', 'ON', 'Jane Doe','September 1, 2001', 'S:/filings/ethanallen2001on.pdf'),
-  createData('Ethan Allen', 'BC','Jane Doe','September 1, 2001', 'S:/filings/ethanallen2001bc.pdf'),
-  createData('Leons', 'ON', 'Jackie Snow','September 1, 2001', 'S:/filings/leons2001on.pdf'),
-  createData('Ashley Home Store', 'ON','Jane Doe', 'September 1, 2001','S:/filings/ashley2001on.pdf'),
-  createData('Structube', 'ON','Jackie Snow','September 1, 2001', 'S:/filings/structube2001on.pdf'),
-]; */
-
-export default function DOList() {
+export default function BNFList() {
   const entityIndex = useSelector(selectCurrentEntity);
 
   const rows = store.getState().entityData[entityIndex].businessNameFilings
@@ -47,7 +32,7 @@ export default function DOList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.businessName}
+              key={crypto.randomUUID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">

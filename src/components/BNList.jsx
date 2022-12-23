@@ -12,20 +12,7 @@ import {store} from '../app/store'
 import { useSelector } from "react-redux"
 import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
 
-
-/* function createData(name, jurisdiction, cdate, status) {
-  return { name, jurisdiction, cdate, status};
-}
-
-const rowsf = [
-  createData('The Brick', 'ON, BC', 'September 1, 2001', 'ACTIVE'),
-  createData('Ethan Allen', 'ON, BC', 'September 1, 2001', 'ACTIVE'),
-  createData('Leons', 'ON', 'September 1, 2001', 'ACTIVE'),
-  createData('Ashley Home Store', 'ON', 'September 1, 2001', 'ACTIVE'),
-  createData('Structube', 'ON', 'September 1, 2001', 'ACTIVE'),
-]; */
-
-export default function DOList() {
+export default function BNList() {
   const entityIndex = useSelector(selectCurrentEntity);
  
   const rows = store.getState().entityData[entityIndex].businessNames
@@ -45,7 +32,7 @@ export default function DOList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.businessName}
+              key={crypto.randomUUID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">

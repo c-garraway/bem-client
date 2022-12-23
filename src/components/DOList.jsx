@@ -33,7 +33,7 @@ export default function DOList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={crypto.randomUUID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -43,7 +43,7 @@ export default function DOList() {
               <TableCell >{row.email}</TableCell>
               <TableCell >{row.phone}</TableCell>
               <TableCell >
-                <Button /* variant="outlined" */ startIcon={<InfoOutlinedIcon />}>    </Button>
+                <Button startIcon={<InfoOutlinedIcon />}> </Button>
               </TableCell>
             </TableRow>
           ))}
