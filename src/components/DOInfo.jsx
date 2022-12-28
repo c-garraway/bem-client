@@ -69,7 +69,7 @@ export default function DOInfo({currentDOIndex}) {
             component="form"
             
             sx={{ width: '100%', m: 'auto',
-            '& .MuiTextField-root': { m: 1, width: "47%"}}}
+            '& .MuiTextField-root': { m: 1, width: "40%"}}}
             noValidate
             autoComplete="off"
             >
