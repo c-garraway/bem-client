@@ -32,7 +32,7 @@ export default function BNFList() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={crypto.randomUUID}
+              key={crypto.randomUUID()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">

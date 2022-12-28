@@ -13,7 +13,6 @@ function Main() {
     >
     <EntityInfo/>
     <EntityDetails/>   
-
     </Box>
     )
 }

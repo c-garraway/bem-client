@@ -6,16 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {store} from '../app/store'
 import { useSelector } from "react-redux"
 import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
+import DOInfo from "./DOInfo"
 
 
 export default function DOList() {
     const entityIndex = useSelector(selectCurrentEntity);
-
     const rows = store.getState().entityData[entityIndex].dO
 
   return (
@@ -31,9 +29,9 @@ export default function DOList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row, index) => (            
             <TableRow
-              key={crypto.randomUUID}
+              key={crypto.randomUUID()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -43,7 +41,9 @@ export default function DOList() {
               <TableCell >{row.email}</TableCell>
               <TableCell >{row.phone}</TableCell>
               <TableCell >
-                <Button startIcon={<InfoOutlinedIcon />}> </Button>
+                <DOInfo
+                currentDOIndex = {index}
+                />
               </TableCell>
             </TableRow>
           ))}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+//import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
@@ -25,7 +25,8 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Box>{children}</Box>
+          {/* <Typography>{children}</Typography> */}
         </Box>
       )}
     </div>
@@ -63,12 +64,12 @@ export default function EntityDetails() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-      <Button 
-        startIcon={<Add/>}
-        color="primary"
-        sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-        >Add Director or Officer
-      </Button>
+        <Button 
+            startIcon={<Add/>}
+            color="primary"
+            sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
+            >Add Director or Officer
+        </Button>
         <DOList />
       </TabPanel>
       <TabPanel value={value} index={1}>
