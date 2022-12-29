@@ -6,8 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CFInfo from './CFInfo';
 import {store} from '../app/store'
 import { useSelector } from "react-redux"
 import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
@@ -41,7 +40,7 @@ export default function CFList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row, index) => (
             <TableRow
               key={crypto.randomUUID()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -53,7 +52,9 @@ export default function CFList() {
               <TableCell >{row.subName}</TableCell>
               <TableCell >{row.dueDate}</TableCell>
               <TableCell >
-                <Button startIcon={<InfoOutlinedIcon />}>    </Button>
+                <CFInfo
+                  currentCFIndex = {index}
+                />
               </TableCell>
             </TableRow>
           ))}

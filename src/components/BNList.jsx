@@ -6,8 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import BNInfo from './BNInfo'
 import {store} from '../app/store'
 import { useSelector } from "react-redux"
 import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
@@ -30,7 +29,7 @@ export default function BNList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row,index) => (
 
             <TableRow
               key={crypto.randomUUID()}
@@ -43,7 +42,9 @@ export default function BNList() {
               <TableCell >{row.creationDate}</TableCell>
               <TableCell >{row.status}</TableCell>
               <TableCell >
-                <Button startIcon={<InfoOutlinedIcon />}>    </Button>
+                <BNInfo
+                  currentBNIndex = {index}
+                />
               </TableCell>
             </TableRow>
           ))}
