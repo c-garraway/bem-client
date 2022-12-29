@@ -6,9 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
-//import { selectEntityData } from "../features/entityData/entityDataSlice";
-import {store} from '../app/store'
+import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import {store} from '../../app/store'
 
 const style = {
   position: 'absolute',

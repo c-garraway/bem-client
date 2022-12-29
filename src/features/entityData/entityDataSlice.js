@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {store} from '../../app/store'
 
 
 
@@ -166,8 +167,8 @@ const initialState = () => {
             
         },
         {
-            name: ' Furniture Corp 2',
-            address: '1234 Second Street, Mississauga, ON',
+            name: 'Furniture Corp 2',
+            address: '234 Second Street, Mississauga, ON',
             dateCreated: 'Sep 1, 1999',
             status: 'ACTIVE',
             corpID: '455FE6',
@@ -327,8 +328,8 @@ const initialState = () => {
             
         },
         {
-            name: ' Furniture Corp 3',
-            address: '1234 Second Street, Mississauga, ON',
+            name: 'Furniture Corp 3',
+            address: '34 Second Street, Mississauga, ON',
             dateCreated: 'Sep 1, 1999',
             status: 'ACTIVE',
             corpID: '455FE6',
@@ -490,14 +491,22 @@ const initialState = () => {
     ]
 }
 
+
+
 const entityDataSlice = createSlice({
     name: 'entityData',
     initialState: initialState(),
     reducers: {
-        resetEntityData: () => initialState()
+        resetEntityData: () => initialState(),
+        addNewEntity: (state, action) => {
+            state.push(action.payload);
+        },
+        addNewDO: (state, action) => {
+            state[state.currentEntity].dO.push(action.payload)
+        }
     }
 });
 
-export const {resetEntityData} = entityDataSlice.actions
+export const {resetEntityData, addNewEntity, addNewDO} = entityDataSlice.actions
 export const selectEntityData = (state) => state.entityData
 export default entityDataSlice.reducer

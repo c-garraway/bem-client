@@ -6,15 +6,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import BNFInfo from './BNFInfo';
-import {store} from '../app/store'
+import BNInfo from '../BN/BNInfo'
+import {store} from '../../app/store'
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
+import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
 
-export default function BNFList() {
+export default function BNList() {
   const entityIndex = useSelector(selectCurrentEntity);
-
-  const rows = store.getState().entityData[entityIndex].businessNameFilings
+ 
+  const rows = store.getState().entityData[entityIndex].businessNames
 
   return (
     <TableContainer component={Paper}>
@@ -22,14 +22,15 @@ export default function BNFList() {
         <TableHead>
           <TableRow>
             <TableCell>Business Name</TableCell>
-            <TableCell>Jurisdiction</TableCell>
-            <TableCell>Name (submitter)</TableCell>
-            <TableCell>Due Date</TableCell>
+            <TableCell>Jurisdiction(s)</TableCell>
+            <TableCell>Creation Date</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row,index) => (
+
             <TableRow
               key={crypto.randomUUID()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -37,11 +38,11 @@ export default function BNFList() {
               <TableCell component="th" scope="row">
                 {row.businessName}
               </TableCell>
-              <TableCell align='center' >{row.jurisdiction}</TableCell>
-              <TableCell >{row.subName}</TableCell>
-              <TableCell >{row.dueDate}</TableCell>
+              <TableCell align='center'>{row.jurisdiction}</TableCell>
+              <TableCell >{row.creationDate}</TableCell>
+              <TableCell >{row.status}</TableCell>
               <TableCell >
-                <BNFInfo
+                <BNInfo
                   currentBNIndex = {index}
                 />
               </TableCell>

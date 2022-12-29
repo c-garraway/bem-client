@@ -6,9 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
-//import { selectEntityData } from "../features/entityData/entityDataSlice";
-import {store} from '../app/store'
+import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import {store} from '../../app/store'
 
 const style = {
   position: 'absolute',
@@ -34,7 +33,7 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function BNFInfo({currentBNIndex}) {
+export default function CFInfo({currentCFIndex}) {
   const [open, setOpen] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
   const handleOpen = () => setOpen(true);
@@ -49,7 +48,7 @@ export default function BNFInfo({currentBNIndex}) {
 
 
   const entityIndex = useSelector(selectCurrentEntity);
-  const currentBNF = store.getState().entityData[entityIndex].businessNameFilings[currentBNIndex]
+  const currentCF = store.getState().entityData[entityIndex].corporateFilings[currentCFIndex]
 
   return (
     <div >
@@ -64,10 +63,10 @@ export default function BNFInfo({currentBNIndex}) {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Business Name Details
+            Corporate Filing Details
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-            Select EDIT below to update Business Name.
+            Select EDIT below to update Corporate Filing.
           </Typography>
           <Box
             flex={1} 
@@ -84,33 +83,33 @@ export default function BNFInfo({currentBNIndex}) {
                 <TextField
                 disabled = {disabled}
                 id="outlined-required"
-                label="Business Name"
-                defaultValue={currentBNF.businessName}
+                label="Name"
+                defaultValue={currentCF.name}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Jurisdiction"
-                defaultValue={currentBNF.jurisdiction}
+                defaultValue={currentCF.jurisdiction}
                 />
                 
                 <TextField
                 disabled = {disabled}
                 id="outlined-required"
                 label="Name (submitter)"
-                defaultValue={currentBNF.subName}
+                defaultValue={currentCF.subName}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Due Date"
-                defaultValue={currentBNF.dueDate}
+                defaultValue={currentCF.dueDate}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Confirmation"
-                defaultValue={currentBNF.confirmation}
+                defaultValue={currentCF.confirmation}
                 />                
             </div>
         </Box>

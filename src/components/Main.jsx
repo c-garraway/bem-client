@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import EntityInfo from "./EntityInfo";
-import EntityDetails from "./EntityDetails";
+import EntityInfo from "./Entity/EntityInfo";
+import EntityDetails from "./Entity/EntityDetails";
 
 
 function Main() {

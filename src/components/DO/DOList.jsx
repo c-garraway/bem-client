@@ -6,44 +6,43 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import BNInfo from './BNInfo'
-import {store} from '../app/store'
+import {store} from '../../app/store'
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../features/entityData/currentEntitySlice";
+import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import DOInfo from "../DO/DOInfo"
 
-export default function BNList() {
-  const entityIndex = useSelector(selectCurrentEntity);
- 
-  const rows = store.getState().entityData[entityIndex].businessNames
+
+export default function DOList() {
+    const entityIndex = useSelector(selectCurrentEntity);
+    const rows = store.getState().entityData[entityIndex].dO
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Business Name</TableCell>
-            <TableCell>Jurisdiction(s)</TableCell>
-            <TableCell>Creation Date</TableCell>
-            <TableCell>Status</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Position(s)</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Phone</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,index) => (
-
+          {rows.map((row, index) => (            
             <TableRow
               key={crypto.randomUUID()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.businessName}
+                {row.name}
               </TableCell>
-              <TableCell align='center'>{row.jurisdiction}</TableCell>
-              <TableCell >{row.creationDate}</TableCell>
-              <TableCell >{row.status}</TableCell>
+              <TableCell >{row.position}</TableCell>
+              <TableCell >{row.email}</TableCell>
+              <TableCell >{row.phone}</TableCell>
               <TableCell >
-                <BNInfo
-                  currentBNIndex = {index}
+                <DOInfo
+                currentDOIndex = {index}
                 />
               </TableCell>
             </TableRow>

@@ -6,10 +6,11 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import DOList from './DOList';
-import BNList from './BNList';
-import BNFList from './BNFList';
-import CFList from './CFList';
+import DOList from '../DO/DOList';
+import BNList from '../BN/BNList';
+import BNFList from '../BNF/BNFList';
+import CFList from '../CF/CFList';
+import DOAdd from '../DO/DOAdd';
 
 
 function TabPanel(props) {
@@ -64,12 +65,7 @@ export default function EntityDetails() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Button 
-            startIcon={<Add/>}
-            color="primary"
-            sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-            >Add Director or Officer
-        </Button>
+        <DOAdd/>
         <DOList />
       </TabPanel>
       <TabPanel value={value} index={1}>
