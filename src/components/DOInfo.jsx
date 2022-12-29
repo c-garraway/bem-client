@@ -14,6 +14,7 @@ const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
+  overflow:'scroll',
   transform: 'translate(-50%, -50%)',
   width: '50%',
   maxHeight: '80%',
@@ -42,13 +43,16 @@ export default function DOInfo({currentDOIndex}) {
     setDisabled(true);
 };
   const handleEdit = () => setDisabled(false);
-  const handleSave = () => setDisabled(true);
+  const handleSave = () => {
+    setDisabled(true)
+    };
+
 
   const entityIndex = useSelector(selectCurrentEntity);
   const currentDO = store.getState().entityData[entityIndex].dO[currentDOIndex]
 
   return (
-    <div>
+    <div >
       <Button onClick={handleOpen}><InfoOutlinedIcon /></Button>
       <Modal
         open={open}
@@ -57,7 +61,8 @@ export default function DOInfo({currentDOIndex}) {
         aria-describedby="modal-modal-description"
       >
         <Box 
-        sx={style}>
+        sx={style}
+        >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Director & Officer Details
           </Typography>
@@ -66,65 +71,64 @@ export default function DOInfo({currentDOIndex}) {
           </Typography>
           <Box
             flex={1} 
-            component="form"
+            component="form"            
+            sx={{ 
             
-            sx={{ width: '100%', m: 'auto',
-            '& .MuiTextField-root': { m: 1, width: "40%"}}}
+            '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
             noValidate
             autoComplete="off"
+            
             >
-            <div>
+            <div
+             >
                 <TextField
                 disabled = {disabled}
-
-                /* {...edit = true ? 'disabled' : 'enabled'} */
                 id="outlined-required"
                 label="Name"
-                /* defaultValue="Furniture Corporation" */
-                value={currentDO.name}
+                defaultValue={currentDO.name}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Address"
-                value={currentDO.address}
+                defaultValue={currentDO.address}
                 />
                 
                 <TextField
                 disabled = {disabled}
                 id="outlined-required"
                 label="Position"
-                value={currentDO.position}
+                defaultValue={currentDO.position}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Phone"
-                value={currentDO.phone}
+                defaultValue={currentDO.phone}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Status"
-                value="ACTIVE"
+                defaultValue="ACTIVE"
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Email"
-                value={currentDO.email}
+                defaultValue={currentDO.email}
                 />  
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Start Date"
-                value="Sep 1, 2000"
+                defaultValue="Sep 1, 2000"
                 />  
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="End Date"
-                value="None"
+                defaultValue="None"
                 />                  
             </div>
         </Box>
@@ -132,7 +136,6 @@ export default function DOInfo({currentDOIndex}) {
             m={1}
             display="flex"
             justifyContent= 'center'
-            alignItems="center"
             >
             <StyledButton 
             variant="outlined"
