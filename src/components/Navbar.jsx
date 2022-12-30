@@ -39,7 +39,7 @@ function Navbar() {
   return (
     <AppBar position="sticky">
         <StyledToolbar>
-           <Typography variant="h6" sx={{ display: { xs: "none", sm: "block"}}}>B E M</Typography>
+           <Typography variant="h4" sx={{ display: { xs: "none", sm: "block"}}}>B E M</Typography>
            <MenuIcon sx={{ display: { xs: "block", sm: "none"}}}/> 
            {/* <Search sx={{backgroundColor:"white"}}><InputBase placeholder="entity search..."  /></Search> */}
            <Box>

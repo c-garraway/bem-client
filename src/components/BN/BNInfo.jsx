@@ -103,6 +103,10 @@ export default function BNInfo({currentBNIndex}) {
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Creation Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 defaultValue={currentBN.creationDate}
                 />
                 <TextField
@@ -115,6 +119,10 @@ export default function BNInfo({currentBNIndex}) {
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Close Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 defaultValue={currentBN.closeDate}
                 />                  
             </div>
@@ -129,6 +137,7 @@ export default function BNInfo({currentBNIndex}) {
             onClick={handleEdit}
             >Edit</StyledButton>
             <StyledButton 
+            disabled = {disabled}
             variant="outlined"
             onClick={handleSave}
             >Save</StyledButton>

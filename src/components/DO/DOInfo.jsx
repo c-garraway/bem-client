@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, setCurrentDO, updateDO } from "../../features/entityData/entityDataSlice";
 
 const style = {
   position: 'absolute',
@@ -33,8 +33,27 @@ const StyledButton = styled(Button) ({
 
 
 export default function DOInfo({currentDOIndex}) {
+  const dispatch = useDispatch();
+
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+
+  const currentDO = entityData[entityIndex].dO[currentDOIndex]
+
+
+
   const [open, setOpen] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
+
+  const [name, setName] = React.useState(currentDO.name);
+  const [position, setPosition] = React.useState(currentDO.position);
+  const [status, setStatus] = React.useState(currentDO.status);
+  const [startDate, setStartDate] = React.useState(currentDO.startDate);
+  const [address, setAddress] = React.useState(currentDO.address);
+  const [phone, setPhone] = React.useState(currentDO.phone);
+  const [email, setEmail] = React.useState(currentDO.email);
+  const [endDate, setEndDate] = React.useState(currentDO.endDate);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -42,14 +61,22 @@ export default function DOInfo({currentDOIndex}) {
 };
   const handleEdit = () => setDisabled(false);
   const handleSave = () => {
+    dispatch(setCurrentDO(currentDOIndex));
+    dispatch(updateDO({
+      name: name,
+      position: position,
+      status: status,
+      startDate: startDate,
+      address: address,
+      phone: phone,
+      email: email,     
+      endDate: endDate,
+    }));
     setDisabled(true)
     };
 
 
-  const entityIndex = useSelector(selectCurrentEntity);
-  const entityData = useSelector(selectEntityData);
-
-  const currentDO = entityData[entityIndex].dO[currentDOIndex]
+ 
 
   return (
     <div >
@@ -86,12 +113,14 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Name"
                 defaultValue={currentDO.name}
+                onChange={(e) => setName(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Address"
                 defaultValue={currentDO.address}
+                onChange={(e) => setAddress(e.currentTarget.value)}
                 />
                 
                 <TextField
@@ -99,36 +128,50 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Position"
                 defaultValue={currentDO.position}
+                onChange={(e) => setPosition(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Phone"
                 defaultValue={currentDO.phone}
+                onChange={(e) => setPhone(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Status"
                 defaultValue={currentDO.status}
+                onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Email"
                 defaultValue={currentDO.email}
+                onChange={(e) => setEmail(e.currentTarget.value)}
                 />  
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Start Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 defaultValue={currentDO.startDate}
+                onChange={(e) => setStartDate(e.currentTarget.value)}
                 />  
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="End Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 defaultValue={currentDO.endDate}
+                onChange={(e) => setEndDate(e.currentTarget.value)}
                 />                  
             </div>
         </Box>
@@ -142,6 +185,7 @@ export default function DOInfo({currentDOIndex}) {
             onClick={handleEdit}
             >Edit</StyledButton>
             <StyledButton 
+            disabled = {disabled}
             variant="outlined"
             onClick={handleSave}
             >Save</StyledButton>

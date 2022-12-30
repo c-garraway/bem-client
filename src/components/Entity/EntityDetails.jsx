@@ -4,13 +4,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 //import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
-import { Add } from '@mui/icons-material';
 import DOList from '../DO/DOList';
 import BNList from '../BN/BNList';
 import BNFList from '../BNF/BNFList';
 import CFList from '../CF/CFList';
 import DOAdd from '../DO/DOAdd';
+import BNAdd from '../BN/BNAdd';
+import BNFAdd from '../BNF/BNFAdd';
+import CFAdd from '../CF/CFAdd';
 
 
 function TabPanel(props) {
@@ -69,32 +70,15 @@ export default function EntityDetails() {
         <DOList />
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Button 
-        startIcon={<Add/>}
-        color="primary"
-        sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-        >Add Business Name
-      </Button>
+        <BNAdd/>
         <BNList/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-      <Button 
-        startIcon={<Add/>}
-        color="primary"
-        sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-
-        >Add Business Name Filing
-      </Button>
+        <BNFAdd/>
         <BNFList/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-      <Button 
-        startIcon={<Add/>}
-        color="primary"
-        sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-
-        >Add Corporate Filing
-      </Button>
+        <CFAdd/>
         <CFList/>
       </TabPanel>
     </Box>

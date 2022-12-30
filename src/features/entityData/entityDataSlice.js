@@ -5,6 +5,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = () => {
     return {
         currentEntity: [0],
+        currentDO: [0],
+        currentBN: [0],
+        currentBNF: [0],
+        currentCF: [0],
         entities: [
             {
                 name: 'Furniture Corp',
@@ -521,13 +525,46 @@ const entityDataSlice = createSlice({
         setCurrentEntity: (state, action) => {
             state.currentEntity = action.payload;
         },
+        setCurrentDO: (state, action) => {
+            state.currentDO = action.payload;
+        },
+        setCurrentBN: (state, action) => {
+            state.currentBN = action.payload;
+        },
+        setCurrentBNF: (state, action) => {
+            state.currentBNF = action.payload;
+        },
+        setCurrentCF: (state, action) => {
+            state.currentCF = action.payload;
+        },
         addNewDO: (state, action) => {
             state.entities[state.currentEntity].dO.push(action.payload)
+        },
+        addNewBN: (state, action) => {
+            state.entities[state.currentEntity].businessNames.push(action.payload)
+        },
+        addNewBNF: (state, action) => {
+            state.entities[state.currentEntity].businessNameFilings.push(action.payload)
+        },
+        addNewCF: (state, action) => {
+            state.entities[state.currentEntity].corporateFilings.push(action.payload)
+        },
+        updateDO: (state, action) => {
+            state.entities[state.currentEntity].dO[state.currentDO] = action.payload
+        },
+        updateBN: (state, action) => {
+            state.entities[state.currentEntity].dO[state.currentBN] = action.payload
+        },
+        updateBNF: (state, action) => {
+            state.entities[state.currentEntity].dO[state.currentBNF] = action.payload
+        },
+        updateCF: (state, action) => {
+            state.entities[state.currentEntity].dO[state.currentCF] = action.payload
         }
     }
 });
 
-export const {resetEntityData, addNewEntity, addNewDO, setCurrentEntity} = entityDataSlice.actions
+export const {resetEntityData, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, updateCF} = entityDataSlice.actions
 export const selectEntityData = (state) => state.entityData.entities
 export const selectCurrentEntity = (state) => state.entityData.currentEntity
 export default entityDataSlice.reducer

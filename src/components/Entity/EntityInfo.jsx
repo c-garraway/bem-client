@@ -42,6 +42,7 @@ function EntityInfo() {
             '& .MuiTextField-root': { m: 1, width: '25ch' },}}
             noValidate
             autoComplete="off"
+            
             >
             <div>
                 <TextField

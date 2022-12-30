@@ -38,7 +38,7 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function DOCreate() {
+export default function DOAdd() {
   const dispatch = useDispatch()
 
   const [open, setOpen] = React.useState(false);
@@ -132,7 +132,7 @@ export default function DOCreate() {
                 onChange={(e) => setName(e.currentTarget.value)}
                 />
                 <TextField
-                id="outlined-disabled"
+                id="outlined"
                 label="Address"
                 InputLabelProps={{
                   shrink: true,
@@ -150,7 +150,7 @@ export default function DOCreate() {
                 onChange={(e) => setPosition(e.currentTarget.value)}
                 />
                 <TextField
-                id="outlined-disabled"
+                id="outlined"
                 label="Phone"
                 InputLabelProps={{
                   shrink: true,
@@ -159,7 +159,7 @@ export default function DOCreate() {
                 />
                 <TextField
                 required
-                id="outlined-disabled"
+                id="outlined-required"
                 label="Status"
                 InputLabelProps={{
                   shrink: true,
@@ -167,7 +167,7 @@ export default function DOCreate() {
                 onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
-                id="outlined-disabled"
+                id="outlined"
                 label="Email"
                 type="email"
                 InputLabelProps={{
@@ -177,7 +177,7 @@ export default function DOCreate() {
                 />  
                 <TextField
                 required
-                id="outlined-disabled"
+                id="outlined-required"
                 label="Start Date"
                 type="date"
                 InputLabelProps={{
@@ -186,7 +186,7 @@ export default function DOCreate() {
                 onChange={(e) => setStartDate(e.currentTarget.value)}
                 />  
                 <TextField
-                id="outlined-disabled"
+                id="outlined"
                 label="End Date"
                 type="date"                
                 InputLabelProps={{

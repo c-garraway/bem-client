@@ -103,6 +103,10 @@ export default function BNFInfo({currentBNIndex}) {
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Due Date"
+                type='date'
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 defaultValue={currentBNF.dueDate}
                 />
                 <TextField
@@ -123,6 +127,7 @@ export default function BNFInfo({currentBNIndex}) {
             onClick={handleEdit}
             >Edit</StyledButton>
             <StyledButton 
+            disabled = {disabled}
             variant="outlined"
             onClick={handleSave}
             >Save</StyledButton>

@@ -103,6 +103,10 @@ export default function CFInfo({currentCFIndex}) {
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Due Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 defaultValue={currentCF.dueDate}
                 />
                 <TextField
@@ -123,6 +127,7 @@ export default function CFInfo({currentCFIndex}) {
             onClick={handleEdit}
             >Edit</StyledButton>
             <StyledButton 
+            disabled = {disabled}
             variant="outlined"
             onClick={handleSave}
             >Save</StyledButton>

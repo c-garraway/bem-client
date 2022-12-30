@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewDO } from '../../features/entityData/entityDataSlice';
+import { addNewBN } from '../../features/entityData/entityDataSlice';
 import { useDispatch } from 'react-redux';
 
 const style = {
@@ -38,18 +38,18 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function DOCreate() {
+export default function BNAdd() {
   const dispatch = useDispatch()
 
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [position, setPosition] = React.useState('');
-  const [status, setStatus] = React.useState('');
-  const [startDate, setStartDate] = React.useState('');
+
+  const [businessName, setBusinessName] = React.useState('');
   const [address, setAddress] = React.useState('');
-  const [phone, setPhone] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [endDate, setEndDate] = React.useState('');
+  const [status, setStatus] = React.useState('');
+  const [jurisdiction, setJurisdiction] = React.useState('');
+  const [createDate, setCreateDate] = React.useState('');
+  const [closeDate, setCloseDate] = React.useState('');
+ 
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const handleOpen = () => setOpen(true);
@@ -59,30 +59,26 @@ export default function DOCreate() {
 
 };
   const handleSave = () => {
-    if(name.length < 1 || position.length < 1 || status.length < 1 || startDate.length < 1) {
+    if(businessName.length < 1 || status.length < 1 || createDate.length < 1 || jurisdiction.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewDO({
-      name: name,
-      position: position,
-      status: status,
-      startDate: startDate,
+    dispatch(addNewBN({
+      businessName: businessName,
       address: address,
-      phone: phone,
-      email: email,     
-      endDate: endDate,     
+      status: status,
+      jurisdiction: jurisdiction,
+      createDate: createDate,
+      closeDate: closeDate,    
     }));
     setOpen(false);
 
-    setName('');
-    setPosition('');
-    setStatus('');
-    setStartDate('');
+    setBusinessName('');
     setAddress('');
-    setPhone('');
-    setEmail('');
-    setEndDate('');
+    setStatus('');
+    setJurisdiction('');
+    setCreateDate('');
+    setCloseDate('');
 
     setErrorMessage('');
     }; 
@@ -94,7 +90,7 @@ export default function DOCreate() {
           startIcon={<Add/>}
           color="primary"
           sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-          >Add Director or Officer
+          >Add Business Name
       </Button>
       <Modal
         open={open}
@@ -106,7 +102,7 @@ export default function DOCreate() {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Director or Officer
+          Add Business Name
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
             {errorMessage}
@@ -125,41 +121,23 @@ export default function DOCreate() {
                 <TextField
                 required
                 id="outlined-required"
-                label="Name"
+                label="Business Name"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setName(e.currentTarget.value)}
+                onChange={(e) => setBusinessName(e.currentTarget.value)}
                 />
                 <TextField
-                id="outlined-disabled"
+                id="outlined"
                 label="Address"
                 InputLabelProps={{
                   shrink: true,
                 }}
                 onChange={(e) => setAddress(e.currentTarget.value)}
-                />
-                
+                />                
                 <TextField
                 required
                 id="outlined-required"
-                label="Position"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setPosition(e.currentTarget.value)}
-                />
-                <TextField
-                id="outlined-disabled"
-                label="Phone"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setPhone(e.currentTarget.value)}
-                />
-                <TextField
-                required
-                id="outlined-disabled"
                 label="Status"
                 InputLabelProps={{
                   shrink: true,
@@ -167,33 +145,33 @@ export default function DOCreate() {
                 onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
-                id="outlined-disabled"
-                label="Email"
-                type="email"
+                required
+                id="outlined-required"
+                label="Jurisdiction"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-                />  
+                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                />
                 <TextField
                 required
-                id="outlined-disabled"
-                label="Start Date"
+                id="outlined-required"
+                label="Create Date"
                 type="date"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setStartDate(e.currentTarget.value)}
-                />  
+                onChange={(e) => setCreateDate(e.currentTarget.value)}
+                />
                 <TextField
-                id="outlined-disabled"
-                label="End Date"
-                type="date"                
+                id="outlined"
+                label="Close Date"
+                type="date"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setEndDate(e.currentTarget.value)}
-                />                  
+                onChange={(e) => setCloseDate(e.currentTarget.value)}
+                />                             
             </div>
         </Box>
         <Box 
