@@ -6,8 +6,7 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
-import {store} from '../../app/store'
+import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 
 const style = {
   position: 'absolute',
@@ -48,7 +47,9 @@ export default function DOInfo({currentDOIndex}) {
 
 
   const entityIndex = useSelector(selectCurrentEntity);
-  const currentDO = store.getState().entityData[entityIndex].dO[currentDOIndex]
+  const entityData = useSelector(selectEntityData);
+
+  const currentDO = entityData[entityIndex].dO[currentDOIndex]
 
   return (
     <div >
@@ -109,7 +110,7 @@ export default function DOInfo({currentDOIndex}) {
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Status"
-                defaultValue="ACTIVE"
+                defaultValue={currentDO.status}
                 />
                 <TextField
                 disabled = {disabled}
@@ -121,13 +122,13 @@ export default function DOInfo({currentDOIndex}) {
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Start Date"
-                defaultValue="Sep 1, 2000"
+                defaultValue={currentDO.startDate}
                 />  
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="End Date"
-                defaultValue="None"
+                defaultValue={currentDO.endDate}
                 />                  
             </div>
         </Box>

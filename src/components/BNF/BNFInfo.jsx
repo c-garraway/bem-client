@@ -6,8 +6,7 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
-import {store} from '../../app/store'
+import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 
 const style = {
   position: 'absolute',
@@ -48,7 +47,8 @@ export default function BNFInfo({currentBNIndex}) {
 
 
   const entityIndex = useSelector(selectCurrentEntity);
-  const currentBNF = store.getState().entityData[entityIndex].businessNameFilings[currentBNIndex]
+  const entityData = useSelector(selectEntityData);
+  const currentBNF = entityData[entityIndex].businessNameFilings[currentBNIndex]
 
   return (
     <div >

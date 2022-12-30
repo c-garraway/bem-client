@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { addNewEntity } from '../../features/entityData/entityDataSlice';
-import {store} from '../../app/store'
+import { useDispatch } from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -33,6 +33,8 @@ const StyledButton = styled(Button) ({
 
 
 export default function EntityCreate() {
+  const dispatch = useDispatch()
+
   const [open, setOpen] = React.useState(false);
 
   const [name, setName] = React.useState('');
@@ -53,7 +55,7 @@ export default function EntityCreate() {
       setErrorMessage('All fields are required to create entity!')
       return;
     }
-    store.dispatch(addNewEntity({
+    dispatch(addNewEntity({
       name: name,
       address: address,
       dateCreated: dateCreated,

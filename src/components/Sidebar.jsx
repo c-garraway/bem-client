@@ -1,16 +1,16 @@
 import { Box, ListItem, ListItemButton, ListItemText, TextField } from "@mui/material";
 import React from "react";
-import {store} from '../app/store'
-import { setCurrentEntity } from "../features/entityData/currentEntitySlice";
+/* import { setCurrentEntity } from "../features/entityData/currentEntitySlice"; */
 import EntityAdd from "./Entity/EntityAdd";
-import { selectEntityData } from "../features/entityData/entityDataSlice";
-import { useSelector } from "react-redux";
+import { selectEntityData, setCurrentEntity } from "../features/entityData/entityDataSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 
 function Sidebar() {
+    const dispatch = useDispatch()
 
-    const entities = useSelector(selectEntityData)
- 
+    const entityData = useSelector(selectEntityData);
+    
     return (
         <Box
             flex={1.5}
@@ -25,14 +25,14 @@ function Sidebar() {
                 sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px', ml: '4px' }}
             />
             <Box>
-                {entities.map((entity, index) => {
+                {entityData.map((entity, index) => {
                     const changeCurrentEntity = () => {
-                        store.dispatch(setCurrentEntity(index))
+                        dispatch(setCurrentEntity(index))
                     }
                     return (
                         <ListItem /* style={style} */ key={index} component="div" disablePadding>
                         <ListItemButton onClick={changeCurrentEntity}>
-                            <ListItemText primary={entities[index].name} />
+                            <ListItemText primary={entityData[index].name} />
                         </ListItemButton>
                         </ListItem>
                     );

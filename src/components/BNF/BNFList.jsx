@@ -7,14 +7,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import BNFInfo from '../BNF/BNFInfo';
-import {store} from '../../app/store'
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 
 export default function BNFList() {
   const entityIndex = useSelector(selectCurrentEntity);
-
-  const rows = store.getState().entityData[entityIndex].businessNameFilings
+  const entityData = useSelector(selectEntityData);
+  const rows = entityData[entityIndex].businessNameFilings
 
   return (
     <TableContainer component={Paper}>

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import {  Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import { selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 import { selectEntityData } from "../../features/entityData/entityDataSlice";
 
 const StyledButton = styled(Button) ({
@@ -17,8 +17,9 @@ const StyledButton = styled(Button) ({
 function EntityInfo() {
     const [disabled, setDisabled] = React.useState(true);
     const entityIndex = useSelector(selectCurrentEntity);
-    const entities = useSelector(selectEntityData);
-    const currentEntity = entities[entityIndex];
+    const entityData = useSelector(selectEntityData);
+
+    const currentEntity = entityData[entityIndex];
 
     const handleClose = () => {
         /* setOpen(false);

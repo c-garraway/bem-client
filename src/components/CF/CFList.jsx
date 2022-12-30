@@ -7,15 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CFInfo from '../CF/CFInfo';
-import {store} from '../../app/store'
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 
 export default function CFList() {
 
   const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
   
-  const rows = store.getState().entityData[entityIndex].corporateFilings
+  const rows = entityData[entityIndex].corporateFilings
 
   return (
     <TableContainer component={Paper}>

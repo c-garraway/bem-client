@@ -6,15 +6,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {store} from '../../app/store'
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
+import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 import DOInfo from "../DO/DOInfo"
 
 
 export default function DOList() {
     const entityIndex = useSelector(selectCurrentEntity);
-    const rows = store.getState().entityData[entityIndex].dO
+    const entityData = useSelector(selectEntityData);
+
+    const rows = entityData[entityIndex].dO
 
   return (
     <TableContainer component={Paper}>
@@ -25,6 +26,7 @@ export default function DOList() {
             <TableCell>Position(s)</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>Phone</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
@@ -40,6 +42,7 @@ export default function DOList() {
               <TableCell >{row.position}</TableCell>
               <TableCell >{row.email}</TableCell>
               <TableCell >{row.phone}</TableCell>
+              <TableCell >{row.status}</TableCell>
               <TableCell >
                 <DOInfo
                 currentDOIndex = {index}

@@ -6,8 +6,7 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/currentEntitySlice";
-import {store} from '../../app/store'
+import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 
 const style = {
   position: 'absolute',
@@ -46,9 +45,10 @@ export default function CFInfo({currentCFIndex}) {
     setDisabled(true)
     };
 
-
   const entityIndex = useSelector(selectCurrentEntity);
-  const currentCF = store.getState().entityData[entityIndex].corporateFilings[currentCFIndex]
+  const entityData = useSelector(selectEntityData);
+
+  const currentCF = entityData[entityIndex].corporateFilings[currentCFIndex]
 
   return (
     <div >
