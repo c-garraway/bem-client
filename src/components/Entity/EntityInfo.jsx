@@ -21,10 +21,6 @@ function EntityInfo() {
 
     const currentEntity = entityData[entityIndex];
 
-    const handleClose = () => {
-        /* setOpen(false);
-        setDisabled(true); */
-    };
     const handleEdit = () => {
         setDisabled(false)
     };
@@ -34,7 +30,7 @@ function EntityInfo() {
 
   return (
     <>
-        <Typography variant="h6" marginLeft={1}>General Information</Typography>
+        <Typography variant="h6" marginLeft={1}>Corporate General Information</Typography>
         <Box
             flex={1} 
             component="form"
@@ -62,6 +58,10 @@ function EntityInfo() {
                 disabled = {disabled}
                 id="outlined-required"
                 label="Date Created"
+                type="date"
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 value={currentEntity.dateCreated}
                 />
                 <TextField
@@ -80,7 +80,7 @@ function EntityInfo() {
                 disabled
                 id="outlined-disabled"
                 label="Jurisdiction(s)"
-                value={currentEntity.jurisdictions.map(jurisdictions => {
+                value={currentEntity.corporateJurisdictions.map(jurisdictions => {
                     return ` ${jurisdictions.jurisdiction}`
                 })}
                 />             
@@ -99,10 +99,6 @@ function EntityInfo() {
             variant="outlined"
             onClick={handleSave}
             >Save</StyledButton>
-            <StyledButton 
-            variant="outlined"
-            onClick={handleClose}
-            >Add | Edit Jusrisdictions</StyledButton>
         </Box>                   
     </>
   );

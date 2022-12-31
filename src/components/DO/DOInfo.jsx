@@ -53,14 +53,21 @@ export default function DOInfo({currentDOIndex}) {
   const [phone, setPhone] = React.useState(currentDO.phone);
   const [email, setEmail] = React.useState(currentDO.email);
   const [endDate, setEndDate] = React.useState(currentDO.endDate);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
+    setErrorMessage('');
+
 };
   const handleEdit = () => setDisabled(false);
   const handleSave = () => {
+    if(name.length < 1 || position.length < 1 || status.length < 1 || startDate.length < 1) {
+      setErrorMessage('Required field(s) empty!')
+      return;
+    }
     dispatch(setCurrentDO(currentDOIndex));
     dispatch(updateDO({
       name: name,
@@ -73,6 +80,8 @@ export default function DOInfo({currentDOIndex}) {
       endDate: endDate,
     }));
     setDisabled(true)
+    setErrorMessage('');
+
     };
 
 
@@ -96,6 +105,9 @@ export default function DOInfo({currentDOIndex}) {
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
             Select EDIT below to update Director and Officer information.
           </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
+            {errorMessage}
+          </Typography>
           <Box
             flex={1} 
             component="form"            
@@ -109,6 +121,7 @@ export default function DOInfo({currentDOIndex}) {
             <div
              >
                 <TextField
+                required
                 disabled = {disabled}
                 id="outlined-required"
                 label="Name"
@@ -117,13 +130,14 @@ export default function DOInfo({currentDOIndex}) {
                 />
                 <TextField
                 disabled = {disabled}
-                id="outlined-disabled"
+                id="outlined"
                 label="Address"
                 defaultValue={currentDO.address}
                 onChange={(e) => setAddress(e.currentTarget.value)}
                 />
                 
                 <TextField
+                required
                 disabled = {disabled}
                 id="outlined-required"
                 label="Position"
@@ -132,28 +146,30 @@ export default function DOInfo({currentDOIndex}) {
                 />
                 <TextField
                 disabled = {disabled}
-                id="outlined-disabled"
+                id="outlined"
                 label="Phone"
                 defaultValue={currentDO.phone}
                 onChange={(e) => setPhone(e.currentTarget.value)}
                 />
                 <TextField
+                required
                 disabled = {disabled}
-                id="outlined-disabled"
+                id="outlined-required"
                 label="Status"
                 defaultValue={currentDO.status}
                 onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
-                id="outlined-disabled"
+                id="outlined"
                 label="Email"
                 defaultValue={currentDO.email}
                 onChange={(e) => setEmail(e.currentTarget.value)}
                 />  
                 <TextField
+                required
                 disabled = {disabled}
-                id="outlined-disabled"
+                id="outlined-required"
                 label="Start Date"
                 type="date"
                 InputLabelProps={{
@@ -164,7 +180,7 @@ export default function DOInfo({currentDOIndex}) {
                 />  
                 <TextField
                 disabled = {disabled}
-                id="outlined-disabled"
+                id="outlined"
                 label="End Date"
                 type="date"
                 InputLabelProps={{

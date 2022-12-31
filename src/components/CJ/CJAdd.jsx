@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
-import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, updateBNF, setCurrentBNF } from "../../features/entityData/entityDataSlice";
+import { Add } from '@mui/icons-material';
+import { addNewCF } from '../../features/entityData/entityDataSlice';
+import { useDispatch } from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -22,6 +22,12 @@ const style = {
   p: 4,
 };
 
+/* const StyledTextField = styled(TextField) ({
+  InputLabelProps: {
+    shrink: true,
+  },
+});
+ */
 const StyledButton = styled(Button) ({
     margin: 5,
     /* '&:hover':{
@@ -32,49 +38,57 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function BNFInfo({currentBNIndex}) {
-  const dispatch = useDispatch();
-  const entityIndex = useSelector(selectCurrentEntity);
-  const entityData = useSelector(selectEntityData);
-  const currentBNF = entityData[entityIndex].businessNameFilings[currentBNIndex];
+export default function CFAdd() {
+  const dispatch = useDispatch()
 
   const [open, setOpen] = React.useState(false);
 
-  const [businessName, setBusinessName] = React.useState(currentBNF.businessName);
-  const [subName, setSubName] = React.useState(currentBNF.subName);
-  const [confirmation, setConfirmation] = React.useState(currentBNF.confirmation);
-  const [jurisdiction, setJurisdiction] = React.useState(currentBNF.jurisdiction);
-  const [dueDate, setDueDate] = React.useState(currentBNF.dueDate);
+  const [name, setName] = React.useState('');
+  const [subName, setSubName] = React.useState('');
+  const [confirmation, setConfirmation] = React.useState('');
+  const [jurisdiction, setJurisdiction] = React.useState('');
+  const [dueDate, setDueDate] = React.useState('');
 
   const [errorMessage, setErrorMessage] = React.useState('');
-  const [disabled, setDisabled] = React.useState(true);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setDisabled(true);
     setErrorMessage('');
+
 };
-  const handleEdit = () => setDisabled(false);
   const handleSave = () => {
-    if(businessName.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
+    if(name.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentBNF(currentBNIndex));
-    dispatch(updateBNF({
-      businessName: businessName,
+    dispatch(addNewCF({
+      name: name,
       subName: subName,
       confirmation: confirmation,
       jurisdiction: jurisdiction,
       dueDate: dueDate,    
     }));
-    setDisabled(true)
+    setOpen(false);
+
+    setName('');
+    setSubName('');
+    setConfirmation('');
+    setJurisdiction('');
+    setDueDate('');
+
     setErrorMessage('');
     }; 
 
   return (
     <div >
-      <Button onClick={handleOpen}><InfoOutlinedIcon /></Button>
+      <Button 
+        onClick={handleOpen}
+          startIcon={<Add/>}
+          color="primary"
+          sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
+          >Add Corporate Filing
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -85,10 +99,7 @@ export default function BNFInfo({currentBNIndex}) {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Business Name Filing Details
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-            Select EDIT below to update Business Name Filing.
+          Add Corporate Filing
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
             {errorMessage}
@@ -100,55 +111,56 @@ export default function BNFInfo({currentBNIndex}) {
             
             '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
             noValidate
-            autoComplete="off"            
+            autoComplete="off"
+            
             >
-            <div
-             >
+            <div>
                 <TextField
                 required
-                disabled = {disabled}
                 id="outlined-required"
-                label="Business Name"
-                defaultValue={currentBNF.businessName}
-                onChange={(e) => setBusinessName(e.currentTarget.value)}
-                />
-                <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Jurisdiction"
-                defaultValue={currentBNF.jurisdiction}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
-                />
-                
-                <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Name (submitter)"
-                defaultValue={currentBNF.subName}
-                onChange={(e) => setSubName(e.currentTarget.value)}
-                />
-                <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Due Date"
-                type='date'
+                label="Name"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                defaultValue={currentBNF.dueDate}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                onChange={(e) => setName(e.currentTarget.value)}
                 />
                 <TextField
                 required
-                disabled = {disabled}
+                id="outlined-required"
+                label="Name (submitter)"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setSubName(e.currentTarget.value)}
+                />                
+                <TextField
+                required
                 id="outlined-required"
                 label="Confirmation"
-                defaultValue={currentBNF.confirmation}
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 onChange={(e) => setConfirmation(e.currentTarget.value)}
-                />                
+                />
+                <TextField
+                required
+                id="outlined-required"
+                label="Jurisdiction"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                />
+                <TextField
+                required
+                id="outlined-required"
+                label="Due Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setDueDate(e.currentTarget.value)}
+                />                  
             </div>
         </Box>
         <Box 
@@ -157,11 +169,6 @@ export default function BNFInfo({currentBNIndex}) {
             justifyContent= 'center'
             >
             <StyledButton 
-            variant="outlined"
-            onClick={handleEdit}
-            >Edit</StyledButton>
-            <StyledButton 
-            disabled = {disabled}
             variant="outlined"
             onClick={handleSave}
             >Save</StyledButton>

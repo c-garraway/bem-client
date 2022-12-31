@@ -52,7 +52,7 @@ export default function EntityCreate() {
   const handleSave = () => {
     // perform input validation
     if(name.length < 1 || address.length < 1 || dateCreated.length < 1 || status.length < 1 || corpID.length < 1) {
-      setErrorMessage('All fields are required to create entity!')
+      setErrorMessage('All fields are required to add entity!')
       return;
     }
     dispatch(addNewEntity({
@@ -120,6 +120,10 @@ export default function EntityCreate() {
                 required
                 id="outlined-required"
                 label="Date Created"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 onChange={(e) => setDateCreated(e.currentTarget.value)}
                 />
                 <TextField

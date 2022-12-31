@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, updateBN, setCurrentBN } from "../../features/entityData/entityDataSlice";
 
 const style = {
   position: 'absolute',
@@ -33,7 +33,20 @@ const StyledButton = styled(Button) ({
 
 
 export default function BNInfo({currentBNIndex}) {
+  const dispatch = useDispatch();
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+  const currentBN = entityData[entityIndex].businessNames[currentBNIndex]
+
   const [open, setOpen] = React.useState(false);
+  const [businessName, setBusinessName] = React.useState(currentBN.businessName);
+  const [address, setAddress] = React.useState(currentBN.address);
+  const [status, setStatus] = React.useState(currentBN.status);
+  const [jurisdiction, setJurisdiction] = React.useState(currentBN.jurisdiction);
+  const [creationDate, setCreationDate] = React.useState(currentBN.creationDate);
+  const [closeDate, setCloseDate] = React.useState(currentBN.closeDate);
+ 
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [disabled, setDisabled] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -42,13 +55,22 @@ export default function BNInfo({currentBNIndex}) {
   };
   const handleEdit = () => setDisabled(false);
   const handleSave = () => {
-    setDisabled(true)
-  };
-
-
-  const entityIndex = useSelector(selectCurrentEntity);
-  const entityData = useSelector(selectEntityData);
-  const currentBN = entityData[entityIndex].businessNames[currentBNIndex]
+    if(businessName.length < 1 || status.length < 1 || setCreationDate.length < 1 || jurisdiction.length < 1) {
+      setErrorMessage('Required field(s) empty!')
+      return;
+    }
+    dispatch(setCurrentBN(currentBNIndex));
+    dispatch(updateBN({
+      businessName: businessName,
+      address: address,
+      status: status,
+      jurisdiction: jurisdiction,
+      creationDate: creationDate,
+      closeDate: closeDate,    
+    }));
+    setOpen(false);
+    setErrorMessage('');
+    }; 
 
   return (
     <div >
@@ -68,6 +90,9 @@ export default function BNInfo({currentBNIndex}) {
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
             Select EDIT below to update Business Name.
           </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
+            {errorMessage}
+          </Typography>
           <Box
             flex={1} 
             component="form"            
@@ -75,8 +100,7 @@ export default function BNInfo({currentBNIndex}) {
             
             '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
             noValidate
-            autoComplete="off"
-            
+            autoComplete="off"            
             >
             <div
              >
@@ -85,11 +109,13 @@ export default function BNInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Business Name"
                 defaultValue={currentBN.businessName}
+                onChange={(e) => setBusinessName(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Jurisdiction"
+                onChange={(e) => setJurisdiction(e.currentTarget.value)}
                 defaultValue={currentBN.jurisdiction}
                 />
                 
@@ -98,6 +124,7 @@ export default function BNInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Address"
                 defaultValue={currentBN.address}
+                onChange={(e) => setAddress(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
@@ -108,12 +135,14 @@ export default function BNInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBN.creationDate}
+                onChange={(e) => setCreationDate(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Status"
                 defaultValue={currentBN.status}
+                onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
                 disabled = {disabled}
@@ -124,6 +153,7 @@ export default function BNInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBN.closeDate}
+                onChange={(e) => setCloseDate(e.currentTarget.value)}
                 />                  
             </div>
         </Box>

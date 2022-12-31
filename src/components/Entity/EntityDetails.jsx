@@ -59,10 +59,11 @@ export default function EntityDetails() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Directors & Officers" {...a11yProps(0)} />
-          <Tab label="Business Names" {...a11yProps(1)} />
-          <Tab label="Business Name Filings" {...a11yProps(2)} />
-          <Tab label="Corporate Filings" {...a11yProps(3)} />
+          <Tab label="D & O's" {...a11yProps(0)} />
+          <Tab label="Bus. Names" {...a11yProps(1)} />
+          <Tab label="Bus. Name Filings" {...a11yProps(2)} />
+          <Tab label="Corp. Filings" {...a11yProps(3)} />
+          <Tab label="Corp. Jurisdictions" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -80,6 +81,9 @@ export default function EntityDetails() {
       <TabPanel value={value} index={3}>
         <CFAdd/>
         <CFList/>
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        
       </TabPanel>
     </Box>
   );

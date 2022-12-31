@@ -47,7 +47,7 @@ export default function BNAdd() {
   const [address, setAddress] = React.useState('');
   const [status, setStatus] = React.useState('');
   const [jurisdiction, setJurisdiction] = React.useState('');
-  const [createDate, setCreateDate] = React.useState('');
+  const [creationDate, setCreationDate] = React.useState('');
   const [closeDate, setCloseDate] = React.useState('');
  
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -59,7 +59,7 @@ export default function BNAdd() {
 
 };
   const handleSave = () => {
-    if(businessName.length < 1 || status.length < 1 || createDate.length < 1 || jurisdiction.length < 1) {
+    if(businessName.length < 1 || status.length < 1 || setCreationDate.length < 1 || jurisdiction.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
@@ -68,7 +68,7 @@ export default function BNAdd() {
       address: address,
       status: status,
       jurisdiction: jurisdiction,
-      createDate: createDate,
+      creationDate: creationDate,
       closeDate: closeDate,    
     }));
     setOpen(false);
@@ -77,7 +77,7 @@ export default function BNAdd() {
     setAddress('');
     setStatus('');
     setJurisdiction('');
-    setCreateDate('');
+    setCreationDate('');
     setCloseDate('');
 
     setErrorMessage('');
@@ -161,7 +161,7 @@ export default function BNAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setCreateDate(e.currentTarget.value)}
+                onChange={(e) => setCreationDate(e.currentTarget.value)}
                 />
                 <TextField
                 id="outlined"

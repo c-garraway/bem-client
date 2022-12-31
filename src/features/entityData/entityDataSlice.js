@@ -13,28 +13,28 @@ const initialState = () => {
             {
                 name: 'Furniture Corp',
                 address: '1234 Second Street, Mississauga, ON',
-                dateCreated: 'Sep 1, 1999',
+                dateCreated: '1999-09-01',
                 status: 'ACTIVE',
                 corpID: '455FE6',
-                jurisdictions: [
+                corporateJurisdictions: [
                     {
                         jurisdiction: 'BC',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'MB',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'ON',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'PQ',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                 ],
@@ -42,28 +42,28 @@ const initialState = () => {
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'BC',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000bc.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'MB',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000mb.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'ON',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000on.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'PQ',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000pq.pdf'                
                     }
@@ -73,7 +73,7 @@ const initialState = () => {
                         name: 'John Doe',
                         position: 'CEO',
                         status: 'ACTIVE',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         address: '123 First Lane, Toronto, ON, CA',
                         phone: '555-555-5555',
                         email: 'jdoe@email.ca',
@@ -83,7 +83,7 @@ const initialState = () => {
                         name: 'James Smith',
                         position: 'CFO',
                         status: 'ACTIVE',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         address: '123 First Lane, Toronto, ON, CA',
                         phone: '555-555-5555',
                         email: 'jsmith@email.ca',
@@ -93,7 +93,7 @@ const initialState = () => {
                         name: 'Jane Doe',
                         position: 'Corporate Secretary',
                         status: 'ACTIVE',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         address: '123 First Lane, Toronto, ON, CA',
                         phone: '555-555-5555',
                         email: 'janedoe@email.ca',
@@ -103,7 +103,7 @@ const initialState = () => {
                         name: 'Jackie Snow',
                         position: 'Director',
                         status: 'ACTIVE',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         address: '123 First Lane, Toronto, ON, CA',
                         phone: '555-555-5555',
                         email: 'jsnow@email.ca',
@@ -113,7 +113,7 @@ const initialState = () => {
                         name: 'Catherine White',
                         position: 'Director',
                         status: 'ACTIVE',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         address: '123 First Lane, Toronto, ON, CA',
                         phone: '555-555-5555',
                         email: 'cwhite@email.ca',
@@ -125,7 +125,7 @@ const initialState = () => {
                         businessName: 'The Brick',
                         jurisdiction: 'ON',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -133,7 +133,7 @@ const initialState = () => {
                         businessName: 'The Brick',
                         jurisdiction: 'BC',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -141,7 +141,7 @@ const initialState = () => {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'ON',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -149,7 +149,7 @@ const initialState = () => {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'BC',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     }
@@ -159,28 +159,28 @@ const initialState = () => {
                         businessName: 'The Brick',
                         jurisdiction: 'ON',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                     {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'ON',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },             
                     {
                         businessName: 'The Brick',
                         jurisdiction: 'BC',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                     {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'BC',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                 ]       
@@ -189,28 +189,28 @@ const initialState = () => {
             {
                 name: 'Furniture Corp 2',
                 address: '234 Second Street, Mississauga, ON',
-                dateCreated: 'Sep 1, 1999',
+                dateCreated: '1999-09-01',
                 status: 'ACTIVE',
                 corpID: '455FE6',
-                jurisdictions: [
+                corporateJurisdictions: [
                     {
                         jurisdiction: 'BC 2',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'MB',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'ON',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'PQ',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                 ],
@@ -218,28 +218,28 @@ const initialState = () => {
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'BC 2',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000bc.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'MB',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000mb.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'ON',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000on.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'PQ',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000pq.pdf'                
                     }
@@ -286,7 +286,7 @@ const initialState = () => {
                         businessName: 'The Brick 2',
                         jurisdiction: 'ON',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -294,7 +294,7 @@ const initialState = () => {
                         businessName: 'The Brick',
                         jurisdiction: 'BC',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -302,7 +302,7 @@ const initialState = () => {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'ON',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -310,7 +310,7 @@ const initialState = () => {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'BC',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     }
@@ -320,28 +320,28 @@ const initialState = () => {
                         businessName: 'The Brick 2',
                         jurisdiction: 'ON',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                     {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'ON',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },             
                     {
                         businessName: 'The Brick',
                         jurisdiction: 'BC',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                     {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'BC',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                 ]       
@@ -350,28 +350,28 @@ const initialState = () => {
             {
                 name: 'Furniture Corp 3',
                 address: '34 Second Street, Mississauga, ON',
-                dateCreated: 'Sep 1, 1999',
+                dateCreated: '1999-09-01',
                 status: 'ACTIVE',
                 corpID: '455FE6',
-                jurisdictions: [
+                corporateJurisdictions: [
                     {
                         jurisdiction: 'BC 3',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'MB',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'ON',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                     {
                         jurisdiction: 'PQ',
-                        startDate: 'Sep 1, 1999',
+                        startDate: '1999-09-01',
                         endDate: null
                     },
                 ],
@@ -379,28 +379,28 @@ const initialState = () => {
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'BC 3',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000bc.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'MB',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000mb.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'ON',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000on.pdf'                
                     },
                     {                
                         name: 'Furniture Corp',
                         jurisdiction: 'PQ',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         subName: 'Jane Doe',
                         confirmation: 'S:/filings/furniturcorp2000pq.pdf'                
                     }
@@ -447,7 +447,7 @@ const initialState = () => {
                         businessName: 'The Brick 3',
                         jurisdiction: 'ON',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -455,7 +455,7 @@ const initialState = () => {
                         businessName: 'The Brick',
                         jurisdiction: 'BC',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -463,7 +463,7 @@ const initialState = () => {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'ON',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     },
@@ -471,7 +471,7 @@ const initialState = () => {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'BC',
                         address: '',
-                        creationDate: 'Sep 1, 2000',
+                        creationDate: '2000-09-01',
                         status: 'ACTIVE',
                         closeDate: null
                     }
@@ -481,28 +481,28 @@ const initialState = () => {
                         businessName: 'The Brick 3',
                         jurisdiction: 'ON',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                     {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'ON',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },             
                     {
                         businessName: 'The Brick',
                         jurisdiction: 'BC',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                     {
                         businessName: 'Ethan Allen',
                         jurisdiction: 'BC',
                         subName: 'Jane Doe',
-                        dueDate: 'Sep 1, 2000',
+                        dueDate: '2000-09-01',
                         confirmation: 'S:/filings/thebrick2001on.pdf'
                     },
                 ]       
@@ -553,13 +553,13 @@ const entityDataSlice = createSlice({
             state.entities[state.currentEntity].dO[state.currentDO] = action.payload
         },
         updateBN: (state, action) => {
-            state.entities[state.currentEntity].dO[state.currentBN] = action.payload
+            state.entities[state.currentEntity].businessNames[state.currentBN] = action.payload
         },
         updateBNF: (state, action) => {
-            state.entities[state.currentEntity].dO[state.currentBNF] = action.payload
+            state.entities[state.currentEntity].businessNameFilings[state.currentBNF] = action.payload
         },
         updateCF: (state, action) => {
-            state.entities[state.currentEntity].dO[state.currentCF] = action.payload
+            state.entities[state.currentEntity].corporateFilings[state.currentCF] = action.payload
         }
     }
 });
