@@ -4,9 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
-import { Add } from '@mui/icons-material';
-import { addNewEntity } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { updateEntity, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -32,16 +31,20 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function EntityAdd() {
+export default function EntityEdit() {
   const dispatch = useDispatch()
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+
+  const currentEntity = entityData[entityIndex];
 
   const [open, setOpen] = React.useState(false);
 
-  const [name, setName] = React.useState('');
-  const [dateCreated, setDateCreated] = React.useState('');
-  const [corpID, setCorpID] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [status, setStatus] = React.useState('');
+  const [name, setName] = React.useState(currentEntity.name);
+  const [dateCreated, setDateCreated] = React.useState(currentEntity.dateCreated);
+  const [corpID, setCorpID] = React.useState(currentEntity.corpID);
+  const [address, setAddress] = React.useState(currentEntity.address);
+  const [status, setStatus] = React.useState(currentEntity.status);
   const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
@@ -55,17 +58,12 @@ export default function EntityAdd() {
       setErrorMessage('All fields are required to add entity!')
       return;
     }
-    dispatch(addNewEntity({
+    dispatch(updateEntity({
       name: name,
       address: address,
       dateCreated: dateCreated,
       status: status,
-      corpID: corpID,
-      corporateJurisdictions: [],
-      corporateFilings: [],
-      dO: [],
-      businessNames: [],
-      businessNameFilings: [],      
+      corpID: corpID,    
     }));
     setOpen(false);
     setErrorMessage();
@@ -73,13 +71,17 @@ export default function EntityAdd() {
 
   return (    
     <div >
-      <Button 
+      <StyledButton 
+            variant="outlined"
+            onClick={handleOpen}
+            >Edit</StyledButton>
+      {/* <Button 
         onClick={handleOpen}
         startIcon={<Add/>}
         color="primary"
         sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
         >Add Entity
-      </Button>
+      </Button> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -90,7 +92,7 @@ export default function EntityAdd() {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Entity
+            Edit Entity
           </Typography>
           <Typography id="modal-modal-description"  sx={{ mt: 2, mb: 2, color: "red" }}>
             {errorMessage}
@@ -108,12 +110,14 @@ export default function EntityAdd() {
                 required
                 id="outlined-required"
                 label="Name"
+                defaultValue={currentEntity.name}
                 onChange={(e) => setName(e.currentTarget.value)}
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Address"
+                defaultValue={currentEntity.address}
                 onChange={(e) => setAddress(e.currentTarget.value)}
                 />                
                 <TextField
@@ -124,18 +128,21 @@ export default function EntityAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                defaultValue={currentEntity.dateCreated}
                 onChange={(e) => setDateCreated(e.currentTarget.value)}
                 />
                 <TextField
                 required
                 id="outlined-required"
                 label="Status"
+                defaultValue={currentEntity.status}
                 onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Corporate ID"
+                defaultValue={currentEntity.corpID}
                 onChange={(e) => setCorpID(e.currentTarget.value)}
                 />             
             </div>

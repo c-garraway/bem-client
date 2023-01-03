@@ -1,32 +1,23 @@
-import styled from "@emotion/styled";
-import {  Box, Button, TextField, Typography } from "@mui/material";
+import {  Box, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux"
 import { selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 import { selectEntityData } from "../../features/entityData/entityDataSlice";
-
-const StyledButton = styled(Button) ({
-    margin: 5,
-    /* '&:hover':{
-        backgroundColor: 'darkblue',
-        color: 'white',
-      }
- */
-});
+import EntityEdit from "./EntityEdit";
 
 function EntityInfo() {
-    const [disabled, setDisabled] = React.useState(true);
     const entityIndex = useSelector(selectCurrentEntity);
     const entityData = useSelector(selectEntityData);
 
     const currentEntity = entityData[entityIndex];
+    const activeJurisdiction = [];
 
-    const handleEdit = () => {
-        setDisabled(false)
-    };
-    const handleSave = () => {
-        setDisabled(true)
-    };
+    currentEntity.corporateJurisdictions.forEach(jurisdictions => {
+        if(jurisdictions.status === 'ACTIVE') {
+            activeJurisdiction.push(` ${jurisdictions.jurisdiction}`)
+        }
+        
+    })
 
   return (
     <>
@@ -34,71 +25,67 @@ function EntityInfo() {
         <Box
             flex={1} 
             component="form"
-            sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },}}
+            sx={{ 
+            '& .MuiTextField-root': { m: 1, width: '35ch', },}}
             noValidate
             autoComplete="off"
             
             >
             <div>
                 <TextField
-                disabled = {disabled}
+                disabled
                 id="outlined-required"
                 label="Name"
-                /* defaultValue="Furniture Corporation" */
+                variant="filled"
                 value={currentEntity.name}
                 />
                 <TextField
-                disabled = {disabled}
+                disabled
                 id="outlined-disabled"
                 label="Address"
+                variant="filled"
                 value={currentEntity.address}
                 />                
                 <TextField
-                disabled = {disabled}
+                disabled
                 id="outlined-required"
                 label="Date Created"
+                variant="filled"
                 type="date"
-                InputLabelProps={{
-                    shrink: true,
-                  }}
                 value={currentEntity.dateCreated}
                 />
                 <TextField
-                disabled = {disabled}
+                disabled
                 id="outlined-disabled"
                 label="Status"
+                variant="filled"
                 value={currentEntity.status}
                 />
                 <TextField
-                disabled = {disabled}
+                disabled
                 id="outlined-disabled"
                 label="Corporate ID"
+                variant="filled"
                 value={currentEntity.corpID}
                 />   
                 <TextField
                 disabled
                 id="outlined-disabled"
-                label="Jurisdiction(s)"
-                value={currentEntity.corporateJurisdictions.map(jurisdictions => {
-                    return ` ${jurisdictions.jurisdiction}`
-                })}
+                label="Active Jurisdiction(s)"
+                variant="filled"
+                InputLabelProps={{
+                    shrink: true,
+                  }}
+                value={activeJurisdiction}                
                 />             
             </div>
-        </Box>  
+        </Box>
         <Box 
             m={.5}
             display="flex"
             justifyContent= 'flex-start'
             >
-            <StyledButton 
-            variant="outlined"
-            onClick={handleEdit}
-            >Edit</StyledButton>
-            <StyledButton 
-            variant="outlined"
-            onClick={handleSave}
-            >Save</StyledButton>
+            <EntityEdit/>
         </Box>                   
     </>
   );

@@ -1,18 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const guestUserData = [{
-    name: 'Furniture Corp',
+    name: 'Furniture Corp 1',
     address: '1234 Second Street, Mississauga, ON',
     dateCreated: '1999-09-01',
     status: 'ACTIVE',
     corpID: '455FE6',
     corporateJurisdictions: [
-        {
-            jurisdiction: 'BC',
-            status: 'ACTIVE',
-            startDate: '1999-09-01',
-            endDate: null
-        },
+        
         {
             jurisdiction: 'MB',
             status: 'ACTIVE',
@@ -30,6 +25,12 @@ const guestUserData = [{
             status: 'ACTIVE',
             startDate: '1999-09-01',
             endDate: null
+        },
+        {
+            jurisdiction: 'BC',
+            status: 'INACTIVE',
+            startDate: '1999-09-01',
+            endDate: '2005-09-01'
         },
     ],
     corporateFilings: [
@@ -94,7 +95,7 @@ const guestUserData = [{
             endDate: null
         },
         {
-            name: 'Jackie Snow',
+            name: 'John Snow',
             position: 'Director',
             status: 'ACTIVE',
             startDate: '1999-09-01',
@@ -181,7 +182,7 @@ const guestUserData = [{
     
 },
 {
-    name: 'Furniture Corp 2',
+    name: 'Discount Furniture Corp',
     address: '234 Second Street, Mississauga, ON',
     dateCreated: '1999-09-01',
     status: 'ACTIVE',
@@ -246,37 +247,52 @@ const guestUserData = [{
         {
             name: 'John Doe 2',
             position: 'CEO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'jdoe@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
             name: 'James Smith',
             position: 'CFO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'jsmith@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
             name: 'Jane Doe',
             position: 'Corporate Secretary',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'janedoe@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
-            name: 'Jackie Snow',
+            name: 'John Snow',
             position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'jsnow@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
             name: 'Catherine White',
             position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'cwhite@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         }
     ],
     businessNames: [
@@ -346,7 +362,7 @@ const guestUserData = [{
     
 },
 {
-    name: 'Furniture Corp 3',
+    name: 'Elite Furniture Corp',
     address: '34 Second Street, Mississauga, ON',
     dateCreated: '1999-09-01',
     status: 'ACTIVE',
@@ -409,39 +425,54 @@ const guestUserData = [{
     ],
     dO: [
         {
-            name: 'John Doe  3',
+            name: 'John Doe 3',
             position: 'CEO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'jdoe@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
             name: 'James Smith',
             position: 'CFO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'jsmith@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
             name: 'Jane Doe',
             position: 'Corporate Secretary',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'janedoe@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
-            name: 'Jackie Snow',
+            name: 'John Snow',
             position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'jsnow@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         },
         {
             name: 'Catherine White',
             position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
             address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
             email: 'cwhite@email.ca',
-            phone: '555-555-5555'
+            endDate: null
         }
     ],
     businessNames: [
@@ -565,6 +596,20 @@ const entityDataSlice = createSlice({
         addNewCJ: (state, action) => {
             state.entities[state.currentEntity].corporateJurisdictions.push(action.payload)
         },
+        updateEntity: (state, action) => {
+            state.entities[state.currentEntity] = {
+                name: action.payload.name,
+                address: action.payload.address,
+                dateCreated: action.payload.dateCreated,
+                status: action.payload.status,
+                corpID: action.payload.corpID,
+                corporateJurisdictions: state.entities[state.currentEntity].corporateJurisdictions,  
+                corporateFilings: state.entities[state.currentEntity].corporateFilings,    
+                dO: state.entities[state.currentEntity].dO,    
+                businessNames: state.entities[state.currentEntity].businessNames,    
+                businessNameFilings: state.entities[state.currentEntity].businessNameFilings,
+            }
+        },
         updateDO: (state, action) => {
             state.entities[state.currentEntity].dO[state.currentDO] = action.payload
         },
@@ -583,7 +628,7 @@ const entityDataSlice = createSlice({
     }
 });
 
-export const {resetEntityData, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, updateCF, setCurrentCJ, addNewCJ, updateCJ } = entityDataSlice.actions
+export const {resetEntityData, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, updateEntity, updateCF, setCurrentCJ, addNewCJ, updateCJ } = entityDataSlice.actions
 export const selectEntityData = (state) => state.entityData.entities
 export const selectCurrentEntity = (state) => state.entityData.currentEntity
 export default entityDataSlice.reducer
