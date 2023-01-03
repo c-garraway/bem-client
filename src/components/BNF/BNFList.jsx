@@ -36,7 +36,7 @@ export default function BNFList() {
               <TableCell component="th" scope="row">
                 {row.businessName}
               </TableCell>
-              <TableCell align='center' >{row.jurisdiction}</TableCell>
+              <TableCell /* align='center' */ >{row.jurisdiction}</TableCell>
               <TableCell >{row.subName}</TableCell>
               <TableCell >{row.dueDate}</TableCell>
               <TableCell >

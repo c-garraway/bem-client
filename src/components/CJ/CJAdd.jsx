@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewCF } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { addNewCJ, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -38,16 +38,19 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function CFAdd() {
+export default function CJAdd() {
   const dispatch = useDispatch()
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+
+  const currentEntity = entityData[entityIndex];
 
   const [open, setOpen] = React.useState(false);
 
-  const [name, setName] = React.useState('');
-  const [subName, setSubName] = React.useState('');
-  const [confirmation, setConfirmation] = React.useState('');
   const [jurisdiction, setJurisdiction] = React.useState('');
-  const [dueDate, setDueDate] = React.useState('');
+  const [status, setStatus] = React.useState('');
+  const [startDate, setStartDate] = React.useState('');
+  const [endDate, setEndDate] = React.useState('');
 
   const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -58,24 +61,22 @@ export default function CFAdd() {
 
 };
   const handleSave = () => {
-    if(name.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
+    if(jurisdiction.length < 1 || status.length < 1 || startDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewCF({
-      name: name,
-      subName: subName,
-      confirmation: confirmation,
+    dispatch(addNewCJ({
       jurisdiction: jurisdiction,
-      dueDate: dueDate,    
+      status: status,
+      startDate: startDate,
+      endDate: endDate,    
     }));
     setOpen(false);
 
-    setName('');
-    setSubName('');
-    setConfirmation('');
     setJurisdiction('');
-    setDueDate('');
+    setStatus('');
+    setStartDate('');
+    setEndDate('');
 
     setErrorMessage('');
     }; 
@@ -87,7 +88,7 @@ export default function CFAdd() {
           startIcon={<Add/>}
           color="primary"
           sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-          >Add Corporate Filing
+          >Add Corporate Jurisdiction
       </Button>
       <Modal
         open={open}
@@ -99,7 +100,7 @@ export default function CFAdd() {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add Corporate Filing
+          Add Corporate Jurisdiction for {currentEntity.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
             {errorMessage}
@@ -109,7 +110,7 @@ export default function CFAdd() {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
             noValidate
             autoComplete="off"
             
@@ -118,48 +119,40 @@ export default function CFAdd() {
                 <TextField
                 required
                 id="outlined-required"
-                label="Name"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setName(e.currentTarget.value)}
-                />
-                <TextField
-                required
-                id="outlined-required"
-                label="Name (submitter)"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setSubName(e.currentTarget.value)}
-                />                
-                <TextField
-                required
-                id="outlined-required"
-                label="Confirmation"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setConfirmation(e.currentTarget.value)}
-                />
-                <TextField
-                required
-                id="outlined-required"
                 label="Jurisdiction"
                 InputLabelProps={{
                   shrink: true,
                 }}
                 onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                />                
+                <TextField
+                required
+                id="outlined-required"
+                label="Status"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setStatus(e.currentTarget.value)}
                 />
                 <TextField
                 required
                 id="outlined-required"
-                label="Due Date"
+                label="Start Date"
                 type="date"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                onChange={(e) => setStartDate(e.currentTarget.value)}
+                />
+                <TextField
+                required
+                id="outlined-required"
+                label="End Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => setEndDate(e.currentTarget.value)}
                 />                  
             </div>
         </Box>

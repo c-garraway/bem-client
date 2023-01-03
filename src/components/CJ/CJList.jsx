@@ -6,16 +6,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import CFInfo from '../CF/CFInfo';
+import CJInfo from '../CJ/CJInfo';
 import { useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 
-export default function CFList() {
+export default function CJList() {
 
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
   
-  const rows = entityData[entityIndex].corporateFilings
+  const rows = entityData[entityIndex].corporateJurisdictions
 
   return (
     <TableContainer component={Paper}>
@@ -23,8 +23,9 @@ export default function CFList() {
         <TableHead>
           <TableRow>
             <TableCell>Jurisdiction</TableCell>
-            <TableCell>Name (submitter)</TableCell>
-            <TableCell>Due Date</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Start Date</TableCell>
+            <TableCell>End Date</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
@@ -38,11 +39,12 @@ export default function CFList() {
                 {row.name}
               </TableCell> */}
               <TableCell >{row.jurisdiction}</TableCell>
-              <TableCell >{row.subName}</TableCell>
-              <TableCell >{row.dueDate}</TableCell>
+              <TableCell >{row.status}</TableCell>
+              <TableCell >{row.startDate}</TableCell>
+              <TableCell >{row.endDate}</TableCell>
               <TableCell >
-                <CFInfo
-                  currentCFIndex = {index}
+                <CJInfo
+                  currentCJIndex = {index}
                 />
               </TableCell>
             </TableRow>

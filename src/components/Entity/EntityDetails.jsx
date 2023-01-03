@@ -12,6 +12,8 @@ import DOAdd from '../DO/DOAdd';
 import BNAdd from '../BN/BNAdd';
 import BNFAdd from '../BNF/BNFAdd';
 import CFAdd from '../CF/CFAdd';
+import CJAdd from '../CJ/CJAdd';
+import CJList from '../CJ/CJList';
 
 
 function TabPanel(props) {
@@ -83,7 +85,8 @@ export default function EntityDetails() {
         <CFList/>
       </TabPanel>
       <TabPanel value={value} index={4}>
-        
+        <CJAdd/>
+        <CJList/>
       </TabPanel>
     </Box>
   );

@@ -32,7 +32,7 @@ function Sidebar() {
                     return (
                         <ListItem /* style={style} */ key={index} component="div" disablePadding>
                         <ListItemButton onClick={changeCurrentEntity}>
-                            <ListItemText primary={entityData[index].name} />
+                            <ListItemText primary={entity.name} />
                         </ListItemButton>
                         </ListItem>
                     );

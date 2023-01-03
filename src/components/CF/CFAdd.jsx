@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewCF } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { addNewCF, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -40,10 +40,13 @@ const StyledButton = styled(Button) ({
 
 export default function CFAdd() {
   const dispatch = useDispatch()
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+
+  const currentEntity = entityData[entityIndex];
 
   const [open, setOpen] = React.useState(false);
 
-  const [name, setName] = React.useState('');
   const [subName, setSubName] = React.useState('');
   const [confirmation, setConfirmation] = React.useState('');
   const [jurisdiction, setJurisdiction] = React.useState('');
@@ -58,12 +61,11 @@ export default function CFAdd() {
 
 };
   const handleSave = () => {
-    if(name.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
+    if(subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
     dispatch(addNewCF({
-      name: name,
       subName: subName,
       confirmation: confirmation,
       jurisdiction: jurisdiction,
@@ -71,7 +73,6 @@ export default function CFAdd() {
     }));
     setOpen(false);
 
-    setName('');
     setSubName('');
     setConfirmation('');
     setJurisdiction('');
@@ -99,7 +100,7 @@ export default function CFAdd() {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add Corporate Filing
+          Add Corporate Filing for {currentEntity.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
             {errorMessage}
@@ -109,13 +110,13 @@ export default function CFAdd() {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
             noValidate
             autoComplete="off"
             
             >
             <div>
-                <TextField
+                {/* <TextField
                 required
                 id="outlined-required"
                 label="Name"
@@ -123,7 +124,7 @@ export default function CFAdd() {
                   shrink: true,
                 }}
                 onChange={(e) => setName(e.currentTarget.value)}
-                />
+                /> */}
                 <TextField
                 required
                 id="outlined-required"

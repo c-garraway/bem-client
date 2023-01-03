@@ -38,7 +38,7 @@ export default function BNList() {
               <TableCell component="th" scope="row">
                 {row.businessName}
               </TableCell>
-              <TableCell align='center'>{row.jurisdiction}</TableCell>
+              <TableCell >{row.jurisdiction}</TableCell>
               <TableCell >{row.creationDate}</TableCell>
               <TableCell >{row.status}</TableCell>
               <TableCell >

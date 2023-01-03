@@ -116,7 +116,7 @@ export default function DOAdd() {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
             noValidate
             autoComplete="off"
             

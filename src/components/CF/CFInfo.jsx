@@ -36,12 +36,12 @@ export default function CFInfo({currentCFIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const currentEntity = entityData[entityIndex];
 
   const currentCF = entityData[entityIndex].corporateFilings[currentCFIndex]
 
   const [open, setOpen] = React.useState(false);
 
-  const [name, setName] = React.useState(currentCF.name);
   const [subName, setSubName] = React.useState(currentCF.subName);
   const [confirmation, setConfirmation] = React.useState(currentCF.confirmation);
   const [jurisdiction, setJurisdiction] = React.useState(currentCF.jurisdiction);
@@ -58,13 +58,12 @@ export default function CFInfo({currentCFIndex}) {
 };
   const handleEdit = () => setDisabled(false);
   const handleSave = () => {
-    if(name.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
+    if(subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
     dispatch(setCurrentCF(currentCFIndex));
     dispatch(updateCF({
-      name: name,
       subName: subName,
       confirmation: confirmation,
       jurisdiction: jurisdiction,
@@ -90,7 +89,7 @@ export default function CFInfo({currentCFIndex}) {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Corporate Filing Details
+            Corporate Filing Details for {currentEntity.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
             Select EDIT below to update Corporate Filing.
@@ -110,14 +109,14 @@ export default function CFInfo({currentCFIndex}) {
             >
             <div
              >
-                <TextField
+                {/* <TextField
                 required
                 disabled = {disabled}
                 id="outlined-required"
                 label="Name"
                 defaultValue={currentCF.name}
                 onChange={(e) => setName(e.currentTarget.value)}
-                />
+                /> */}
                 <TextField
                 required
                 disabled = {disabled}

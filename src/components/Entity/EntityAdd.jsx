@@ -61,7 +61,7 @@ export default function EntityCreate() {
       dateCreated: dateCreated,
       status: status,
       corpID: corpID,
-      jurisdictions: [],
+      corporateJurisdictions: [],
       corporateFilings: [],
       dO: [],
       businessNames: [],

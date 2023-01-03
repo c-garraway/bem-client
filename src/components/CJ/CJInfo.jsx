@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, updateCF, setCurrentCF } from "../../features/entityData/entityDataSlice";
+import { selectEntityData, selectCurrentEntity, updateCJ, setCurrentCJ } from "../../features/entityData/entityDataSlice";
 
 const style = {
   position: 'absolute',
@@ -32,20 +32,20 @@ const StyledButton = styled(Button) ({
 });
 
 
-export default function CFInfo({currentCFIndex}) {
+export default function CJInfo({currentCJIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const currentEntity = entityData[entityIndex];
 
-  const currentCF = entityData[entityIndex].corporateFilings[currentCFIndex]
+  const currentCJ = entityData[entityIndex].corporateJurisdictions[currentCJIndex]
 
   const [open, setOpen] = React.useState(false);
 
-  const [name, setName] = React.useState(currentCF.name);
-  const [subName, setSubName] = React.useState(currentCF.subName);
-  const [confirmation, setConfirmation] = React.useState(currentCF.confirmation);
-  const [jurisdiction, setJurisdiction] = React.useState(currentCF.jurisdiction);
-  const [dueDate, setDueDate] = React.useState(currentCF.dueDate);
+  const [jurisdiction, setJurisdiction] = React.useState(currentCJ.jurisdiction);
+  const [status, setStatus] = React.useState(currentCJ.status);
+  const [startDate, setStartDate] = React.useState(currentCJ.startDate);
+  const [endDate, setEndDate] = React.useState(currentCJ.endDate);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const [disabled, setDisabled] = React.useState(true);
@@ -58,24 +58,20 @@ export default function CFInfo({currentCFIndex}) {
 };
   const handleEdit = () => setDisabled(false);
   const handleSave = () => {
-    if(name.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
+    if(jurisdiction.length < 1 || status.length < 1 || startDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentCF(currentCFIndex));
-    dispatch(updateCF({
-      name: name,
-      subName: subName,
-      confirmation: confirmation,
+    dispatch(setCurrentCJ(currentCJIndex));
+    dispatch(updateCJ({
       jurisdiction: jurisdiction,
-      dueDate: dueDate,    
+      status: status,
+      startDate: startDate,    
+      endDate: endDate,    
     }));
-    setDisabled(true)
+    setDisabled(true);
     setErrorMessage('');
-
-    };
-
-  
+    };  
 
   return (
     <div >
@@ -90,10 +86,10 @@ export default function CFInfo({currentCFIndex}) {
         sx={style}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Corporate Filing Details
+            Corporate Jurisdiction for {currentEntity.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-            Select EDIT below to update Corporate Filing.
+            Select EDIT below to update Corporate Jurisdiction.
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, color: "red"  }}>
             {errorMessage}
@@ -114,46 +110,42 @@ export default function CFInfo({currentCFIndex}) {
                 required
                 disabled = {disabled}
                 id="outlined-required"
-                label="Name"
-                defaultValue={currentCF.name}
-                onChange={(e) => setName(e.currentTarget.value)}
-                />
-                <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
                 label="Jurisdiction"
-                defaultValue={currentCF.jurisdiction}
+                defaultValue={currentCJ.jurisdiction}
                 onChange={(e) => setJurisdiction(e.currentTarget.value)}
-                />                
-                <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Name (submitter)"
-                defaultValue={currentCF.subName}
-                onChange={(e) => setSubName(e.currentTarget.value)}
                 />
                 <TextField
                 required
                 disabled = {disabled}
                 id="outlined-required"
-                label="Due Date"
+                label="Status"
+                defaultValue={currentCJ.status}
+                onChange={(e) => setStatus(e.currentTarget.value)}
+                />              
+                <TextField
+                required
+                disabled = {disabled}
+                id="outlined-required"
+                label="Start Date"
                 type="date"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                defaultValue={currentCF.dueDate}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                defaultValue={currentCJ.startDate}
+                onChange={(e) => setStartDate(e.currentTarget.value)}
                 />
                 <TextField
                 required
                 disabled = {disabled}
                 id="outlined-required"
-                label="Confirmation"
-                defaultValue={currentCF.confirmation}
-                onChange={(e) => setConfirmation(e.currentTarget.value)}
-                />                
+                label="End Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                defaultValue={currentCJ.endDate}
+                onChange={(e) => setEndDate(e.currentTarget.value)}
+                />               
             </div>
         </Box>
         <Box 
