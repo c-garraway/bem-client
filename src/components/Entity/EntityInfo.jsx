@@ -37,6 +37,7 @@ function EntityInfo() {
                 id="outlined-required"
                 label="Name"
                 variant="filled"
+                size="small"
                 value={currentEntity.name}
                 />
                 <TextField
@@ -44,6 +45,7 @@ function EntityInfo() {
                 id="outlined-disabled"
                 label="Address"
                 variant="filled"
+                size="small"
                 value={currentEntity.address}
                 />                
                 <TextField
@@ -52,6 +54,7 @@ function EntityInfo() {
                 label="Date Created"
                 variant="filled"
                 type="date"
+                size="small"
                 value={currentEntity.dateCreated}
                 />
                 <TextField
@@ -59,6 +62,7 @@ function EntityInfo() {
                 id="outlined-disabled"
                 label="Status"
                 variant="filled"
+                size="small"
                 value={currentEntity.status}
                 />
                 <TextField
@@ -66,6 +70,7 @@ function EntityInfo() {
                 id="outlined-disabled"
                 label="Corporate ID"
                 variant="filled"
+                size="small"
                 value={currentEntity.corpID}
                 />   
                 <TextField
@@ -76,6 +81,7 @@ function EntityInfo() {
                 InputLabelProps={{
                     shrink: true,
                   }}
+                  size="small"
                 value={activeJurisdiction}                
                 />             
             </div>

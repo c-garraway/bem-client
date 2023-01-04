@@ -23,6 +23,7 @@ function Sidebar() {
                 id="filled-search"
                 label="Entity Search"
                 type="search"
+                size="small"
                 onChange={(e) => setSearch(e.currentTarget.value)}
                 sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px', ml: '4px' }}
             />
