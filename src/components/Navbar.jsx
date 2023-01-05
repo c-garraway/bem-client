@@ -108,14 +108,14 @@ function Navbar() {
            <Box
            sx={{display: displayAvatar, alignItems: 'center'}}   >              
                 <Avatar 
-                sx={{width: 30, height: 30}} 
+                sx={{width: 30, height: 30, cursor: "pointer"}} 
                 src={"https://material-ui.com/static/images/avatar/1.jpg"}
                 onClick={e=>{
                   setOpen(true)
                   }}/> 
                 <Typography 
                   variant="span"
-                  sx={{ml: "10px"}}
+                  sx={{ml: "10px", cursor: "pointer"}}
                   onClick={e=>{
                     setOpen(true)
                     }}
@@ -128,29 +128,29 @@ function Navbar() {
            </UserBox> */}
         </StyledToolbar>
         <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        /* anchorEl={false} */
-        open={open}
-        onClose={e=>setOpen(false)}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <MenuItem
-          onClick={handleProfile} >
-          Profile
-        </MenuItem>
-        <MenuItem
-          onClick={handleLogout} >
-          Logout
-        </MenuItem>
-      </Menu>
+          id="demo-positioned-menu"
+          aria-labelledby="demo-positioned-button"
+          /* anchorEl={false} */
+          open={open}
+          onClose={e=>setOpen(false)}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          >
+          <MenuItem
+            onClick={handleProfile} >
+            Profile
+          </MenuItem>
+          <MenuItem
+            onClick={handleLogout} >
+            Logout
+          </MenuItem>
+        </Menu>
     </AppBar>
   )
 }
