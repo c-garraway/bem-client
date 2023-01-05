@@ -1,6 +1,8 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate,  } from "react-router-dom";
+import { selectCurrentUser, setCurrentUser } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg'
 
 const formStyle = {
@@ -27,21 +29,41 @@ const backgroundStyle = {
 };
 
 function AddUserProfile() {
-    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    const currentUser = useSelector(selectCurrentUser);
 
-    const [email, /* setEmail */] = useState('Registered Email');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [company, setCompany] = useState('');
+    const [email, /* setEmail */] = useState(currentUser?.email);
+    const [firstName, setFirstName] = useState(currentUser?.firstName);
+    const [lastName, setLastName] = useState(currentUser?.lastName);
+    const [companyName, setCompanyName] = useState(currentUser?.companyName);
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSave = () => {
-        if(firstName.length < 1 || lastName.length < 1 || company.length < 1 ) {
+        //TODO: Move into one save function
+        if(firstName.length < 1 || lastName.length < 1 || companyName.length < 1 ) {
             setErrorMessage('All fields are required!') 
             return;
         }
         navigate('/login')
+    };
+    const handleUpdate = () => {
+        if(firstName.length < 1 || lastName.length < 1 || companyName.length < 1 ) {
+            setErrorMessage('All fields are required!') 
+            return;
+        }
+        dispatch(setCurrentUser({
+            email: currentUser?.email,
+            firstName: firstName,
+            lastName: lastName,
+            companyName: companyName,
+            entityDataIndex: currentUser?.entityDataIndex
+        }));
+        navigate('/main')
+    };
+    const handleClose = () => {
+        navigate('/main')
     };
     const handleKeyDown = (e) => {
         if(e.key === 'Enter') {
@@ -96,6 +118,7 @@ function AddUserProfile() {
                         setFirstName(e.currentTarget.value)
                         setErrorMessage('')
                     }}
+                    defaultValue={currentUser.firstName}
                 />
                 <TextField
                     required
@@ -110,34 +133,63 @@ function AddUserProfile() {
                         setLastName(e.currentTarget.value)
                         setErrorMessage('')
                     }}
+                    defaultValue={currentUser.lastName}
+
                 />
                 <TextField
                     required
                     id="outlined-required"
-                    label="Company"
+                    label="Company Name"
                     type="text"
                     size="small"
                     InputLabelProps={{
                     shrink: true,
                     }}
                     onChange={(e) => {
-                        setCompany(e.currentTarget.value)
+                        setCompanyName(e.currentTarget.value)
                         setErrorMessage('')
                     }}
+                    defaultValue={currentUser.companyName}
                     onKeyDown={handleKeyDown}
-
                 />
-                <Button 
-                    variant="contained" 
-                    onClick={handleSave}
-                    sx={{
-                        display: "block",
-                        width: "100%",
-                        margin: "auto",
-                        marginTop: "10px",
-                    }}
-                    >Save
-                </Button>
+                { currentUser.email?.length > 0 ?
+                    <>
+                        <Button 
+                            variant="contained" 
+                            onClick={handleUpdate}
+                            sx={{
+                                display: "block",
+                                width: "100%",
+                                margin: "auto",
+                                marginTop: "10px",
+                            }}
+                            >Update
+                        </Button>
+                        <Button 
+                            variant="outlined" 
+                            onClick={handleClose}
+                            sx={{
+                                display: "block",
+                                width: "100%",
+                                margin: "auto",
+                                marginTop: "10px",
+                            }}
+                            >Close
+                        </Button>
+                    </>
+                    :
+                    <Button 
+                        variant="contained" 
+                        onClick={handleSave}
+                        sx={{
+                            display: "block",
+                            width: "100%",
+                            margin: "auto",
+                            marginTop: "10px",
+                        }}
+                        >Save
+                    </Button>
+                }
             </div>  
         </Box>
     </Box>

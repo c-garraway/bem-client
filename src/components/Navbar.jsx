@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectCurrentUser, resetUserData } from "../features/userData/userDataSlice";
+import { resetEntityData } from "../features/entityData/entityDataSlice";
 
 const StyledToolbar = styled(Toolbar) ({
     display: "flex",
@@ -56,13 +57,14 @@ function Navbar() {
     };
     const handleLogout = () => {
       dispatch(resetUserData());
+      dispatch(resetEntityData());
       setOpen(false);
       navigate('/');   
       
     };
     const handleProfile = () => {
       setOpen(false);
-      /* navigate('/profile');  */     
+      navigate('/profile');      
     };
     
 
@@ -109,7 +111,7 @@ function Navbar() {
            sx={{display: displayAvatar, alignItems: 'center'}}   >              
                 <Avatar 
                 sx={{width: 30, height: 30, cursor: "pointer"}} 
-                src={"https://material-ui.com/static/images/avatar/1.jpg"}
+                /* src={"https://material-ui.com/static/images/avatar/1.jpg"} */
                 onClick={e=>{
                   setOpen(true)
                   }}/> 

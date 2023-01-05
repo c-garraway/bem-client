@@ -56,6 +56,7 @@ function EntityInfo() {
                 type="date"
                 size="small"
                 value={currentEntity.dateCreated}
+                inputProps={{style: {textAlign: 'left'}}}
                 />
                 <TextField
                 disabled
