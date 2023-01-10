@@ -2,6 +2,9 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import background from '../../images/background.jpg'
+import { registerLocalUser } from "../../api/register";
+import { setCurrentUser } from "../../features/userData/userDataSlice";
+import { useDispatch } from "react-redux";
 
 const formStyle = {
     position: 'absolute',
@@ -26,10 +29,11 @@ const backgroundStyle = {
     backgroundSize: 'cover',
 };
 const inputProps = {
-    upperCase: 'true'
+    uppercase: 'true'
 }
 
 function UserRegister() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -37,7 +41,7 @@ function UserRegister() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if(email.length < 1 || password.length < 1 || confirmPassword.length < 1 ) {
             setErrorMessage('All fields are required!') 
             return;
@@ -46,6 +50,15 @@ function UserRegister() {
             setErrorMessage('Passwords do not match!')
             return;
         }
+        const user = await registerLocalUser(email, password, confirmPassword);
+        console.log(user);
+        if(user?.errors) {
+            setErrorMessage(user?.errors)
+            return;
+        }
+        dispatch(setCurrentUser({
+            email: user.email
+        }))
         navigate('/profile')          
     };
 

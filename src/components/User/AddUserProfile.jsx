@@ -2,8 +2,9 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate,  } from "react-router-dom";
-import { selectCurrentUser, setCurrentUser } from "../../features/userData/userDataSlice";
+import { selectCurrentUser, setCurrentUser, selectIsLoggedIn, resetUserData } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg'
+import { addUserProfile } from "../../api/addProfile";
 
 const formStyle = {
     position: 'absolute',
@@ -31,7 +32,7 @@ const backgroundStyle = {
 function AddUserProfile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    const isLoggedIn = useSelector(selectIsLoggedIn);
     const currentUser = useSelector(selectCurrentUser);
 
     const [email, /* setEmail */] = useState(currentUser?.email);
@@ -46,7 +47,14 @@ function AddUserProfile() {
             setErrorMessage('All fields are required!') 
             return;
         }
-        navigate('/login')
+        addUserProfile(
+            currentUser?.email,
+            firstName,
+            lastName,
+            companyName,
+        );
+        dispatch(resetUserData());
+        navigate('/login');
     };
     const handleUpdate = () => {
         if(firstName.length < 1 || lastName.length < 1 || companyName.length < 1 ) {
@@ -54,12 +62,19 @@ function AddUserProfile() {
             return;
         }
         dispatch(setCurrentUser({
+            id: currentUser?.id,
             email: currentUser?.email,
             firstName: firstName,
             lastName: lastName,
             companyName: companyName,
             entityDataIndex: currentUser?.entityDataIndex
         }));
+        addUserProfile(
+            currentUser?.email,
+            firstName,
+            lastName,
+            companyName,
+        );
         navigate('/main')
     };
     const handleClose = () => {
@@ -152,7 +167,7 @@ function AddUserProfile() {
                     defaultValue={currentUser.companyName}
                     onKeyDown={handleKeyDown}
                 />
-                { currentUser.email?.length > 0 ?
+                { isLoggedIn ?
                     <>
                         <Button 
                             variant="contained" 

@@ -29,7 +29,7 @@ export default function BNList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,index) => (
+          {rows?.map((row,index) => (
 
             <TableRow
               key={crypto.randomUUID()}

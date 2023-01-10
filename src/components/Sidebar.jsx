@@ -1,19 +1,35 @@
 import { Box, ListItem, ListItemButton, ListItemText, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 /* import { setCurrentEntity } from "../features/entityData/currentEntitySlice"; */
 import EntityAdd from "./Entity/EntityAdd";
-import { selectEntityData, setCurrentEntity } from "../features/entityData/entityDataSlice";
+import { selectEntityData, setCurrentEntity, loadExistingEntities } from "../features/entityData/entityDataSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { getUserEntities } from "../api/entity";
+import { selectCurrentUser } from "../features/userData/userDataSlice";
 
 
 function Sidebar() {
     const dispatch = useDispatch()
 
     const [search, setSearch] = React.useState('');
+    const currentUser = useSelector(selectCurrentUser);
 
-
-    const entityData = useSelector(selectEntityData);
+    useEffect(() => {
+        async function getEntities() {
+            const entities = await getUserEntities(currentUser.id);
+            console.log(entities);
+            if(entities.message) {
+                return null;
+            }
+            dispatch(loadExistingEntities(entities));
     
+        }
+        getEntities();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+    
+    const entityData = useSelector(selectEntityData);
+    console.log(entityData)
     return (
         <Box
             flex={1.5}
@@ -47,18 +63,30 @@ function Sidebar() {
                 </Box> 
                 :
                 <Box>
-                    {entityData.map((entity, index) => {
-                        const changeCurrentEntity = () => {
-                            dispatch(setCurrentEntity(index))
-                        }
-                        return (
-                            <ListItem key={index} component="div" disablePadding>
-                            <ListItemButton onClick={changeCurrentEntity}>
-                                <ListItemText primary={entity.name} />
+                    { entityData[0].name === '' ?
+                        <div>                           
+                            <ListItem component="div" disablePadding>
+                            <ListItemButton>
+                                <ListItemText sx={{color: 'red'}} primary={'No Entities Defined!'}/>
                             </ListItemButton>
                             </ListItem>
-                        );
-                    })}
+                        </div>
+                        :
+                        <div>
+                            {entityData.map((entity, index) => {
+                                const changeCurrentEntity = () => {
+                                    dispatch(setCurrentEntity(index))
+                                }
+                                return (
+                                    <ListItem key={index} component="div" disablePadding>
+                                    <ListItemButton onClick={changeCurrentEntity}>
+                                        <ListItemText primary={entity.name} />
+                                    </ListItemButton>
+                                    </ListItem>
+                                );
+                            })}
+                        </div>
+                    }
                 </Box>
             }          
         </Box>    

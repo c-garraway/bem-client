@@ -12,7 +12,7 @@ function EntityInfo() {
     const currentEntity = entityData[entityIndex];
     const activeJurisdiction = [];
 
-    currentEntity.corporateJurisdictions.forEach(jurisdictions => {
+    currentEntity.corporateJurisdictions?.forEach(jurisdictions => {
         if(jurisdictions.status === 'ACTIVE') {
             activeJurisdiction.push(` ${jurisdictions.jurisdiction}`)
         }
@@ -38,6 +38,9 @@ function EntityInfo() {
                 label="Name"
                 variant="filled"
                 size="small"
+                InputLabelProps={{
+                    shrink: true,
+                }}
                 value={currentEntity.name}
                 />
                 <TextField
@@ -46,6 +49,9 @@ function EntityInfo() {
                 label="Address"
                 variant="filled"
                 size="small"
+                InputLabelProps={{
+                    shrink: true,
+                }}
                 value={currentEntity.address}
                 />                
                 <TextField
@@ -54,8 +60,11 @@ function EntityInfo() {
                 label="Date Created"
                 variant="filled"
                 type="date"
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 size="small"
-                value={currentEntity.dateCreated}
+                value={currentEntity.date_created}
                 inputProps={{style: {textAlign: 'left'}}}
                 />
                 <TextField
@@ -64,6 +73,9 @@ function EntityInfo() {
                 label="Status"
                 variant="filled"
                 size="small"
+                InputLabelProps={{
+                    shrink: true,
+                }}
                 value={currentEntity.status}
                 />
                 <TextField
@@ -72,7 +84,10 @@ function EntityInfo() {
                 label="Corporate ID"
                 variant="filled"
                 size="small"
-                value={currentEntity.corpID}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                value={currentEntity.corp_id}
                 />   
                 <TextField
                 disabled
@@ -81,8 +96,8 @@ function EntityInfo() {
                 variant="filled"
                 InputLabelProps={{
                     shrink: true,
-                  }}
-                  size="small"
+                }}
+                size="small"
                 value={activeJurisdiction}                
                 />             
             </div>

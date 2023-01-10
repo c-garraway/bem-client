@@ -3,8 +3,9 @@ import { AppBar, Avatar, Box, Button, Menu, MenuItem, styled, Toolbar, Typograph
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCurrentUser, resetUserData } from "../features/userData/userDataSlice";
+import { selectCurrentUser, resetUserData, selectIsLoggedIn } from "../features/userData/userDataSlice";
 import { resetEntityData } from "../features/entityData/entityDataSlice";
+import { logoutUser } from "../api/logout";
 
 const StyledToolbar = styled(Toolbar) ({
     display: "flex",
@@ -43,7 +44,7 @@ function Navbar() {
     const companyName = currentUser.companyName;
     const navigate = useNavigate();
 
-    const loggedIn = currentUser.email?.length > 1 ? true : false;
+    const loggedIn = useSelector(selectIsLoggedIn);
     const displayButtons = loggedIn ? "none" : "block"
     const displayAvatar = loggedIn ? "flex" : "none"
 
@@ -59,6 +60,7 @@ function Navbar() {
       dispatch(resetUserData());
       dispatch(resetEntityData());
       setOpen(false);
+      logoutUser();
       navigate('/');   
       
     };

@@ -31,7 +31,7 @@ export default function DOList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (            
+          {rows?.map((row, index) => (            
             <TableRow
               key={crypto.randomUUID()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

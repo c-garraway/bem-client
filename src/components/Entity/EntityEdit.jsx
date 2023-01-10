@@ -41,8 +41,8 @@ export default function EntityEdit() {
   const [open, setOpen] = React.useState(false);
 
   const [name, setName] = React.useState(currentEntity.name);
-  const [dateCreated, setDateCreated] = React.useState(currentEntity.dateCreated);
-  const [corpID, setCorpID] = React.useState(currentEntity.corpID);
+  const [dateCreated, setDateCreated] = React.useState(currentEntity.date_created);
+  const [corpID, setCorpID] = React.useState(currentEntity.corp_id);
   const [address, setAddress] = React.useState(currentEntity.address);
   const [status, setStatus] = React.useState(currentEntity.status);
   const [errorMessage, setErrorMessage] = React.useState();
@@ -128,7 +128,7 @@ export default function EntityEdit() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                defaultValue={currentEntity.dateCreated}
+                defaultValue={currentEntity.date_created}
                 onChange={(e) => setDateCreated(e.currentTarget.value)}
                 />
                 <TextField
@@ -142,7 +142,7 @@ export default function EntityEdit() {
                 required
                 id="outlined"
                 label="Corporate ID"
-                defaultValue={currentEntity.corpID}
+                defaultValue={currentEntity.corp_id}
                 onChange={(e) => setCorpID(e.currentTarget.value)}
                 />             
             </div>

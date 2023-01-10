@@ -2,8 +2,10 @@ import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCurrentUser } from "../../features/userData/userDataSlice";
-import background from '../../images/background.jpg'
+import { setCurrentUser, setIsLoggedIn } from "../../features/userData/userDataSlice";
+import background from '../../images/background.jpg';
+import { loginLocalUser } from "../../api/localLogin";
+import { loginGoogleUser } from "../../api/googleLogin";
 
 const formStyle = {
     position: 'absolute',
@@ -36,12 +38,39 @@ function UserLogin() {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if(email.length < 1 || password.length < 1 ) {
             setErrorMessage('All fields are required!') 
             return;
+        };
+        const user = await loginLocalUser(email, password);
+        //console.log('login response ' + user.message)
+        //TODO: Fix required
+        if(user.message) {
+            setErrorMessage(user.message);
+            return;
         }
-        setErrorMessage('User login incomplete, use Guest') 
+        if(user.firstName === 'undefined') {
+            dispatch(setCurrentUser({
+                id: user.id,
+                email: user.email,
+            }));
+            navigate('/profile')
+            return;
+        };
+        if(user) {
+            dispatch(setCurrentUser({
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                companyName: user.companyName,
+                entityDataIndex: 0
+            }));
+            dispatch(setIsLoggedIn());
+            navigate('/main');
+            return;
+        };
 
     };
     const handleGuestUser = () => {
@@ -55,7 +84,8 @@ function UserLogin() {
         navigate('/main')   
     };
     const handleGoogleUser = () => {
-        setErrorMessage('Google user login incomplete, use Guest') 
+        loginGoogleUser();
+        //setErrorMessage('Google user login incomplete, use Guest') 
     };
     const handleKeyDown = (e) => {
         if(e.key === 'Enter') {

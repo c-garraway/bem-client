@@ -7,10 +7,32 @@ import { selectIsLoggedIn } from "../features/userData/userDataSlice"
 import { useSelector } from "react-redux";
 
 function Main() {
+ //const dispatch = useDispatch();
   const loggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  //let { guser } = useParams();
+
+  
+
+  useEffect( () => {
+  /* console.log(guser);
+
+  async function setUser() { 
+    if(guser) {
+      const googleUser = await getGoogleUser(guser);
+      dispatch(setCurrentUser({
+        email: googleUser.email,
+        firstName: googleUser.firstname,
+        lastName: googleUser.lastname,
+        companyName: googleUser.companyname,
+        avatar: googleUser.avatar
+      }));
+    }
+  }
+    
+    setUser();
+    dispatch(setIsLoggedIn()); */
     if(loggedIn === false) {   
       return  (
         navigate('/login') 

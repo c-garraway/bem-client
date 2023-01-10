@@ -5,8 +5,10 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewEntity } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { loadExistingEntities } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUserEntity, getUserEntities } from '../../api/entity';
+import { selectCurrentUser } from '../../features/userData/userDataSlice';
 
 const style = {
   position: 'absolute',
@@ -34,12 +36,12 @@ const StyledButton = styled(Button) ({
 
 export default function EntityAdd() {
   const dispatch = useDispatch()
-
+  const currentUser = useSelector(selectCurrentUser);
   const [open, setOpen] = React.useState(false);
 
   const [name, setName] = React.useState('');
-  const [dateCreated, setDateCreated] = React.useState('');
-  const [corpID, setCorpID] = React.useState('');
+  const [date_created, setDate_created] = React.useState('');
+  const [corp_id, setCorp_id] = React.useState('');
   const [address, setAddress] = React.useState('');
   const [status, setStatus] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState();
@@ -49,24 +51,22 @@ export default function EntityAdd() {
     setOpen(false);
     setErrorMessage();
   };
-  const handleSave = () => {
+  const handleSave = async () => {
     // perform input validation
-    if(name.length < 1 || address.length < 1 || dateCreated.length < 1 || status.length < 1 || corpID.length < 1) {
+    if(name.length < 1 || address.length < 1 || date_created.length < 1 || status.length < 1 || corp_id.length < 1) {
       setErrorMessage('All fields are required to add entity!')
       return;
     }
-    dispatch(addNewEntity({
+    await addUserEntity({
+      user_id: currentUser.id,
       name: name,
       address: address,
-      dateCreated: dateCreated,
+      date_created: date_created,
       status: status,
-      corpID: corpID,
-      corporateJurisdictions: [],
-      corporateFilings: [],
-      dO: [],
-      businessNames: [],
-      businessNameFilings: [],      
-    }));
+      corp_id: corp_id,
+    })
+    const entities = await getUserEntities(currentUser.id);
+    dispatch(loadExistingEntities(entities));
     setOpen(false);
     setErrorMessage();
   };
@@ -124,7 +124,7 @@ export default function EntityAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setDateCreated(e.currentTarget.value)}
+                onChange={(e) => setDate_created(e.currentTarget.value)}
                 />
                 <TextField
                 required
@@ -136,7 +136,7 @@ export default function EntityAdd() {
                 required
                 id="outlined"
                 label="Corporate ID"
-                onChange={(e) => setCorpID(e.currentTarget.value)}
+                onChange={(e) => setCorp_id(e.currentTarget.value)}
                 />             
             </div>
         </Box>  

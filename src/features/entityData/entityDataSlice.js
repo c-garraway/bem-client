@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const guestUserData = [{
+/* const guestUserData = [{
     name: 'Furniture Corp 1',
     address: '1234 Second Street, Mississauga, ON',
     dateCreated: '1999-09-01',
@@ -541,7 +541,21 @@ const guestUserData = [{
     ]       
     
 }
-]
+] */
+
+const startData = {
+    name: '',
+    address: '',
+    dateCreated: '',
+    status: '',
+    corpID: '',
+    corporateJurisdictions: [],
+    corporateFilings: [],
+    dO: [],
+    businessNames: [],
+    businessNameFilings: []       
+    
+};
 
 const initialState = () => {
     return {
@@ -551,7 +565,7 @@ const initialState = () => {
         currentBNF: [0],
         currentCF: [0],
         currentCJ: [0],
-        entities: guestUserData
+        entities: [startData]
     }
 }
 
@@ -560,6 +574,9 @@ const entityDataSlice = createSlice({
     initialState: initialState(),
     reducers: {
         resetEntityData: () => initialState(),
+        loadExistingEntities: (state, action) => {
+            state.entities = action.payload;
+        },
         setCurrentEntity: (state, action) => {
             state.currentEntity = action.payload;
         },
@@ -579,7 +596,14 @@ const entityDataSlice = createSlice({
             state.currentCJ = action.payload;
         },
         addNewEntity: (state, action) => {
-            state.entities.push(action.payload);
+            state.entities.push(
+                action.payload/* ,
+                corporateJurisdictions: [],
+                corporateFilings: [],
+                dO: [],
+                businessNames: [],
+                businessNameFilings: []  */
+            );
         },
         addNewDO: (state, action) => {
             state.entities[state.currentEntity].dO.push(action.payload)
@@ -598,6 +622,8 @@ const entityDataSlice = createSlice({
         },
         updateEntity: (state, action) => {
             state.entities[state.currentEntity] = {
+                id: action.payload.id,
+                user_id: action.payload.user_id,
                 name: action.payload.name,
                 address: action.payload.address,
                 dateCreated: action.payload.dateCreated,
@@ -628,7 +654,7 @@ const entityDataSlice = createSlice({
     }
 });
 
-export const {resetEntityData, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, updateEntity, updateCF, setCurrentCJ, addNewCJ, updateCJ } = entityDataSlice.actions
+export const {resetEntityData, loadExistingEntities, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, updateEntity, updateCF, setCurrentCJ, addNewCJ, updateCJ } = entityDataSlice.actions
 export const selectEntityData = (state) => state.entityData.entities
 export const selectCurrentEntity = (state) => state.entityData.currentEntity
 export default entityDataSlice.reducer

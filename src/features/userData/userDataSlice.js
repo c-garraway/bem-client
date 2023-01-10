@@ -21,12 +21,14 @@ const userDataSlice = createSlice({
         resetUserData: () => initialState(),
         setCurrentUser: (state, action) => {
             state.currentUser = action.payload;
-            state.isLoggedIn = true;
         },
+        setIsLoggedIn: (state) => {
+            state.isLoggedIn = true;
+        }
     }
 });
 
-export const {resetUserData, setCurrentUser} = userDataSlice.actions;
+export const {resetUserData, setCurrentUser, setIsLoggedIn} = userDataSlice.actions;
 export const selectCurrentUser = (state) => state.userData.currentUser;
 export const selectIsLoggedIn = (state) => state.userData.isLoggedIn;
 export default userDataSlice.reducer;
