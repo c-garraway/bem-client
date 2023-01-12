@@ -8,7 +8,6 @@ import EntityEdit from "./EntityEdit";
 function EntityInfo() {
     const entityIndex = useSelector(selectCurrentEntity);
     const entityData = useSelector(selectEntityData);
-
     const currentEntity = entityData[entityIndex];
     const activeJurisdiction = [];
 
@@ -64,7 +63,7 @@ function EntityInfo() {
                     shrink: true,
                   }}
                 size="small"
-                value={currentEntity.date_created}
+                value={currentEntity.dateCreated}
                 inputProps={{style: {textAlign: 'left'}}}
                 />
                 <TextField
@@ -87,7 +86,7 @@ function EntityInfo() {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                value={currentEntity.corp_id}
+                value={currentEntity.corpID}
                 />   
                 <TextField
                 disabled

@@ -1,10 +1,11 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate,  } from "react-router-dom";
-import { selectCurrentUser, setCurrentUser, selectIsLoggedIn, resetUserData } from "../../features/userData/userDataSlice";
+import { setCurrentUser, resetUserData, selectCurrentUser, selectIsLoggedIn } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg'
 import { addUserProfile } from "../../api/addProfile";
+import { getGoogleUser } from "../../api/googleLogin";
 
 const formStyle = {
     position: 'absolute',
@@ -32,18 +33,47 @@ const backgroundStyle = {
 function AddUserProfile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+
+    useEffect(() => {
+        async function getUser() {
+          const guser = await getGoogleUser();
+            if(guser) {
+                dispatch(setCurrentUser({
+                    id: guser.id,
+                    email: guser.email,
+                    firstName: guser.firstname,
+                    lastName: guser.lastname,
+                    companyName: guser.companyname,
+                    avatar: guser.avatar
+                }));
+                //dispatch(setIsLoggedIn());
+                return;
+            };
+        };
+    
+        getUser();
+        // eslint-disable-next-line
+    },[]);
+
+
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const currentUser = useSelector(selectCurrentUser);
+
+    //console.log('isloggedIn: ' + isLoggedIn);
+    //console.log('currentUser: ' + currentUser?.email);
 
     const [email, /* setEmail */] = useState(currentUser?.email);
     const [firstName, setFirstName] = useState(currentUser?.firstName);
     const [lastName, setLastName] = useState(currentUser?.lastName);
     const [companyName, setCompanyName] = useState(currentUser?.companyName);
     const [errorMessage, setErrorMessage] = useState('');
+    
+    const autoFocus = isLoggedIn && companyName === null ? true : false;
 
     const handleSave = () => {
         //TODO: Move into one save function
-        if(firstName.length < 1 || lastName.length < 1 || companyName.length < 1 ) {
+        if(firstName?.length < 1 || lastName?.length < 1 || companyName?.length < 1 ) {
             setErrorMessage('All fields are required!') 
             return;
         }
@@ -54,10 +84,10 @@ function AddUserProfile() {
             companyName,
         );
         dispatch(resetUserData());
-        navigate('/login');
+        navigate('/main');
     };
     const handleUpdate = () => {
-        if(firstName.length < 1 || lastName.length < 1 || companyName.length < 1 ) {
+        if(firstName?.length < 1 || lastName?.length < 1 || companyName?.length < 1 ) {
             setErrorMessage('All fields are required!') 
             return;
         }
@@ -86,6 +116,7 @@ function AddUserProfile() {
         };
     };
 
+    
 
   return (
     <Box sx={backgroundStyle}>
@@ -120,7 +151,6 @@ function AddUserProfile() {
                     value={email}
                 />
                 <TextField
-                    autoFocus
                     required
                     id="outlined-required"
                     label="First Name"
@@ -133,7 +163,7 @@ function AddUserProfile() {
                         setFirstName(e.currentTarget.value)
                         setErrorMessage('')
                     }}
-                    defaultValue={currentUser.firstName}
+                    defaultValue={currentUser?.firstName}
                 />
                 <TextField
                     required
@@ -148,10 +178,11 @@ function AddUserProfile() {
                         setLastName(e.currentTarget.value)
                         setErrorMessage('')
                     }}
-                    defaultValue={currentUser.lastName}
+                    defaultValue={currentUser?.lastName}
 
                 />
                 <TextField
+                    autoFocus={autoFocus}
                     required
                     id="outlined-required"
                     label="Company Name"
@@ -164,7 +195,7 @@ function AddUserProfile() {
                         setCompanyName(e.currentTarget.value)
                         setErrorMessage('')
                     }}
-                    defaultValue={currentUser.companyName}
+                    defaultValue={currentUser?.companyName}
                     onKeyDown={handleKeyDown}
                 />
                 { isLoggedIn ?

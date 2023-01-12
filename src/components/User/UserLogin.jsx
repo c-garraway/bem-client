@@ -6,6 +6,8 @@ import { setCurrentUser, setIsLoggedIn } from "../../features/userData/userDataS
 import background from '../../images/background.jpg';
 import { loginLocalUser } from "../../api/localLogin";
 import { loginGoogleUser } from "../../api/googleLogin";
+import { loadExistingEntities } from "../../features/entityData/entityDataSlice";
+import GoogleIcon from '@mui/icons-material/Google';
 
 const formStyle = {
     position: 'absolute',
@@ -44,8 +46,7 @@ function UserLogin() {
             return;
         };
         const user = await loginLocalUser(email, password);
-        //console.log('login response ' + user.message)
-        //TODO: Fix required
+
         if(user.message) {
             setErrorMessage(user.message);
             return;
@@ -71,7 +72,6 @@ function UserLogin() {
             navigate('/main');
             return;
         };
-
     };
     const handleGuestUser = () => {
         dispatch(setCurrentUser({
@@ -79,13 +79,13 @@ function UserLogin() {
             firstName: 'Guest',
             lastName: 'User',
             companyName: 'Whole Home Decor Corporation',
-            entityDataIndex: 0
         }))
+        dispatch(loadExistingEntities(guestUserData));
+        dispatch(setIsLoggedIn());
         navigate('/main')   
     };
-    const handleGoogleUser = () => {
+    const handleGoogleUser =  () => {
         loginGoogleUser();
-        //setErrorMessage('Google user login incomplete, use Guest') 
     };
     const handleKeyDown = (e) => {
         if(e.key === 'Enter') {
@@ -171,10 +171,11 @@ function UserLogin() {
                 <Button 
                     variant="outlined" 
                     onClick={handleGoogleUser}
+                    startIcon={<GoogleIcon/>}
                     sx={{
-                        display: "block",
+                        /* display: "block", */
                         width: "100%",
-                        margin: "auto",
+                        /* margin: "auto", */
                         marginTop: "10px",
                     }}
                     >Login with Google
@@ -185,4 +186,546 @@ function UserLogin() {
  );
 }
 
+const guestUserData = [{
+    name: 'Furniture Corp 1',
+    address: '1234 Second Street, Mississauga, ON',
+    dateCreated: '1999-09-01',
+    status: 'ACTIVE',
+    corpID: '455FE6',
+    corporateJurisdictions: [
+        
+        {
+            jurisdiction: 'MB',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'ON',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'PQ',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'BC',
+            status: 'INACTIVE',
+            startDate: '1999-09-01',
+            endDate: '2005-09-01'
+        },
+    ],
+    corporateFilings: [
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'BC',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000bc.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'MB',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000mb.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'ON',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000on.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'PQ',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000pq.pdf'                
+        }
+    ],
+    dO: [
+        {
+            name: 'John Doe',
+            position: 'CEO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jdoe@email.ca',
+            endDate: null
+        },
+        {
+            name: 'James Smith',
+            position: 'CFO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jsmith@email.ca',
+            endDate: null
+        },
+        {
+            name: 'Jane Doe',
+            position: 'Corporate Secretary',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'janedoe@email.ca',
+            endDate: null
+        },
+        {
+            name: 'John Snow',
+            position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jsnow@email.ca',
+            endDate: null
+        },
+        {
+            name: 'Catherine White',
+            position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'cwhite@email.ca',
+            endDate: null
+        }
+    ],
+    businessNames: [
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'ON',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'BC',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'ON',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'BC',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        }
+    ],
+    businessNameFilings: [                    
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'ON',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'ON',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },             
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'BC',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'BC',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+    ]       
+    
+},
+{
+    name: 'Discount Furniture Corp',
+    address: '234 Second Street, Mississauga, ON',
+    dateCreated: '1999-09-01',
+    status: 'ACTIVE',
+    corpID: '455FE6',
+    corporateJurisdictions: [
+        {
+            jurisdiction: 'BC 2',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'MB',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'ON',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'PQ',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+    ],
+    corporateFilings: [
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'BC 2',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000bc.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'MB',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000mb.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'ON',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000on.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'PQ',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000pq.pdf'                
+        }
+    ],
+    dO: [
+        {
+            name: 'John Doe 2',
+            position: 'CEO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jdoe@email.ca',
+            endDate: null
+        },
+        {
+            name: 'James Smith',
+            position: 'CFO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jsmith@email.ca',
+            endDate: null
+        },
+        {
+            name: 'Jane Doe',
+            position: 'Corporate Secretary',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'janedoe@email.ca',
+            endDate: null
+        },
+        {
+            name: 'John Snow',
+            position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jsnow@email.ca',
+            endDate: null
+        },
+        {
+            name: 'Catherine White',
+            position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'cwhite@email.ca',
+            endDate: null
+        }
+    ],
+    businessNames: [
+        {
+            businessName: 'The Brick 2',
+            jurisdiction: 'ON',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'BC',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'ON',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'BC',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        }
+    ],
+    businessNameFilings: [                    
+        {
+            businessName: 'The Brick 2',
+            jurisdiction: 'ON',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'ON',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },             
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'BC',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'BC',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+    ]       
+    
+},
+{
+    name: 'Elite Furniture Corp',
+    address: '34 Second Street, Mississauga, ON',
+    dateCreated: '1999-09-01',
+    status: 'ACTIVE',
+    corpID: '455FE6',
+    corporateJurisdictions: [
+        {
+            jurisdiction: 'BC 3',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'MB',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'ON',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+        {
+            jurisdiction: 'PQ',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            endDate: null
+        },
+    ],
+    corporateFilings: [
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'BC 3',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000bc.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'MB',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000mb.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'ON',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000on.pdf'                
+        },
+        {                
+            name: 'Furniture Corp',
+            jurisdiction: 'PQ',
+            dueDate: '2000-09-01',
+            subName: 'Jane Doe',
+            confirmation: 'S:/filings/furniturcorp2000pq.pdf'                
+        }
+    ],
+    dO: [
+        {
+            name: 'John Doe 3',
+            position: 'CEO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jdoe@email.ca',
+            endDate: null
+        },
+        {
+            name: 'James Smith',
+            position: 'CFO',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jsmith@email.ca',
+            endDate: null
+        },
+        {
+            name: 'Jane Doe',
+            position: 'Corporate Secretary',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'janedoe@email.ca',
+            endDate: null
+        },
+        {
+            name: 'John Snow',
+            position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'jsnow@email.ca',
+            endDate: null
+        },
+        {
+            name: 'Catherine White',
+            position: 'Director',
+            status: 'ACTIVE',
+            startDate: '1999-09-01',
+            address: '123 First Lane, Toronto, ON, CA',
+            phone: '555-555-5555',
+            email: 'cwhite@email.ca',
+            endDate: null
+        }
+    ],
+    businessNames: [
+        {
+            businessName: 'The Brick 3',
+            jurisdiction: 'ON',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'BC',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'ON',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'BC',
+            address: '',
+            creationDate: '2000-09-01',
+            status: 'ACTIVE',
+            closeDate: null
+        }
+    ],
+    businessNameFilings: [                    
+        {
+            businessName: 'The Brick 3',
+            jurisdiction: 'ON',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'ON',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },             
+        {
+            businessName: 'The Brick',
+            jurisdiction: 'BC',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+        {
+            businessName: 'Ethan Allen',
+            jurisdiction: 'BC',
+            subName: 'Jane Doe',
+            dueDate: '2000-09-01',
+            confirmation: 'S:/filings/thebrick2001on.pdf'
+        },
+    ]       
+    
+}
+] 
 export default UserLogin;

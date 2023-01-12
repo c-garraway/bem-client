@@ -3,50 +3,53 @@ import React, { useEffect } from "react";
 import EntityInfo from "./Entity/EntityInfo";
 import EntityDetails from "./Entity/EntityDetails";
 import { useNavigate } from "react-router";
-import { selectIsLoggedIn } from "../features/userData/userDataSlice"
-import { useSelector } from "react-redux";
+import { selectIsLoggedIn, setCurrentUser, setIsLoggedIn } from "../features/userData/userDataSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { getGoogleUser } from "../api/googleLogin";
 
 function Main() {
- //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const loggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
-  //let { guser } = useParams();
-
-  
-
-  useEffect( () => {
-  /* console.log(guser);
-
-  async function setUser() { 
-    if(guser) {
-      const googleUser = await getGoogleUser(guser);
-      dispatch(setCurrentUser({
-        email: googleUser.email,
-        firstName: googleUser.firstname,
-        lastName: googleUser.lastname,
-        companyName: googleUser.companyname,
-        avatar: googleUser.avatar
-      }));
+  useEffect(() => {
+    async function getUser() {
+      const guser = await getGoogleUser();
+        if(guser) {
+            dispatch(setCurrentUser({
+                id: guser.id,
+                email: guser.email,
+                firstName: guser.firstname,
+                lastName: guser.lastname,
+                companyName: guser.companyname,
+                avatar: guser.avatar
+            }));
+            dispatch(setIsLoggedIn());
+            if(guser.companyname === null) {
+              navigate('/profile');
+              return;
+            }
+            navigate('/main');
+            return;
+        };
     }
-  }
+
+    getUser();
     
-    setUser();
-    dispatch(setIsLoggedIn()); */
     if(loggedIn === false) {   
       return  (
         navigate('/login') 
        )
     }
-  })
+    
+    // eslint-disable-next-line
+  },[]);
 
   
-
 
   return (
     <Box
         flex={6}
-       /*  backgroundColor="lightblue" */
     >
       <EntityInfo/>
       <EntityDetails/>   

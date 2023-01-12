@@ -1,11 +1,13 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
-import { updateEntity, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { selectCurrentEntity, selectEntityData, loadExistingEntities } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserEntities, updateUserEntity } from "../../api/entity";
+import { selectCurrentUser } from "../../features/userData/userDataSlice";
 
 const style = {
   position: 'absolute',
@@ -35,36 +37,52 @@ export default function EntityEdit() {
   const dispatch = useDispatch()
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
-
   const currentEntity = entityData[entityIndex];
+  const currentUser = useSelector(selectCurrentUser);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [dateCreated, setdateCreated] = useState('');
+  const [corpID, setCorpID] = useState('');
+  const [address, setAddress] = useState('');
+  const [status, setStatus] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [name, setName] = React.useState(currentEntity.name);
-  const [dateCreated, setDateCreated] = React.useState(currentEntity.date_created);
-  const [corpID, setCorpID] = React.useState(currentEntity.corp_id);
-  const [address, setAddress] = React.useState(currentEntity.address);
-  const [status, setStatus] = React.useState(currentEntity.status);
-  const [errorMessage, setErrorMessage] = React.useState();
+  useEffect(() => {
+    setName(currentEntity.name);
+    setdateCreated(currentEntity.dateCreated);
+    setCorpID(currentEntity.corpID);
+    setAddress(currentEntity.address);
+    setStatus(currentEntity.status);
+  
+  }, [currentEntity]);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true)
+  };
   const handleClose = () => {
     setOpen(false);
     setErrorMessage();
   };
-  const handleSave = () => {
-    // perform input validation
+  const handleSave = async () => {
+
     if(name.length < 1 || address.length < 1 || dateCreated.length < 1 || status.length < 1 || corpID.length < 1) {
-      setErrorMessage('All fields are required to add entity!')
+      setErrorMessage('All fields are required to edit entity!')
+      
       return;
     }
-    dispatch(updateEntity({
+
+    await updateUserEntity({
+      id: currentEntity.id,
+      user_id: currentEntity.user_id,
       name: name,
       address: address,
       dateCreated: dateCreated,
       status: status,
-      corpID: corpID,    
-    }));
+      corpID: corpID, 
+    });
+    const entities = await getUserEntities(currentUser.id);
+    dispatch(loadExistingEntities(entities));
     setOpen(false);
     setErrorMessage();
   };
@@ -128,8 +146,8 @@ export default function EntityEdit() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                defaultValue={currentEntity.date_created}
-                onChange={(e) => setDateCreated(e.currentTarget.value)}
+                defaultValue={currentEntity.dateCreated}
+                onChange={(e) => setdateCreated(e.currentTarget.value)}
                 />
                 <TextField
                 required
@@ -142,7 +160,7 @@ export default function EntityEdit() {
                 required
                 id="outlined"
                 label="Corporate ID"
-                defaultValue={currentEntity.corp_id}
+                defaultValue={currentEntity.corpID}
                 onChange={(e) => setCorpID(e.currentTarget.value)}
                 />             
             </div>

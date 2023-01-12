@@ -9,7 +9,7 @@ export const  getUserEntities = async (userID) => {
         }
 };
 
-export const updateUserEntity = async ({user}) => {
+export const updateUserEntity = async (user) => {
     const response = await fetch(`${BASE_URL}/entities`,
         {
             method: 'PUT',
@@ -17,13 +17,13 @@ export const updateUserEntity = async ({user}) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "id": "user.id",
-                "user_id": "user.user_id",
-                "name": "user.name",
-                "address": "user.address",
-                "date_created": "user.date_created",
-                "status": "user.status",
-                "corp_id": "user.corp_id"
+                "id": `${user.id}`,
+                "user_id": `${user.user_id}`,
+                "name": `${user.name}`,
+                "address": `${user.address}`,
+                "date_created": `${user.dateCreated}`,
+                "status": `${user.status}`,
+                "corp_id": `${user.corpID}`
               })
         }) 
         const entity = await response.json()

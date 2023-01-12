@@ -17,7 +17,7 @@ function Sidebar() {
     useEffect(() => {
         async function getEntities() {
             const entities = await getUserEntities(currentUser.id);
-            console.log(entities);
+            console.log(entities.message);
             if(entities.message) {
                 return null;
             }
@@ -67,7 +67,7 @@ function Sidebar() {
                         <div>                           
                             <ListItem component="div" disablePadding>
                             <ListItemButton>
-                                <ListItemText sx={{color: 'red'}} primary={'No Entities Defined!'}/>
+                                <ListItemText sx={{color: 'red'}} primary={'No Entities Defined'}/>
                             </ListItemButton>
                             </ListItem>
                         </div>

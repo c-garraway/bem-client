@@ -37,38 +37,52 @@ const StyledToolbar = styled(Toolbar) ({
 })); */
 
 function Navbar() {
-    const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-    const currentUser = useSelector(selectCurrentUser);
-    const currentUserName = currentUser.firstName;
-    const companyName = currentUser.companyName;
-    const navigate = useNavigate();
 
-    const loggedIn = useSelector(selectIsLoggedIn);
-    const displayButtons = loggedIn ? "none" : "block"
-    const displayAvatar = loggedIn ? "flex" : "none"
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-    const handleRegister = () => {
-      navigate('/register')   
+  const currentUser = useSelector(selectCurrentUser);
+  const currentUserName = currentUser?.firstName;
+  const companyName = currentUser?.companyName;
+  const avatar = currentUser?.avatar;
+  const navigate = useNavigate();
 
-    };
-    const handleLogin = () => {
-      navigate('/login')   
-      
-    };
-    const handleLogout = () => {
-      dispatch(resetUserData());
-      dispatch(resetEntityData());
-      setOpen(false);
-      logoutUser();
-      navigate('/');   
-      
-    };
-    const handleProfile = () => {
-      setOpen(false);
-      navigate('/profile');      
-    };
+  const loggedIn = useSelector(selectIsLoggedIn);
+  const displayButtons = loggedIn ? "none" : "block"
+  const displayAvatar = loggedIn ? "flex" : "none"
+
+  const handleRegister = () => {
+    navigate('/register')   
+
+  };
+  const handleLogin = () => {
+    navigate('/login')   
     
+  };
+  const handleLogout = (event) => {
+    setAnchorEl(event.currentTarget);
+
+    dispatch(resetUserData());
+    dispatch(resetEntityData());
+    handleClose();
+    logoutUser();
+    navigate('/');   
+    
+  };
+  const handleProfile = (event) => {
+    setAnchorEl(event.currentTarget);
+    handleClose();
+    navigate('/profile');      
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+    
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   return (
     <AppBar position="sticky">
@@ -112,17 +126,13 @@ function Navbar() {
            <Box
            sx={{display: displayAvatar, alignItems: 'center'}}   >              
                 <Avatar 
-                sx={{width: 30, height: 30, cursor: "pointer"}} 
-                /* src={"https://material-ui.com/static/images/avatar/1.jpg"} */
-                onClick={e=>{
-                  setOpen(true)
-                  }}/> 
+                sx={{width: 35, height: 35, border: '1px solid white'}} 
+                src={avatar}
+                /> 
                 <Typography 
                   variant="span"
                   sx={{ml: "10px", cursor: "pointer"}}
-                  onClick={e=>{
-                    setOpen(true)
-                    }}
+                  onClick={handleClick}
                   >{currentUserName}</Typography>               
            </Box>
            {/* <UserBox onClick={e=>setOpen(true)}>
@@ -134,11 +144,11 @@ function Navbar() {
         <Menu
           id="demo-positioned-menu"
           aria-labelledby="demo-positioned-button"
-          /* anchorEl={false} */
+          anchorEl={anchorEl}
           open={open}
-          onClose={e=>setOpen(false)}
+          onClose={handleClose}
           anchorOrigin={{
-            vertical: 'top',
+            vertical: 'bottom',
             horizontal: 'right',
           }}
           transformOrigin={{

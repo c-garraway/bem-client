@@ -58,6 +58,7 @@ export default function EntityAdd() {
       return;
     }
     await addUserEntity({
+      //TODO: Should be currentUser.user_id
       user_id: currentUser.id,
       name: name,
       address: address,

@@ -543,7 +543,7 @@ import { createSlice } from "@reduxjs/toolkit";
 }
 ] */
 
-const startData = {
+const startData = [{
     name: '',
     address: '',
     dateCreated: '',
@@ -555,7 +555,7 @@ const startData = {
     businessNames: [],
     businessNameFilings: []       
     
-};
+}];
 
 const initialState = () => {
     return {
@@ -565,7 +565,7 @@ const initialState = () => {
         currentBNF: [0],
         currentCF: [0],
         currentCJ: [0],
-        entities: [startData]
+        entities: startData
     }
 }
 

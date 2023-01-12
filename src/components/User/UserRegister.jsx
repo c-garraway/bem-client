@@ -5,6 +5,7 @@ import background from '../../images/background.jpg'
 import { registerLocalUser } from "../../api/register";
 import { setCurrentUser } from "../../features/userData/userDataSlice";
 import { useDispatch } from "react-redux";
+import { loginGoogleUser } from "../../api/googleLogin";
 
 const formStyle = {
     position: 'absolute',
@@ -63,7 +64,7 @@ function UserRegister() {
     };
 
     const handleGoogleUser = () => {
-        setErrorMessage('Google user registration not yet complete!')          
+        loginGoogleUser();          
     };
     const handleKeyDown = (e) => {
         if(e.key === 'Enter') {
