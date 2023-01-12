@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewBN } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { loadExistingBNs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEntityBn, getEntityBusinessNames } from '../../api/bN';
 
 const style = {
   position: 'absolute',
@@ -39,7 +40,10 @@ const StyledButton = styled(Button) ({
 
 
 export default function BNAdd() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
 
   const [open, setOpen] = React.useState(false);
 
@@ -48,7 +52,7 @@ export default function BNAdd() {
   const [status, setStatus] = React.useState('');
   const [jurisdiction, setJurisdiction] = React.useState('');
   const [creationDate, setCreationDate] = React.useState('');
-  const [closeDate, setCloseDate] = React.useState('');
+  const [closeDate, setCloseDate] = React.useState();
  
   const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -58,19 +62,25 @@ export default function BNAdd() {
     setErrorMessage('');
 
 };
-  const handleSave = () => {
+  const handleSave = async () => {
     if(businessName.length < 1 || status.length < 1 || setCreationDate.length < 1 || jurisdiction.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewBN({
+
+    await addEntityBn({
+      entity: entityID,
       businessName: businessName,
-      address: address,
-      status: status,
       jurisdiction: jurisdiction,
+      address: address,
       creationDate: creationDate,
-      closeDate: closeDate,    
-    }));
+      status: status,
+      closeDate: closeDate
+    })
+
+    const bNs = await getEntityBusinessNames(entityID)
+    dispatch(loadExistingBNs(bNs))
+
     setOpen(false);
 
     setBusinessName('');

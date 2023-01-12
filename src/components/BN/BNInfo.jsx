@@ -6,7 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, updateBN, setCurrentBN } from "../../features/entityData/entityDataSlice";
+import { selectEntityData, selectCurrentEntity, loadExistingBNs } from "../../features/entityData/entityDataSlice";
+import { getEntityBusinessNames, updateEntityBn } from '../../api/bN';
 
 const style = {
   position: 'absolute',
@@ -36,7 +37,9 @@ export default function BNInfo({currentBNIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
   const currentBN = entityData[entityIndex].businessNames[currentBNIndex]
+  
 
   const [open, setOpen] = React.useState(false);
   const [businessName, setBusinessName] = React.useState(currentBN.businessName);
@@ -52,24 +55,32 @@ export default function BNInfo({currentBNIndex}) {
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
+    setErrorMessage('');
+
   };
   const handleEdit = () => setDisabled(false);
-  const handleSave = () => {
+
+  const handleSave = async () => {
     if(businessName.length < 1 || status.length < 1 || setCreationDate.length < 1 || jurisdiction.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentBN(currentBNIndex));
-    dispatch(updateBN({
+
+    await updateEntityBn({
+      id: currentBN.id,
+      entity: currentBN.entity,
       businessName: businessName,
-      address: address,
-      status: status,
       jurisdiction: jurisdiction,
+      address: address,
       creationDate: creationDate,
-      closeDate: closeDate,    
-    }));
-    setOpen(false);
-    setErrorMessage('');
+      status: status,
+      closeDate: closeDate
+    })
+
+    const bNs = await getEntityBusinessNames(entityID)
+    dispatch(loadExistingBNs(bNs))
+
+    handleClose()
     }; 
 
   return (

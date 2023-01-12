@@ -1,12 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewDO } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { loadExistingDOs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEntityDo, getEntityDo } from '../../api/dO';
 
 const style = {
   position: 'absolute',
@@ -40,6 +41,9 @@ const StyledButton = styled(Button) ({
 
 export default function DOAdd() {
   const dispatch = useDispatch()
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
 
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState('');
@@ -49,7 +53,7 @@ export default function DOAdd() {
   const [address, setAddress] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [endDate, setEndDate] = React.useState('');
+  const [endDate, setEndDate] = React.useState();
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const handleOpen = () => setOpen(true);
@@ -58,12 +62,28 @@ export default function DOAdd() {
     setErrorMessage('');
 
 };
-  const handleSave = () => {
+  const handleSave = async () => {
     if(name.length < 1 || position.length < 1 || status.length < 1 || startDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewDO({
+    console.log(entityID);
+    await addEntityDo({
+      entity: entityID,
+      name: name,
+      position: position,
+      status: status,
+      startDate: startDate,
+      address: address,
+      phone: phone,
+      email: email,
+      endDate: endDate,
+    })
+
+    const dOs = await getEntityDo(entityID)
+    dispatch(loadExistingDOs(dOs))
+
+   /*  dispatch(addNewDO({
       name: name,
       position: position,
       status: status,
@@ -72,7 +92,7 @@ export default function DOAdd() {
       phone: phone,
       email: email,     
       endDate: endDate,     
-    }));
+    })); */
     setOpen(false);
 
     setName('');

@@ -7,12 +7,30 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import BNFInfo from '../BNF/BNFInfo';
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, loadExistingBNFs } from "../../features/entityData/entityDataSlice";
+import { getEntityBusinessNameFilings } from '../../api/bNF';
 
 export default function BNFList() {
+  const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
+
+  React.useEffect(() => {
+    async function getBNFs() {
+      const BNFs = await getEntityBusinessNameFilings(entityID);
+      console.log('BNFs: ' + BNFs);
+      if(BNFs.message) {
+          return null;
+      }
+      dispatch(loadExistingBNFs(BNFs));
+
+    }
+    getBNFs();
+    // eslint-disable-next-line
+  },[entityID])
+
   const rows = entityData[entityIndex].businessNameFilings
 
   return (

@@ -34,23 +34,26 @@ export const updateEntityDo = async (doToUpdate) => {
 
 };
 
-export const addUserEntity = async (user) => {
-    const response = await fetch(`${BASE_URL}/entities`,
+export const addEntityDo = async (doToAdd) => {
+    const response = await fetch(`${BASE_URL}/do`,
         {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "user_id": `${user.user_id}`,
-                "name": `${user.name}`,
-                "address": `${user.address}`,
-                "date_created": `${user.date_created}`,
-                "status": `${user.status}`,
-                "corp_id": `${user.corp_id}`
+                "entity": doToAdd.entity,
+                "name": doToAdd.name,
+                "position": doToAdd.position,
+                "status": doToAdd.status,
+                "startDate": doToAdd.startDate,
+                "address": doToAdd.address,
+                "phone": doToAdd.phone,
+                "email": doToAdd.email,
+                "endDate": doToAdd.endDate,
               })
-        }) 
-        const entity = await response.json()
-        return entity
+        }); 
+        const dO = await response.json();
+        return dO;
 
 };

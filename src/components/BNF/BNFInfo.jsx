@@ -6,7 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, updateBNF, setCurrentBNF } from "../../features/entityData/entityDataSlice";
+import { selectEntityData, selectCurrentEntity, loadExistingBNFs } from "../../features/entityData/entityDataSlice";
+import { getEntityBusinessNameFilings, updateEntityBNF } from '../../api/bNF';
 
 const style = {
   position: 'absolute',
@@ -36,6 +37,7 @@ export default function BNFInfo({currentBNIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
   const currentBNF = entityData[entityIndex].businessNameFilings[currentBNIndex];
 
   const [open, setOpen] = React.useState(false);
@@ -55,21 +57,26 @@ export default function BNFInfo({currentBNIndex}) {
     setErrorMessage('');
 };
   const handleEdit = () => setDisabled(false);
-  const handleSave = () => {
+
+  const handleSave = async () => {
     if(businessName.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentBNF(currentBNIndex));
-    dispatch(updateBNF({
+    await updateEntityBNF({
+      id: currentBNF.id,
+      entity: currentBNF.entity,
       businessName: businessName,
-      subName: subName,
-      confirmation: confirmation,
       jurisdiction: jurisdiction,
-      dueDate: dueDate,    
-    }));
-    setDisabled(true)
-    setErrorMessage('');
+      subName: subName,
+      dueDate: dueDate,
+      confirmation: confirmation
+    })
+
+    const BNFs = await getEntityBusinessNameFilings(entityID)
+    dispatch(loadExistingBNFs(BNFs))
+
+    handleClose()
     }; 
 
   return (

@@ -7,12 +7,29 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import BNInfo from '../BN/BNInfo'
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, loadExistingBNs } from "../../features/entityData/entityDataSlice";
+import { getEntityBusinessNames } from '../../api/bN';
 
 export default function BNList() {
+  const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
+
+  React.useEffect(() => {
+    async function getBNs() {
+      const BNs = await getEntityBusinessNames(entityID);
+      console.log('BNs: ' + BNs);
+      if(BNs.message) {
+          return null;
+      }
+      dispatch(loadExistingBNs(BNs));
+
+    }
+    getBNs();
+    // eslint-disable-next-line
+  },[entityID])
  
   const rows = entityData[entityIndex].businessNames
 
