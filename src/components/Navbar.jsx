@@ -126,7 +126,7 @@ function Navbar() {
            <Box
            sx={{display: displayAvatar, alignItems: 'center'}}   >              
                 <Avatar 
-                sx={{width: 35, height: 35, border: '1px solid white'}} 
+                sx={{width: 35, height: 35, border: '1px solid lightblue'}} 
                 src={avatar}
                 /> 
                 <Typography 

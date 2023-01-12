@@ -83,8 +83,9 @@ export default function EntityEdit() {
     });
     const entities = await getUserEntities(currentUser.id);
     dispatch(loadExistingEntities(entities));
-    setOpen(false);
-    setErrorMessage();
+    /* setOpen(false);
+    setErrorMessage(); */
+    handleClose();
   };
 
   return (    

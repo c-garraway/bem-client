@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,7 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, setCurrentDO, updateDO } from "../../features/entityData/entityDataSlice";
+import { selectEntityData, selectCurrentEntity, loadExistingDOs } from "../../features/entityData/entityDataSlice";
+import { getEntityDo, updateEntityDo } from '../../api/dO';
 
 const style = {
   position: 'absolute',
@@ -37,55 +38,66 @@ export default function DOInfo({currentDOIndex}) {
 
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
-
+  const entityID = entityData[entityIndex].id;
   const currentDO = entityData[entityIndex].dO[currentDOIndex]
-
-
 
   const [open, setOpen] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
-
-  const [name, setName] = React.useState(currentDO.name);
-  const [position, setPosition] = React.useState(currentDO.position);
-  const [status, setStatus] = React.useState(currentDO.status);
-  const [startDate, setStartDate] = React.useState(currentDO.startDate);
-  const [address, setAddress] = React.useState(currentDO.address);
-  const [phone, setPhone] = React.useState(currentDO.phone);
-  const [email, setEmail] = React.useState(currentDO.email);
-  const [endDate, setEndDate] = React.useState(currentDO.endDate);
+  const [name, setName] = React.useState('');
+  const [position, setPosition] = React.useState('');
+  const [status, setStatus] = React.useState('');
+  const [startDate, setStartDate] = React.useState('');
+  const [address, setAddress] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [endDate, setEndDate] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
+
+  useEffect(() => {
+    setName(currentDO.name);
+    setPosition(currentDO.position);
+    setStatus(currentDO.status);
+    setStartDate(currentDO.startDate);
+    setAddress(currentDO.address);
+    setPhone(currentDO.phone);
+    setEmail(currentDO.email);
+    setEndDate(currentDO.endDate);
+  
+  }, [currentDO]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
     setErrorMessage('');
+  };
 
-};
   const handleEdit = () => setDisabled(false);
-  const handleSave = () => {
+
+  const handleSave = async () => {
     if(name.length < 1 || position.length < 1 || status.length < 1 || startDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentDO(currentDOIndex));
-    dispatch(updateDO({
+
+    await updateEntityDo({
+      id: currentDO.id,
+      entity: currentDO.entity,
       name: name,
       position: position,
       status: status,
       startDate: startDate,
       address: address,
       phone: phone,
-      email: email,     
+      email: email,
       endDate: endDate,
-    }));
-    setDisabled(true)
-    setErrorMessage('');
+    })
 
-    };
+    const dOs = await getEntityDo(entityID)
+    dispatch(loadExistingDOs(dOs))
 
-
- 
+    handleClose()
+  };
 
   return (
     <div >

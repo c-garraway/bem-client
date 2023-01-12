@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,16 +6,33 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, loadExistingDOs } from "../../features/entityData/entityDataSlice";
 import DOInfo from "../DO/DOInfo"
+import { getEntityDo } from '../../api/dO';
 
 
 export default function DOList() {
-    const entityIndex = useSelector(selectCurrentEntity);
-    const entityData = useSelector(selectEntityData);
+  const dispatch = useDispatch();
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
 
-    const rows = entityData[entityIndex].dO
+  useEffect(() => {
+    async function getDOs() {
+      const dOs = await getEntityDo(entityID);
+      console.log('dOs: ' + dOs);
+      if(dOs.message) {
+          return null;
+      }
+      dispatch(loadExistingDOs(dOs));
+
+    }
+    getDOs();
+    // eslint-disable-next-line
+  },[entityID])
+
+  const rows = entityData[entityIndex].dO
 
   return (
     <TableContainer component={Paper}>
