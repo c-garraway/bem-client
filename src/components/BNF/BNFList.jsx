@@ -20,12 +20,10 @@ export default function BNFList() {
   React.useEffect(() => {
     async function getBNFs() {
       const BNFs = await getEntityBusinessNameFilings(entityID);
-      console.log('BNFs: ' + BNFs);
-      if(BNFs.message) {
-          return null;
+      if(BNFs?.message) {
+          return;
       }
       dispatch(loadExistingBNFs(BNFs));
-
     }
     getBNFs();
     // eslint-disable-next-line

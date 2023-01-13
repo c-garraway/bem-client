@@ -20,12 +20,10 @@ export default function CJList() {
   React.useEffect(() => {
     async function getCJs() {
       const CJs = await getEntityCorporateJurisdictions(entityID);
-      console.log('CJs: ' + CJs);
-      if(CJs.message) {
-          return null;
+      if(CJs?.message) {
+          return;
       }
       dispatch(loadExistingCJs(CJs));
-
     }
     getCJs();
     // eslint-disable-next-line

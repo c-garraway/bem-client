@@ -21,7 +21,7 @@ export default function BNList() {
     async function getBNs() {
       const BNs = await getEntityBusinessNames(entityID);
       console.log('BNs: ' + BNs);
-      if(BNs.message) {
+      if(BNs?.message) {
           return null;
       }
       dispatch(loadExistingBNs(BNs));

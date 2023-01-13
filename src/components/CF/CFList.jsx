@@ -22,11 +22,10 @@ export default function CFList() {
     async function getCFs() {
       const CFs = await getEntityCorporateFilings(entityID);
       console.log('CFs: ' + CFs);
-      if(CFs.message) {
-          return null;
+      if(CFs?.message) {
+          return;
       }
       dispatch(loadExistingCFs(CFs));
-
     }
     getCFs();
     // eslint-disable-next-line

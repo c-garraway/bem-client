@@ -49,13 +49,13 @@ export default function BNInfo({currentBNIndex}) {
   const [creationDate, setCreationDate] = React.useState(currentBN.creationDate);
   const [closeDate, setCloseDate] = React.useState(currentBN.closeDate);
  
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
   const [disabled, setDisabled] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
-    setErrorMessage('');
+    setErrorMessage();
 
   };
   const handleEdit = () => setDisabled(false);

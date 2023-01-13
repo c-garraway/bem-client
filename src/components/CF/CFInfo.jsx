@@ -46,7 +46,7 @@ export default function CFInfo({currentCFIndex}) {
   const [confirmation, setConfirmation] = React.useState(currentCF.confirmation);
   const [jurisdiction, setJurisdiction] = React.useState(currentCF.jurisdiction);
   const [dueDate, setDueDate] = React.useState(currentCF.dueDate);
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
   const [disabled, setDisabled] = React.useState(true);
 
   const handleOpen = () => setOpen(true);
@@ -54,7 +54,7 @@ export default function CFInfo({currentCFIndex}) {
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
-    setErrorMessage('');
+    setErrorMessage();
 };
   const handleEdit = () => setDisabled(false);
 

@@ -12,28 +12,28 @@ function EntityInfo() {
     const entityData = useSelector(selectEntityData);
     const entityID = entityData[entityIndex].id;
     const currentEntity = entityData[entityIndex];
-    const activeJurisdiction = [];
+    const activeJurisdictions = [];
 
     React.useEffect(() => {
         async function getCJs() {
           const CJs = await getEntityCorporateJurisdictions(entityID);
-          console.log('CJs: ' + CJs);
-          if(CJs.message) {
-              return null;
+          if(CJs?.message) {
+              return;
           }
-          dispatch(loadExistingCJs(CJs));
-    
+          dispatch(loadExistingCJs(CJs));    
         }
         getCJs();
         // eslint-disable-next-line
-      },[entityID])
+    },[entityID])
 
     currentEntity.corporateJurisdictions?.forEach(jurisdictions => {
         if(jurisdictions.status === 'ACTIVE') {
-            activeJurisdiction.push(` ${jurisdictions.jurisdiction}`)
-        }
-        
+            activeJurisdictions.push(` ${jurisdictions.jurisdiction}`)
+        }            
     })
+
+    console.log(activeJurisdictions)
+    
 
   return (
     <>
@@ -114,7 +114,7 @@ function EntityInfo() {
                     shrink: true,
                 }}
                 size="small"
-                value={activeJurisdiction}                
+                value={activeJurisdictions}                
                 />             
             </div>
         </Box>

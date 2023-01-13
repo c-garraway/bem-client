@@ -21,18 +21,17 @@ export default function DOList() {
   useEffect(() => {
     async function getDOs() {
       const dOs = await getEntityDo(entityID);
-      console.log('dOs: ' + dOs);
-      if(dOs.message) {
-          return null;
+      if(dOs?.message) {
+        return;
       }
       dispatch(loadExistingDOs(dOs));
-
     }
     getDOs();
     // eslint-disable-next-line
   },[entityID])
 
   const rows = entityData[entityIndex].dO
+  console.log(`rows do: ${rows}`)
 
   return (
     <TableContainer component={Paper}>

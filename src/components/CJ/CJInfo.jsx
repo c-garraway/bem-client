@@ -47,14 +47,14 @@ export default function CJInfo({currentCJIndex}) {
   const [status, setStatus] = React.useState(currentCJ.status);
   const [startDate, setStartDate] = React.useState(currentCJ.startDate);
   const [endDate, setEndDate] = React.useState(currentCJ.endDate);
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
 
   const [disabled, setDisabled] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
-    setErrorMessage('');
+    setErrorMessage();
 
 };
   const handleEdit = () => setDisabled(false);

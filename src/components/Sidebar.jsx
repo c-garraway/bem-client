@@ -16,12 +16,12 @@ function Sidebar() {
 
     useEffect(() => {
         async function getEntities() {
-            const entities = await getUserEntities(currentUser.id);
+            const entities = await getUserEntities(currentUser.id)
             console.log(entities.message);
-            if(entities.message) {
+            if(entities?.message) {
                 return null;
             }
-            dispatch(loadExistingEntities(entities));
+            dispatch(loadExistingEntities(entities))
     
         }
         getEntities();

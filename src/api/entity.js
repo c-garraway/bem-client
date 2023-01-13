@@ -9,7 +9,7 @@ export const  getUserEntities = async (userID) => {
         }
 };
 
-export const updateUserEntity = async (user) => {
+export const updateUserEntity = async (entityToUpdate) => {
     const response = await fetch(`${BASE_URL}/entities`,
         {
             method: 'PUT',
@@ -17,13 +17,13 @@ export const updateUserEntity = async (user) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "id": `${user.id}`,
-                "user_id": `${user.user_id}`,
-                "name": `${user.name}`,
-                "address": `${user.address}`,
-                "date_created": `${user.dateCreated}`,
-                "status": `${user.status}`,
-                "corp_id": `${user.corpID}`
+                "id": `${entityToUpdate.id}`,
+                "userID": `${entityToUpdate.userID}`,
+                "name": `${entityToUpdate.name}`,
+                "address": `${entityToUpdate.address}`,
+                "dateCreated": `${entityToUpdate.dateCreated}`,
+                "status": `${entityToUpdate.status}`,
+                "corpID": `${entityToUpdate.corpID}`
               })
         }) 
         const entity = await response.json()
@@ -31,7 +31,7 @@ export const updateUserEntity = async (user) => {
 
 };
 
-export const addUserEntity = async (user) => {
+export const addUserEntity = async (entityToAdd) => {
     const response = await fetch(`${BASE_URL}/entities`,
         {
             method: 'POST',
@@ -39,12 +39,12 @@ export const addUserEntity = async (user) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "user_id": `${user.user_id}`,
-                "name": `${user.name}`,
-                "address": `${user.address}`,
-                "date_created": `${user.date_created}`,
-                "status": `${user.status}`,
-                "corp_id": `${user.corp_id}`
+                "userID": `${entityToAdd.userID}`,
+                "name": `${entityToAdd.name}`,
+                "address": `${entityToAdd.address}`,
+                "dateCreated": `${entityToAdd.dateCreated}`,
+                "status": `${entityToAdd.status}`,
+                "corpID": `${entityToAdd.corpID}`
               })
         }) 
         const entity = await response.json()

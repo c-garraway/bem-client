@@ -4,10 +4,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
-import { selectCurrentEntity, selectEntityData, loadExistingEntities } from '../../features/entityData/entityDataSlice';
+import { selectCurrentEntity, selectEntityData, loadExistingEntities, loadExistingDOs, loadExistingBNs, loadExistingBNFs, loadExistingCFs, loadExistingCJs } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserEntities, updateUserEntity } from "../../api/entity";
 import { selectCurrentUser } from "../../features/userData/userDataSlice";
+import { getEntityDo } from "../../api/dO";
+import { getEntityBusinessNames } from "../../api/bN";
+import { getEntityBusinessNameFilings } from "../../api/bNF";
+import { getEntityCorporateFilings } from "../../api/cF";
+import { getEntityCorporateJurisdictions } from "../../api/cJ";
 
 const style = {
   position: 'absolute',
@@ -38,19 +43,21 @@ export default function EntityEdit() {
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
   const currentEntity = entityData[entityIndex];
+  const entityID = entityData[entityIndex].id;
+
   const currentUser = useSelector(selectCurrentUser);
 
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [dateCreated, setdateCreated] = useState('');
-  const [corpID, setCorpID] = useState('');
-  const [address, setAddress] = useState('');
-  const [status, setStatus] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [name, setName] = useState();
+  const [dateCreated, setDateCreated] = useState();
+  const [corpID, setCorpID] = useState();
+  const [address, setAddress] = useState();
+  const [status, setStatus] = useState();
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
     setName(currentEntity.name);
-    setdateCreated(currentEntity.dateCreated);
+    setDateCreated(currentEntity.dateCreated);
     setCorpID(currentEntity.corpID);
     setAddress(currentEntity.address);
     setStatus(currentEntity.status);
@@ -66,7 +73,7 @@ export default function EntityEdit() {
   };
   const handleSave = async () => {
 
-    if(name.length < 1 || address.length < 1 || dateCreated.length < 1 || status.length < 1 || corpID.length < 1) {
+    if(name?.length < 1 || address?.length < 1 || dateCreated?.length < 1 || status?.length < 1 || corpID?.length < 1) {
       setErrorMessage('All fields are required to edit entity!')
       
       return;
@@ -74,17 +81,69 @@ export default function EntityEdit() {
 
     await updateUserEntity({
       id: currentEntity.id,
-      user_id: currentEntity.user_id,
+      userID: currentEntity.userID,
       name: name,
       address: address,
       dateCreated: dateCreated,
       status: status,
       corpID: corpID, 
-    });
-    const entities = await getUserEntities(currentUser.id);
-    dispatch(loadExistingEntities(entities));
-    /* setOpen(false);
-    setErrorMessage(); */
+    })
+
+    async function getEntities() {
+      const entities = await getUserEntities(currentUser.id)
+      if(entities?.message) {
+        return;
+      }
+      dispatch(loadExistingEntities(entities))
+    }
+    
+    async function getDOs() {
+      const dOs = await getEntityDo(entityID)
+      if(dOs?.message) {
+        return;
+      }
+      dispatch(loadExistingDOs(dOs))
+    }
+    
+    async function getBNs() {
+      const bNs = await getEntityBusinessNames(entityID)
+      if(bNs?.message) {
+        return;
+      }
+      dispatch(loadExistingBNs(bNs))
+    }
+
+    async function getBNFs() {
+      const bNFs = await getEntityBusinessNameFilings(entityID)
+      if(bNFs?.message) {
+        return;
+      }
+      dispatch(loadExistingBNFs(bNFs))
+    }
+    
+    async function getCFs() {
+      const cFs = await getEntityCorporateFilings(entityID)
+      if(cFs?.message) {
+        return;
+      }
+      dispatch(loadExistingCFs(cFs))
+    }
+
+    async function getCJs() {
+      const cJs = await getEntityCorporateJurisdictions(entityID)
+      if(cJs?.message) {
+        return;
+      }
+      dispatch(loadExistingCJs(cJs))
+    }
+    
+    getEntities()
+    getDOs()
+    getBNs()
+    getBNFs()
+    getCFs()
+    getCJs()
+
     handleClose();
   };
 
@@ -148,7 +207,7 @@ export default function EntityEdit() {
                   shrink: true,
                 }}
                 defaultValue={currentEntity.dateCreated}
-                onChange={(e) => setdateCreated(e.currentTarget.value)}
+                onChange={(e) => setDateCreated(e.currentTarget.value)}
                 />
                 <TextField
                 required

@@ -48,13 +48,13 @@ export default function BNFInfo({currentBNIndex}) {
   const [jurisdiction, setJurisdiction] = React.useState(currentBNF.jurisdiction);
   const [dueDate, setDueDate] = React.useState(currentBNF.dueDate);
 
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
   const [disabled, setDisabled] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
-    setErrorMessage('');
+    setErrorMessage();
 };
   const handleEdit = () => setDisabled(false);
 

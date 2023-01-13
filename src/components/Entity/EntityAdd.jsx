@@ -39,37 +39,38 @@ export default function EntityAdd() {
   const currentUser = useSelector(selectCurrentUser);
   const [open, setOpen] = React.useState(false);
 
-  const [name, setName] = React.useState('');
-  const [date_created, setDate_created] = React.useState('');
-  const [corp_id, setCorp_id] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [status, setStatus] = React.useState('');
+  const [name, setName] = React.useState();
+  const [dateCreated, setDateCreated] = React.useState();
+  const [corpID, setCorpID] = React.useState();
+  const [address, setAddress] = React.useState();
+  const [status, setStatus] = React.useState();
   const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setErrorMessage();
   };
+
   const handleSave = async () => {
-    // perform input validation
-    if(name.length < 1 || address.length < 1 || date_created.length < 1 || status.length < 1 || corp_id.length < 1) {
+    if(name.length < 1 || address.length < 1 || dateCreated.length < 1 || status.length < 1 || corpID.length < 1) {
       setErrorMessage('All fields are required to add entity!')
       return;
     }
     await addUserEntity({
-      //TODO: Should be currentUser.user_id
-      user_id: currentUser.id,
+      userID: currentUser.id,
       name: name,
       address: address,
-      date_created: date_created,
+      dateCreated: dateCreated,
       status: status,
-      corp_id: corp_id,
+      corpID: corpID,
     })
-    const entities = await getUserEntities(currentUser.id);
-    dispatch(loadExistingEntities(entities));
-    setOpen(false);
-    setErrorMessage();
+
+    const entities = await getUserEntities(currentUser.id)
+    dispatch(loadExistingEntities(entities))
+
+    handleClose()
   };
 
   return (    
@@ -125,7 +126,7 @@ export default function EntityAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setDate_created(e.currentTarget.value)}
+                onChange={(e) => setDateCreated(e.currentTarget.value)}
                 />
                 <TextField
                 required
@@ -137,7 +138,7 @@ export default function EntityAdd() {
                 required
                 id="outlined"
                 label="Corporate ID"
-                onChange={(e) => setCorp_id(e.currentTarget.value)}
+                onChange={(e) => setCorpID(e.currentTarget.value)}
                 />             
             </div>
         </Box>  
