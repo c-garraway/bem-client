@@ -7,14 +7,30 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CJInfo from '../CJ/CJInfo';
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, loadExistingCJs } from "../../features/entityData/entityDataSlice";
+import { getEntityCorporateJurisdictions } from '../../api/cJ';
 
 export default function CJList() {
-
+  const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
-  
+  const entityID = entityData[entityIndex].id;
+
+  React.useEffect(() => {
+    async function getCJs() {
+      const CJs = await getEntityCorporateJurisdictions(entityID);
+      console.log('CJs: ' + CJs);
+      if(CJs.message) {
+          return null;
+      }
+      dispatch(loadExistingCJs(CJs));
+
+    }
+    getCJs();
+    // eslint-disable-next-line
+  },[entityID])
+
   const rows = entityData[entityIndex].corporateJurisdictions
 
   return (

@@ -1,15 +1,32 @@
 import {  Box, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux"
-import { selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { getEntityCorporateJurisdictions } from "../../api/cJ";
+import { loadExistingCJs, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 import { selectEntityData } from "../../features/entityData/entityDataSlice";
 import EntityEdit from "./EntityEdit";
 
 function EntityInfo() {
+    const dispatch = useDispatch();
     const entityIndex = useSelector(selectCurrentEntity);
     const entityData = useSelector(selectEntityData);
+    const entityID = entityData[entityIndex].id;
     const currentEntity = entityData[entityIndex];
     const activeJurisdiction = [];
+
+    React.useEffect(() => {
+        async function getCJs() {
+          const CJs = await getEntityCorporateJurisdictions(entityID);
+          console.log('CJs: ' + CJs);
+          if(CJs.message) {
+              return null;
+          }
+          dispatch(loadExistingCJs(CJs));
+    
+        }
+        getCJs();
+        // eslint-disable-next-line
+      },[entityID])
 
     currentEntity.corporateJurisdictions?.forEach(jurisdictions => {
         if(jurisdictions.status === 'ACTIVE') {

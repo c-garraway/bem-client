@@ -31,7 +31,7 @@ export const updateEntityBNF = async (bnfToUpdate) => {
 
 };
 
-export const addEntityBn = async (bnfToAdd) => {
+export const addEntityBNF = async (bnfToAdd) => {
     const response = await fetch(`${BASE_URL}/bnf`,
         {
             method: 'POST',

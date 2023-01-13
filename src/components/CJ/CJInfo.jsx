@@ -6,7 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, updateCJ, setCurrentCJ } from "../../features/entityData/entityDataSlice";
+import { selectEntityData, selectCurrentEntity, loadExistingCJs } from "../../features/entityData/entityDataSlice";
+import { getEntityCorporateJurisdictions, updateEntityCJ } from '../../api/cJ';
 
 const style = {
   position: 'absolute',
@@ -36,8 +37,8 @@ export default function CJInfo({currentCJIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
   const currentEntity = entityData[entityIndex];
-
   const currentCJ = entityData[entityIndex].corporateJurisdictions[currentCJIndex]
 
   const [open, setOpen] = React.useState(false);
@@ -57,21 +58,27 @@ export default function CJInfo({currentCJIndex}) {
 
 };
   const handleEdit = () => setDisabled(false);
-  const handleSave = () => {
+
+  const handleSave = async () => {
     if(jurisdiction.length < 1 || status.length < 1 || startDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentCJ(currentCJIndex));
-    dispatch(updateCJ({
+
+    await updateEntityCJ({
+      id: currentCJ.id,
+      entity: currentCJ.entity,
       jurisdiction: jurisdiction,
       status: status,
-      startDate: startDate,    
-      endDate: endDate,    
-    }));
-    setDisabled(true);
-    setErrorMessage('');
-    };  
+      startDate: startDate,
+      endDate: endDate
+    })
+
+    const CJs = await getEntityCorporateJurisdictions(entityID)
+    dispatch(loadExistingCJs(CJs))
+
+    handleClose()
+  };  
 
   return (
     <div >

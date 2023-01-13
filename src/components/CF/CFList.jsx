@@ -7,13 +7,30 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CFInfo from '../CF/CFInfo';
-import { useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { selectEntityData, selectCurrentEntity, loadExistingCFs } from "../../features/entityData/entityDataSlice";
+import { getEntityCorporateFilings } from '../../api/cF';
 
 export default function CFList() {
 
+  const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
+
+  React.useEffect(() => {
+    async function getCFs() {
+      const CFs = await getEntityCorporateFilings(entityID);
+      console.log('CFs: ' + CFs);
+      if(CFs.message) {
+          return null;
+      }
+      dispatch(loadExistingCFs(CFs));
+
+    }
+    getCFs();
+    // eslint-disable-next-line
+  },[entityID])
   
   const rows = entityData[entityIndex].corporateFilings
 

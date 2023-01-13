@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewBNF } from '../../features/entityData/entityDataSlice';
-import { useDispatch } from 'react-redux';
+import { loadExistingBNFs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEntityBNF, getEntityBusinessNameFilings } from '../../api/bNF';
 
 const style = {
   position: 'absolute',
@@ -39,17 +40,20 @@ const StyledButton = styled(Button) ({
 
 
 export default function BNFAdd() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const entityIndex = useSelector(selectCurrentEntity);
+  const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
 
   const [open, setOpen] = React.useState(false);
   
-  const [businessName, setBusinessName] = React.useState('');
-  const [subName, setSubName] = React.useState('');
-  const [confirmation, setConfirmation] = React.useState('');
-  const [jurisdiction, setJurisdiction] = React.useState('');
-  const [dueDate, setDueDate] = React.useState('');
+  const [businessName, setBusinessName] = React.useState();
+  const [subName, setSubName] = React.useState();
+  const [confirmation, setConfirmation] = React.useState();
+  const [jurisdiction, setJurisdiction] = React.useState();
+  const [dueDate, setDueDate] = React.useState();
 
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -57,18 +61,24 @@ export default function BNFAdd() {
     setErrorMessage('');
 
 };
-  const handleSave = () => {
+  const handleSave = async () => {
     if(businessName.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewBNF({
+
+    await addEntityBNF({
+      entity: entityID,
       businessName: businessName,
-      subName: subName,
-      confirmation: confirmation,
       jurisdiction: jurisdiction,
-      dueDate: dueDate,    
-    }));
+      subName: subName,
+      dueDate: dueDate,
+      confirmation: confirmation
+    })
+
+    const BNFs = await getEntityBusinessNameFilings(entityID)
+    dispatch(loadExistingBNFs(BNFs))
+
     setOpen(false);
 
     setBusinessName('');

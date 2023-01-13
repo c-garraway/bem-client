@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewCJ, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { loadExistingCJs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { addEntityCJ, getEntityCorporateJurisdictions } from '../../api/cJ';
 
 const style = {
   position: 'absolute',
@@ -42,43 +43,47 @@ export default function CJAdd() {
   const dispatch = useDispatch()
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
+  const entityID = entityData[entityIndex].id;
 
   const currentEntity = entityData[entityIndex];
 
   const [open, setOpen] = React.useState(false);
 
-  const [jurisdiction, setJurisdiction] = React.useState('');
-  const [status, setStatus] = React.useState('');
-  const [startDate, setStartDate] = React.useState('');
-  const [endDate, setEndDate] = React.useState('');
-
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [jurisdiction, setJurisdiction] = React.useState();
+  const [status, setStatus] = React.useState();
+  const [startDate, setStartDate] = React.useState();
+  const [endDate, setEndDate] = React.useState();
+  const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setErrorMessage('');
-
 };
-  const handleSave = () => {
+  const handleSave = async () => {
     if(jurisdiction.length < 1 || status.length < 1 || startDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewCJ({
+
+    await addEntityCJ({
+      entity: entityID,
       jurisdiction: jurisdiction,
       status: status,
       startDate: startDate,
-      endDate: endDate,    
-    }));
+      endDate: endDate
+    })
+
+    const CJs = await getEntityCorporateJurisdictions(entityID)
+    dispatch(loadExistingCJs(CJs))
+
     setOpen(false);
 
-    setJurisdiction('');
-    setStatus('');
-    setStartDate('');
-    setEndDate('');
-
-    setErrorMessage('');
+    setJurisdiction();
+    setStatus();
+    setStartDate();
+    setEndDate();
+    setErrorMessage();
     }; 
 
   return (

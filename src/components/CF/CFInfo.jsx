@@ -6,7 +6,8 @@ import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
-import { selectEntityData, selectCurrentEntity, updateCF, setCurrentCF } from "../../features/entityData/entityDataSlice";
+import { selectEntityData, selectCurrentEntity, loadExistingCFs } from "../../features/entityData/entityDataSlice";
+import { getEntityCorporateFilings, updateEntityCF } from '../../api/cF';
 
 const style = {
   position: 'absolute',
@@ -37,40 +38,44 @@ export default function CFInfo({currentCFIndex}) {
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
   const currentEntity = entityData[entityIndex];
-
-  const currentCF = entityData[entityIndex].corporateFilings[currentCFIndex]
+  const entityID = entityData[entityIndex].id;
+  const currentCF = entityData[entityIndex].corporateFilings[currentCFIndex];
 
   const [open, setOpen] = React.useState(false);
-
   const [subName, setSubName] = React.useState(currentCF.subName);
   const [confirmation, setConfirmation] = React.useState(currentCF.confirmation);
   const [jurisdiction, setJurisdiction] = React.useState(currentCF.jurisdiction);
   const [dueDate, setDueDate] = React.useState(currentCF.dueDate);
   const [errorMessage, setErrorMessage] = React.useState('');
-
   const [disabled, setDisabled] = React.useState(true);
+
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
     setErrorMessage('');
-
 };
   const handleEdit = () => setDisabled(false);
-  const handleSave = () => {
+
+  const handleSave = async () => {
     if(subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(setCurrentCF(currentCFIndex));
-    dispatch(updateCF({
-      subName: subName,
-      confirmation: confirmation,
+    await updateEntityCF({
+      id: currentCF.id,
+      entity: currentCF.entity,
       jurisdiction: jurisdiction,
-      dueDate: dueDate,    
-    }));
-    setDisabled(true)
-    setErrorMessage('');
+      subName: subName,
+      dueDate: dueDate,
+      confirmation: confirmation
+    })
+
+    const CFs = await getEntityCorporateFilings(entityID)
+    dispatch(loadExistingCFs(CFs))
+
+    handleClose()
 
     };
 

@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
-import { addNewCF, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
+import { loadExistingCFs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { addEntityCF, getEntityCorporateFilings } from '../../api/cF';
 
 const style = {
   position: 'absolute',
@@ -42,17 +43,17 @@ export default function CFAdd() {
   const dispatch = useDispatch()
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
-
   const currentEntity = entityData[entityIndex];
+  const entityID = entityData[entityIndex].id;
 
   const [open, setOpen] = React.useState(false);
 
-  const [subName, setSubName] = React.useState('');
-  const [confirmation, setConfirmation] = React.useState('');
-  const [jurisdiction, setJurisdiction] = React.useState('');
-  const [dueDate, setDueDate] = React.useState('');
+  const [subName, setSubName] = React.useState();
+  const [confirmation, setConfirmation] = React.useState();
+  const [jurisdiction, setJurisdiction] = React.useState();
+  const [dueDate, setDueDate] = React.useState();
 
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -60,17 +61,23 @@ export default function CFAdd() {
     setErrorMessage('');
 
 };
-  const handleSave = () => {
+  const handleSave = async () => {
     if(subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
-    dispatch(addNewCF({
-      subName: subName,
-      confirmation: confirmation,
+
+    await addEntityCF({
+      entity: entityID,
       jurisdiction: jurisdiction,
-      dueDate: dueDate,    
-    }));
+      subName: subName,
+      dueDate: dueDate,
+      confirmation: confirmation
+    })
+
+    const CFs = await getEntityCorporateFilings(entityID)
+    dispatch(loadExistingCFs(CFs))
+
     setOpen(false);
 
     setSubName('');
