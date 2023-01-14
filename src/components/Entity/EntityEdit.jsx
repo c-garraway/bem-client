@@ -7,7 +7,7 @@ import { styled, TextField } from '@mui/material';
 import { selectCurrentEntity, selectEntityData, loadExistingEntities, loadExistingDOs, loadExistingBNs, loadExistingBNFs, loadExistingCFs, loadExistingCJs } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserEntities, updateUserEntity } from "../../api/entity";
-import { selectCurrentUser } from "../../features/userData/userDataSlice";
+import { selectCurrentTab, selectCurrentUser } from "../../features/userData/userDataSlice";
 import { getEntityDo } from "../../api/dO";
 import { getEntityBusinessNames } from "../../api/bN";
 import { getEntityBusinessNameFilings } from "../../api/bNF";
@@ -44,6 +44,7 @@ export default function EntityEdit() {
   const entityData = useSelector(selectEntityData);
   const currentEntity = entityData[entityIndex];
   const entityID = entityData[entityIndex].id;
+  const currentTab = useSelector(selectCurrentTab);
 
   const currentUser = useSelector(selectCurrentUser);
 
@@ -136,13 +137,26 @@ export default function EntityEdit() {
       }
       dispatch(loadExistingCJs(cJs))
     }
-    
+
     getEntities()
-    getDOs()
-    getBNs()
-    getBNFs()
-    getCFs()
-    getCJs()
+
+    switch(currentTab) {
+      default:
+        getDOs()
+      break;
+      case 1:
+        getBNs()
+      break;
+      case 2:
+        getBNFs()
+      break;
+      case 3:
+        getCFs()
+      break;
+      case 4:
+        getCJs()
+      break;
+    }
 
     handleClose();
   };

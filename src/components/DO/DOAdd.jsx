@@ -46,20 +46,20 @@ export default function DOAdd() {
   const entityID = entityData[entityIndex].id;
 
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [position, setPosition] = React.useState('');
-  const [status, setStatus] = React.useState('');
-  const [startDate, setStartDate] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [phone, setPhone] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [name, setName] = React.useState();
+  const [position, setPosition] = React.useState();
+  const [status, setStatus] = React.useState();
+  const [startDate, setStartDate] = React.useState();
+  const [address, setAddress] = React.useState();
+  const [phone, setPhone] = React.useState();
+  const [email, setEmail] = React.useState();
   const [endDate, setEndDate] = React.useState();
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setErrorMessage('');
+    setErrorMessage();
 
 };
   const handleSave = async () => {
@@ -95,16 +95,16 @@ export default function DOAdd() {
     })); */
     setOpen(false);
 
-    setName('');
-    setPosition('');
-    setStatus('');
-    setStartDate('');
-    setAddress('');
-    setPhone('');
-    setEmail('');
-    setEndDate('');
+    setName();
+    setPosition();
+    setStatus();
+    setStartDate();
+    setAddress();
+    setPhone();
+    setEmail();
+    setEndDate();
 
-    setErrorMessage('');
+    setErrorMessage();
     }; 
 
   return (

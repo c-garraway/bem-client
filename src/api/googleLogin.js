@@ -19,13 +19,5 @@ export const getGoogleUser = async () => {
         
         const user = await response.json()
         return user
-        /* .then((response) => {
-            if(response.status === 200) return response.json();
-            throw new Error('Authentication Failed')
-        }).then(resObject => {
-            return resObject;
-        }).catch((err) => {
-            console.log(err);
-        }) */
 
 };

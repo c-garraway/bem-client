@@ -67,9 +67,10 @@ function AddUserProfile() {
     const [firstName, setFirstName] = useState(currentUser?.firstName);
     const [lastName, setLastName] = useState(currentUser?.lastName);
     const [companyName, setCompanyName] = useState(currentUser?.companyName);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState();
     
     const autoFocus = isLoggedIn && companyName === null ? true : false;
+    const guestDisable = firstName === 'Guest' ? true : false;
 
     const handleSave = () => {
         //TODO: Move into one save function
@@ -129,7 +130,7 @@ function AddUserProfile() {
             <Typography id="user-box-title" variant="h5" sx={{ mb: 2, textAlign: "center" }}>
                 User Profile
             </Typography>
-            { errorMessage.length > 0 ?
+            { errorMessage?.length > 0 ?
                 <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2, fontSize: "small", color: "red", textAlign: "center"  }}>
                         {errorMessage}
                 </Typography>
@@ -152,6 +153,7 @@ function AddUserProfile() {
                 />
                 <TextField
                     required
+                    disabled={guestDisable}
                     id="outlined-required"
                     label="First Name"
                     type='text'
@@ -161,12 +163,13 @@ function AddUserProfile() {
                     }}
                     onChange={(e) => {
                         setFirstName(e.currentTarget.value)
-                        setErrorMessage('')
+                        setErrorMessage()
                     }}
                     defaultValue={currentUser?.firstName}
                 />
                 <TextField
                     required
+                    disabled={guestDisable}
                     id="outlined-required"
                     label="Last Name"
                     type="text"
@@ -176,7 +179,7 @@ function AddUserProfile() {
                     }}
                     onChange={(e) => {
                         setLastName(e.currentTarget.value)
-                        setErrorMessage('')
+                        setErrorMessage()
                     }}
                     defaultValue={currentUser?.lastName}
 
@@ -193,7 +196,7 @@ function AddUserProfile() {
                     }}
                     onChange={(e) => {
                         setCompanyName(e.currentTarget.value)
-                        setErrorMessage('')
+                        setErrorMessage()
                     }}
                     defaultValue={currentUser?.companyName}
                     onKeyDown={handleKeyDown}

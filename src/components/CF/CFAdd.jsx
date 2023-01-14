@@ -58,7 +58,7 @@ export default function CFAdd() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setErrorMessage('');
+    setErrorMessage();
 
 };
   const handleSave = async () => {
@@ -80,12 +80,12 @@ export default function CFAdd() {
 
     setOpen(false);
 
-    setSubName('');
-    setConfirmation('');
-    setJurisdiction('');
-    setDueDate('');
+    setSubName();
+    setConfirmation();
+    setJurisdiction();
+    setDueDate();
 
-    setErrorMessage('');
+    setErrorMessage();
     }; 
 
   return (

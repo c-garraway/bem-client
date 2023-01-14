@@ -6,7 +6,7 @@ import { setCurrentUser, setIsLoggedIn } from "../../features/userData/userDataS
 import background from '../../images/background.jpg';
 import { loginLocalUser } from "../../api/localLogin";
 import { loginGoogleUser } from "../../api/googleLogin";
-import { loadExistingEntities } from "../../features/entityData/entityDataSlice";
+//import { loadExistingEntities } from "../../features/entityData/entityDataSlice";
 import GoogleIcon from '@mui/icons-material/Google';
 
 const formStyle = {
@@ -73,16 +73,34 @@ function UserLogin() {
             return;
         };
     };
-    const handleGuestUser = () => {
-        dispatch(setCurrentUser({
-            email: 'guest@email.com',
-            firstName: 'Guest',
-            lastName: 'User',
-            companyName: 'Whole Home Decor Corporation',
-        }))
-        dispatch(loadExistingEntities(guestUserData));
-        dispatch(setIsLoggedIn());
-        navigate('/main')   
+    const handleGuestUser = async () => {
+        const user = await loginLocalUser('guest@email.ca', 'guestPassword');
+
+        if(user.message) {
+            setErrorMessage(user.message);
+            return;
+        }
+        if(user.firstName === 'undefined') {
+            dispatch(setCurrentUser({
+                id: user.id,
+                email: user.email,
+            }));
+            navigate('/profile')
+            return;
+        };
+        if(user) {
+            dispatch(setCurrentUser({
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                companyName: user.companyName,
+                entityDataIndex: 0
+            }));
+            dispatch(setIsLoggedIn());
+            navigate('/main');
+            return;
+        };  
     };
     const handleGoogleUser =  () => {
         loginGoogleUser();
@@ -186,7 +204,7 @@ function UserLogin() {
  );
 }
 
-const guestUserData = [{
+/* const guestUserData = [{
     name: 'Furniture Corp 1',
     address: '1234 Second Street, Mississauga, ON',
     dateCreated: '1999-09-01',
@@ -727,5 +745,5 @@ const guestUserData = [{
     ]       
     
 }
-] 
+]  */
 export default UserLogin;

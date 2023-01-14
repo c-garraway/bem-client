@@ -3,13 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = () => {
     return {
         isLoggedIn: false,
-        currentUser: [/* {
-            email: 'guest@email.com',
-            firstName: 'Guest',
-            lastName: 'User',
-            companyName: 'Whole Home Decor Corporation',
-            entityDataIndex: 0
-        } */],
+        currentUser: 'none',
+        currentTab: 0
 
     }
 }
@@ -24,11 +19,15 @@ const userDataSlice = createSlice({
         },
         setIsLoggedIn: (state) => {
             state.isLoggedIn = true;
+        },
+        setCurrentTab: (state, action) => {
+            state.currentTab = action.payload;
         }
     }
 });
 
-export const {resetUserData, setCurrentUser, setIsLoggedIn} = userDataSlice.actions;
+export const {resetUserData, setCurrentUser, setIsLoggedIn, setCurrentTab} = userDataSlice.actions;
 export const selectCurrentUser = (state) => state.userData.currentUser;
 export const selectIsLoggedIn = (state) => state.userData.isLoggedIn;
+export const selectCurrentTab = (state) => state.userData.currentTab;
 export default userDataSlice.reducer;

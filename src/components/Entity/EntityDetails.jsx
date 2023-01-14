@@ -14,6 +14,8 @@ import BNFAdd from '../BNF/BNFAdd';
 import CFAdd from '../CF/CFAdd';
 import CJAdd from '../CJ/CJAdd';
 import CJList from '../CJ/CJList';
+import { setCurrentTab } from '../../features/userData/userDataSlice';
+import { useDispatch } from 'react-redux';
 
 
 function TabPanel(props) {
@@ -51,11 +53,16 @@ function a11yProps(index) {
 }
 
 export default function EntityDetails() {
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  React.useEffect(() => {
+    dispatch(setCurrentTab(value));
+  }, [dispatch, value])
 
   return (
     <Box sx={{ width: '100%' }}>

@@ -47,19 +47,19 @@ export default function BNAdd() {
 
   const [open, setOpen] = React.useState(false);
 
-  const [businessName, setBusinessName] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [status, setStatus] = React.useState('');
-  const [jurisdiction, setJurisdiction] = React.useState('');
-  const [creationDate, setCreationDate] = React.useState('');
+  const [businessName, setBusinessName] = React.useState();
+  const [address, setAddress] = React.useState();
+  const [status, setStatus] = React.useState();
+  const [jurisdiction, setJurisdiction] = React.useState();
+  const [creationDate, setCreationDate] = React.useState();
   const [closeDate, setCloseDate] = React.useState();
  
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setErrorMessage('');
+    setErrorMessage();
 
 };
   const handleSave = async () => {
@@ -83,14 +83,14 @@ export default function BNAdd() {
 
     setOpen(false);
 
-    setBusinessName('');
-    setAddress('');
-    setStatus('');
-    setJurisdiction('');
-    setCreationDate('');
-    setCloseDate('');
+    setBusinessName();
+    setAddress();
+    setStatus();
+    setJurisdiction();
+    setCreationDate();
+    setCloseDate();
 
-    setErrorMessage('');
+    setErrorMessage();
     }; 
 
   return (

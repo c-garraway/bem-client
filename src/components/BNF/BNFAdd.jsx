@@ -81,13 +81,13 @@ export default function BNFAdd() {
 
     setOpen(false);
 
-    setBusinessName('');
-    setSubName('');
-    setConfirmation('');
-    setJurisdiction('');
-    setDueDate('');
+    setBusinessName();
+    setSubName();
+    setConfirmation();
+    setJurisdiction();
+    setDueDate();
 
-    setErrorMessage('');
+    setErrorMessage();
     }; 
 
   return (
