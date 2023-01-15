@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:10000';
+const BASE_URL = 'https://bem-server.onrender.com';
 
 export const  loginGoogleUser = async () => {
     window.open(`${BASE_URL}/google`, "_self"); 

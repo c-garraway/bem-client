@@ -143,17 +143,18 @@ export default function EntityEdit() {
     switch(currentTab) {
       default:
         getDOs()
+        getCJs()
       break;
       case 1:
         getBNs()
+        getCJs()
       break;
       case 2:
         getBNFs()
+        getCJs()
       break;
       case 3:
         getCFs()
-      break;
-      case 4:
         getCJs()
       break;
     }
