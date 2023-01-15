@@ -6,7 +6,7 @@ export const  loginGoogleUser = async () => {
 };
 
 export const getGoogleUser = async () => {
-    const response = await fetch(`${BASE_URL}/google/getUser`,
+    const response = await fetch(`${BASE_URL}/google/success`,
         {
             method: 'GET',
             credentials: "include",
