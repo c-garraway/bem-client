@@ -15,23 +15,26 @@ function Main() {
   useEffect(() => {
     async function getUser() {
       const guser = await getGoogleUser();
-        if(guser) {
-            dispatch(setCurrentUser({
-                id: guser.id,
-                email: guser.email,
-                firstName: guser.firstname,
-                lastName: guser.lastname,
-                companyName: guser.companyname,
-                avatar: guser.avatar
-            }));
-            dispatch(setIsLoggedIn());
-            if(guser.companyname === null) {
-              navigate('/profile');
-              return;
-            }
-            navigate('/main');
-            return;
-        };
+      if(guser?.message) {
+        return;
+      }
+      if(guser.id) {
+        dispatch(setCurrentUser({
+          id: guser.id,
+          email: guser.email,
+          firstName: guser.firstname,
+          lastName: guser.lastname,
+          companyName: guser.companyname,
+          avatar: guser.avatar
+        }));
+        dispatch(setIsLoggedIn());
+        if(guser.companyname === null) {
+          navigate('/profile');
+          return;
+        }
+        navigate('/main');
+        return;
+      };
     }
 
     getUser();

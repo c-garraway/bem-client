@@ -1,4 +1,4 @@
-const BASE_URL = 'https://bem-server.onrender.com'
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 export const  addUserProfile = async (email, firstName, lastName, companyName) => {
     
