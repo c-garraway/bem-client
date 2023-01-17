@@ -35,7 +35,7 @@ function AddUserProfile() {
     const navigate = useNavigate();
     
 
-    useEffect(() => {
+/*     useEffect(() => {
         async function getUser() {
           const guser = await getGoogleUser();
             if(guser) {
@@ -54,7 +54,7 @@ function AddUserProfile() {
     
         getUser();
         // eslint-disable-next-line
-    },[]);
+    },[]); */
 
 
     const isLoggedIn = useSelector(selectIsLoggedIn);

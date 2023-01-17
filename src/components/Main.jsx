@@ -26,14 +26,14 @@ function Main() {
           lastName: guser.lastname,
           companyName: guser.companyname,
           avatar: guser.avatar
-        }));
-        dispatch(setIsLoggedIn());
-        if(guser.companyname === null) {
-          navigate('/profile');
-          return;
-        }
-        navigate('/main');
+      }));
+      dispatch(setIsLoggedIn());
+      if(guser.companyname === null) {
+        navigate('/profile');
         return;
+      }
+      navigate('/main');
+      //return;
       };
     }
 
