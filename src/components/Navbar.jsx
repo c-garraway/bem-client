@@ -1,4 +1,3 @@
-import { Menu as MenuIcon } from "@mui/icons-material";
 import { AppBar, Avatar, Box, Button, Menu, MenuItem, styled, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -89,7 +88,7 @@ function Navbar() {
         <StyledToolbar>
            <Typography 
             variant="h4" 
-            sx={{ display: { xs: "none", sm: "block"}}}>
+            /* sx={{ display: { xs: "none", sm: "block"}}} */>
               B E M
            </Typography>
            <Typography 
@@ -97,7 +96,7 @@ function Navbar() {
             sx={{ display: { xs: "none", sm: "block"}}}>
               {companyName}
            </Typography>
-           <MenuIcon sx={{ display: { xs: "block", sm: "none"}}}/> 
+           {/* <MenuIcon sx={{ display: { xs: "block", sm: "none"}}}/>  */}
            <Box sx={{ display: displayButtons}}>
             <Button 
               variant="outlined" 
@@ -135,11 +134,6 @@ function Navbar() {
                   onClick={handleClick}
                   >{currentUserName}</Typography>               
            </Box>
-           {/* <UserBox onClick={e=>setOpen(true)}>
-                <Avatar sx={{width: 30, height: 30, display: "none"}} 
-                src={"https://material-ui.com/static/images/avatar/1.jpg"}/> 
-                <Typography variant="span">Travis</Typography>
-           </UserBox> */}
         </StyledToolbar>
         <Menu
           id="demo-positioned-menu"

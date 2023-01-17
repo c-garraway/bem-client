@@ -8,10 +8,10 @@ import { addUserProfile } from "../../api/addProfile";
 
 const formStyle = {
     position: 'absolute',
-    top: '50%',
+    top: {xs: "40%", sm: "40%", md: "50%"},
     left: '50%',
     transform: 'translate(-50%, -40%)',
-    width: '30%',
+    width: {xs: "70%", sm: "70%", md: "30%"},
     maxHeight: '80%',
     bgcolor: 'background.paper',
     border: '2px solid #000',

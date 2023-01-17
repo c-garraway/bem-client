@@ -35,7 +35,7 @@ export default function BNList() {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
         <TableHead>
           <TableRow>
             <TableCell>Business Name</TableCell>

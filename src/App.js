@@ -21,7 +21,7 @@ function App() {
           <Route path='/register' element={<UserRegister/>} />
           <Route path='/profile' element={<AddUserProfile/>} />
           <Route path='/main' element={
-            <Stack direction="row" spacing={1} justifyContent="space-between">
+            <Stack direction={{ xs: "column", md: "row" }} spacing={1} justifyContent="space-between">
               <Sidebar/>
               <Main/>
             </Stack>} 
