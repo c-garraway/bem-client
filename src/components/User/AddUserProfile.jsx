@@ -1,11 +1,10 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate,  } from "react-router-dom";
 import { setCurrentUser, resetUserData, selectCurrentUser, selectIsLoggedIn } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg'
 import { addUserProfile } from "../../api/addProfile";
-import { getGoogleUser } from "../../api/googleLogin";
 
 const formStyle = {
     position: 'absolute',
