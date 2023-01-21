@@ -6,7 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 The purpose of this application is to manage multiple aspects of the corporate entity management role within an organization.
 
 ## Site URL
-### [bem.onrender.com](bem.onrender.com)
+### [bem.onrender.com](https://bem.onrender.com)
+
 ## Build Technologies
 This full stack web development project was built with the following technologies.
 
