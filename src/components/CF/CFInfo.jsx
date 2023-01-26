@@ -107,7 +107,7 @@ export default function CFInfo({currentCFIndex}) {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "30%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
             noValidate
             autoComplete="off"
             

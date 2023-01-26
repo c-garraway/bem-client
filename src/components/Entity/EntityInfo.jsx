@@ -42,7 +42,7 @@ function EntityInfo() {
             flex={1} 
             component="form"
             sx={{ 
-            '& .MuiTextField-root': { m: 1, width: '35ch', },}}
+            '& .MuiTextField-root': { m: 1, width: {xs: "95%", sm: "45%", md: "45%"}, }, }}
             noValidate
             autoComplete="off"
             

@@ -65,8 +65,8 @@ export default function EntityDetails() {
   }, [dispatch, value])
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', minWidth: '400px' }}>
+    <Box sx={{ width: '100%'}}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', minWidth: '400px'}}>
         <Tabs 
           value={value} 
           onChange={handleChange}
@@ -74,7 +74,7 @@ export default function EntityDetails() {
           scrollButtons={true} 
           allowScrollButtonsMobile
           aria-label="basic tabs example" >
-          <Tab label="D & O's" {...a11yProps(0)} />
+          <Tab label="D & O's" {...a11yProps(0)}  />
           <Tab label="Bus. Names" {...a11yProps(1)} />
           <Tab label="Bus. Name Filings" {...a11yProps(2)} />
           <Tab label="Corp. Filings" {...a11yProps(3)} />

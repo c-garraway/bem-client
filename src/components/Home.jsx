@@ -9,22 +9,37 @@ const backgroundStyle = {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    display: 'block',
+    padding: {xs: "15%", sm: "15%", md: "10%"}
+    
 };
 
 const typeStyle = {
-position: 'absolute',
-top: '25%',
-left: '50%',
-transform: 'translate(-50%, -50%)',
-width: {xs: "70%", sm: "70%", md: "80%"},
-maxHeight: '80%',
+width: {xs: "80%", sm: "20%", md: "30%"},
 bgcolor: 'background.paper',
-boxShadow: 24,
+/* boxShadow: 24, */
 p: 4,
+/* borderRadius: '25px', */
+opacity: '85%',
+margin: 'auto',
+fontSize: 'xx-large',
 textAlign: 'center',
-borderRadius: '5px'
+fontWeight: 'bold',
+borderTop: '1px solid lightgrey',
+borderBottom: '1px solid lightgrey'
 };
 
+const typeStyle2 = {
+  width: {xs: "80%", sm: "20%", md: "30%"},
+  bgcolor: 'background.paper',
+  /* boxShadow: 24, */
+  p: 4,
+  /* borderRadius: '25px', */
+  opacity: '85%',
+  margin: 'auto',
+  fontSize: 'larger',
+  textAlign: 'center'
+  };
 //{ mb: 2, textAlign: "center", bgcolor: 'white', p: '20px' }
 
 function Home() {
@@ -32,8 +47,14 @@ function Home() {
     <Box
         sx={backgroundStyle}        
         >
-        <Typography id="user-box-title" variant="h5" sx={typeStyle}>
+        <Typography id="home-title" variant="h5" sx={typeStyle2}>
+            Welcome To
+        </Typography>
+        <Typography id="home-title" variant="h5" sx={typeStyle}>
             Business Entity Management
+        </Typography>
+        <Typography id="home-title" variant="h5" sx={typeStyle2}>
+            Login or Register to get started!
         </Typography>
     </Box>
   );
