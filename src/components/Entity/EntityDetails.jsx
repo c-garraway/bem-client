@@ -30,7 +30,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0 }}>
           <Box>{children}</Box>
           {/* <Typography>{children}</Typography> */}
         </Box>
@@ -66,8 +66,9 @@ export default function EntityDetails() {
 
   return (
     <Box sx={{ width: '100%'}}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', minWidth: '400px'}}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', /* minWidth: '400px' */}}>
         <Tabs 
+          sx={{ml: 0, pl: 0}}
           value={value} 
           onChange={handleChange}
           variant="scrollable"

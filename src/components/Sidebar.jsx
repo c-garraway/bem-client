@@ -41,7 +41,7 @@ function Sidebar() {
                 type="search"
                 size="small"
                 onChange={(e) => setSearch(e.currentTarget.value)}
-                sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px', ml: '4px' }}
+                sx={{ width: '95%', bgcolor: 'background.paper', marginBottom: '3px', m: 1 }}
             />
             { search.length > 0 ?
                 <Box>
