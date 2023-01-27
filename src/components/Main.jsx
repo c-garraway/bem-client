@@ -6,12 +6,13 @@ import { useNavigate } from "react-router";
 import { selectIsLoggedIn, setCurrentUser, setIsLoggedIn } from "../features/userData/userDataSlice"
 import { useDispatch, useSelector } from "react-redux";
 import { getGoogleUser } from "../api/googleLogin";
+/* import { resetEntityData } from "../features/entityData/entityDataSlice"; */
 
 function Main() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
-
+  /* dispatch(resetEntityData()) */
   useEffect(() => {
     async function getUser() {
       const guser = await getGoogleUser();

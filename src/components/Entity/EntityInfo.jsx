@@ -81,7 +81,7 @@ function EntityInfo() {
                   }}
                 size="small"
                 value={currentEntity.dateCreated}
-                inputProps={{style: {textAlign: 'left'}}}
+                InputProps={{style: {textAlign: 'left'}}}
                 />
                 <TextField
                 disabled

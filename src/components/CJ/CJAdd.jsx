@@ -15,7 +15,7 @@ const style = {
   left: '50%',
   overflow:'scroll',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  width: {xs: "80%", sm: "50%", md: "50%"},
   maxHeight: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -58,10 +58,14 @@ export default function CJAdd() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setErrorMessage('');
+    setJurisdiction();
+    setStatus();
+    setStartDate();
+    setEndDate();
+    setErrorMessage();
 };
   const handleSave = async () => {
-    if(jurisdiction.length < 1 || status.length < 1 || startDate.length < 1) {
+    if(jurisdiction === undefined || status === undefined || startDate === undefined) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
@@ -77,13 +81,7 @@ export default function CJAdd() {
     const CJs = await getEntityCorporateJurisdictions(entityID)
     dispatch(loadExistingCJs(CJs))
 
-    setOpen(false);
-
-    setJurisdiction();
-    setStatus();
-    setStartDate();
-    setEndDate();
-    setErrorMessage();
+    handleClose()
     }; 
 
   return (
@@ -115,7 +113,7 @@ export default function CJAdd() {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { mt: 1, mb: 1, width: "100%"}}}
             noValidate
             autoComplete="off"
             
@@ -150,7 +148,6 @@ export default function CJAdd() {
                 onChange={(e) => setStartDate(e.currentTarget.value)}
                 />
                 <TextField
-                required
                 id="outlined-required"
                 label="End Date"
                 type="date"

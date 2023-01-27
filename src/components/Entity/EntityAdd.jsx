@@ -16,7 +16,7 @@ const style = {
   left: '50%',
   overflow:'scroll',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  width: {xs: "80%", sm: "50%", md: "50%"},
   maxHeight: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -50,11 +50,16 @@ export default function EntityAdd() {
 
   const handleClose = () => {
     setOpen(false);
+    setName()
+    setDateCreated()
+    setCorpID()
+    setAddress()
+    setStatus()
     setErrorMessage();
   };
 
   const handleSave = async () => {
-    if(name.length < 1 || address.length < 1 || dateCreated.length < 1 || status.length < 1 || corpID.length < 1) {
+    if(name === undefined || address === undefined || dateCreated === undefined || status === undefined || corpID === undefined) {
       setErrorMessage('All fields are required to add entity!')
       return;
     }
@@ -101,7 +106,7 @@ export default function EntityAdd() {
             flex={1} 
             component="form"
             sx={{
-            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '25ch'},}}
+            '& .MuiTextField-root': { mb: 1, mt: 1, width: "100%", /* minWidth: '25ch' */},}}
             noValidate
             autoComplete="off"
             >
@@ -110,13 +115,13 @@ export default function EntityAdd() {
                 required
                 id="outlined-required"
                 label="Name"
-                onChange={(e) => setName(e.currentTarget.value)}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('testing')}} //FOLLOW UP
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Address"
-                onChange={(e) => setAddress(e.currentTarget.value)}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('testing')}} //FOLLOW UP
                 />                
                 <TextField
                 required

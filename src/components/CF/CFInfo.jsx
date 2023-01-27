@@ -15,7 +15,7 @@ const style = {
   left: '50%',
   overflow:'scroll',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  width: {xs: "80%", sm: "50%", md: "50%"},
   maxHeight: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -107,7 +107,7 @@ export default function CFInfo({currentCFIndex}) {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { mt: 1, mb: 1, width: "100%"}}}
             noValidate
             autoComplete="off"
             

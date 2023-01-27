@@ -68,7 +68,6 @@ export default function EntityDetails() {
     <Box sx={{ width: '100%'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', /* minWidth: '400px' */}}>
         <Tabs 
-          sx={{ml: 0, pl: 0}}
           value={value} 
           onChange={handleChange}
           variant="scrollable"

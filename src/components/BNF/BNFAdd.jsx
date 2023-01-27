@@ -15,7 +15,7 @@ const style = {
   left: '50%',
   overflow:'scroll',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  width: {xs: "80%", sm: "50%", md: "50%"},
   maxHeight: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -58,11 +58,16 @@ export default function BNFAdd() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setErrorMessage('');
+    setBusinessName();
+    setSubName();
+    setConfirmation();
+    setJurisdiction();
+    setDueDate();
+    setErrorMessage();
 
 };
   const handleSave = async () => {
-    if(businessName.length < 1 || subName.length < 1 || confirmation.length < 1 || dueDate.length < 1) {
+    if(businessName === undefined || subName === undefined || confirmation === undefined || dueDate === undefined) {
       setErrorMessage('Required field(s) empty!')
       return;
     }
@@ -79,15 +84,7 @@ export default function BNFAdd() {
     const BNFs = await getEntityBusinessNameFilings(entityID)
     dispatch(loadExistingBNFs(BNFs))
 
-    setOpen(false);
-
-    setBusinessName();
-    setSubName();
-    setConfirmation();
-    setJurisdiction();
-    setDueDate();
-
-    setErrorMessage();
+    handleClose()
     }; 
 
   return (
@@ -119,7 +116,7 @@ export default function BNFAdd() {
             component="form"            
             sx={{ 
             
-            '& .MuiTextField-root': { m: 1, width: "100%", minWidth: '20ch'}}}
+            '& .MuiTextField-root': { mt: 1, mb: 1, width: "100%"}}}
             noValidate
             autoComplete="off"
             
