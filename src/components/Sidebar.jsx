@@ -1,4 +1,4 @@
-import { Box, ListItem, ListItemButton, ListItemText, TextField } from "@mui/material";
+import { Box, ListItem, ListItemButton, ListItemText, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 /* import { setCurrentEntity } from "../features/entityData/currentEntitySlice"; */
 import EntityAdd from "./Entity/EntityAdd";
@@ -13,6 +13,7 @@ function Sidebar() {
 
     const [search, setSearch] = React.useState('');
     const currentUser = useSelector(selectCurrentUser);
+    const companyName = currentUser?.companyName;
 
     useEffect(() => {
         async function getEntities() {
@@ -29,11 +30,16 @@ function Sidebar() {
     },[])
     
     const entityData = useSelector(selectEntityData);
-    console.log(entityData)
+    /* console.log(entityData) */
     return (
         <Box
             flex={1.5}
             >
+            <Typography 
+            variant="h6" 
+            sx={{ display: { xs: "flex", sm: "none", md: "none", width: 'fit-content', bgcolor: 'background.paper', margin: 'auto', borderBottom: "2px solid lightgrey", textAlign: "center"}}}>
+              {companyName}
+           </Typography>
             <EntityAdd/>
             <TextField
                 id="filled-search"

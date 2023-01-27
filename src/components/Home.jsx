@@ -15,7 +15,7 @@ const backgroundStyle = {
 };
 
 const typeStyle = {
-width: {xs: "80%", sm: "20%", md: "30%"},
+width: {xs: "80%", sm: "50%", md: "30%"},
 bgcolor: 'background.paper',
 /* boxShadow: 24, */
 p: 4,
@@ -30,7 +30,7 @@ borderBottom: '1px solid lightgrey'
 };
 
 const typeStyle2 = {
-  width: {xs: "80%", sm: "20%", md: "30%"},
+  width: {xs: "80%", sm: "50%", md: "30%"},
   bgcolor: 'background.paper',
   /* boxShadow: 24, */
   p: 4,
