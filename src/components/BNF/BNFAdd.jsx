@@ -90,11 +90,12 @@ export default function BNFAdd() {
   return (
     <div >
       <Button 
+        variant="outlined"
         onClick={handleOpen}
-          startIcon={<Add/>}
-          color="primary"
-          sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-          >Add Business Name Filing
+        startIcon={<Add/>}
+        color="primary"
+        sx={{ width: {xs: "95%", md: "fit-content"},  m:1 }}
+      >Add Business Name Filing
       </Button>
       <Modal
         open={open}

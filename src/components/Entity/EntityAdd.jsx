@@ -81,11 +81,12 @@ export default function EntityAdd() {
   return (    
     <div >
       <Button 
+        variant="contained"
         onClick={handleOpen}
         startIcon={<Add/>}
-        color="primary"
-        sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-        >Add Entity
+        color="success"
+        sx={{ width: '95%',  m:1 }}
+      >Add Entity
       </Button>
       <Modal
         open={open}

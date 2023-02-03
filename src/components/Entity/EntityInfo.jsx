@@ -6,6 +6,7 @@ import { loadExistingCJs, selectCurrentEntity } from "../../features/entityData/
 import { selectEntityData } from "../../features/entityData/entityDataSlice";
 import EntityEdit from "./EntityEdit";
 
+
 function EntityInfo() {
     const dispatch = useDispatch();
     const entityIndex = useSelector(selectCurrentEntity);
@@ -50,68 +51,98 @@ function EntityInfo() {
             <div>
                 <TextField
                 disabled
-                id="outlined-required"
+                id="standard-disabled"
                 label="Name"
-                variant="filled"
+                variant="standard"
                 size="small"
                 InputLabelProps={{
                     shrink: true,
+                }}
+                sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                 }}
                 value={currentEntity.name}
                 />
                 <TextField
                 disabled
-                id="outlined-disabled"
+                id="standard-disabled"
                 label="Address"
-                variant="filled"
+                variant="standard"
                 size="small"
                 InputLabelProps={{
                     shrink: true,
+                }}
+                sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                 }}
                 value={currentEntity.address}
                 />                
                 <TextField
                 disabled
-                id="outlined-required"
+                id="standard-disabled"
                 label="Date Created"
-                variant="filled"
+                variant="standard"
                 type="date"
                 InputLabelProps={{
                     shrink: true,
-                  }}
+                }}
+                sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    }, textAlign: "left",
+                }}
                 size="small"
                 value={currentEntity.dateCreated}
                 InputProps={{style: {textAlign: 'left'}}}
                 />
                 <TextField
                 disabled
-                id="outlined-disabled"
+                id="standard-disabled"
                 label="Status"
-                variant="filled"
+                variant="standard"
                 size="small"
                 InputLabelProps={{
                     shrink: true,
+                }}
+                sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                 }}
                 value={currentEntity.status}
                 />
                 <TextField
                 disabled
-                id="outlined-disabled"
+                id="standard-disabled"
                 label="Corporate ID"
-                variant="filled"
+                variant="standard"
                 size="small"
                 InputLabelProps={{
                     shrink: true,
+                }}
+                sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                 }}
                 value={currentEntity.corpID}
                 />   
                 <TextField
                 disabled
-                id="outlined-disabled"
+                id="standard-disabled"
                 label="Active Jurisdiction(s)"
-                variant="filled"
+                variant="standard"
                 InputLabelProps={{
                     shrink: true,
+                }}
+                sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000",
+                    },
                 }}
                 size="small"
                 value={activeJurisdictions}                

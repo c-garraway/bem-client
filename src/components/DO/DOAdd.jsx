@@ -107,11 +107,12 @@ export default function DOAdd() {
   return (
     <div >
       <Button 
+        variant="outlined"
         onClick={handleOpen}
-          startIcon={<Add/>}
-          color="primary"
-          sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-          >Add Director or Officer
+        startIcon={<Add/>}
+        color="primary"
+        sx={{ width: {xs: "95%", md: "fit-content"},  m:1 }}
+      >Add Director or Officer
       </Button>
       <Modal
         open={open}

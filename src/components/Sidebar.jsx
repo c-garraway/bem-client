@@ -37,7 +37,7 @@ function Sidebar() {
             >
             <Typography 
             variant="h6" 
-            sx={{ display: { xs: "flex", sm: "none", md: "none", width: 'fit-content', bgcolor: 'background.paper', margin: 'auto', borderBottom: "2px solid lightgrey", textAlign: "center"}}}>
+            sx={{ display: { xs: "flex", sm: "none", md: "none"}, width: 'fit-content', bgcolor: 'background.paper', margin: 'auto', pt: 1, fontSize: 'x-large'}}>
               {companyName}
            </Typography>
             <EntityAdd/>
