@@ -93,7 +93,9 @@ function EntityInfo() {
                 sx={{
                     "& .MuiInputBase-input.Mui-disabled": {
                       WebkitTextFillColor: "#000000",
-                    }, textAlign: "left",
+                    }, webkitDateAndTimeValue: {
+                        textAlign: "left"
+                    },
                 }}
                 size="small"
                 value={currentEntity.dateCreated}
