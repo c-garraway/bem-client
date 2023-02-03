@@ -92,14 +92,11 @@ function EntityInfo() {
                 }}
                 sx={{
                     "& .MuiInputBase-input.Mui-disabled": {
-                      WebkitTextFillColor: "#000000",
-                    }, webkitDateAndTimeValue: {
-                        textAlign: "left"
+                      WebkitTextFillColor: "#000000", textAlign: "-webkit-left"
                     },
                 }}
                 size="small"
                 value={currentEntity.dateCreated}
-                InputProps={{style: {textAlign: 'left'}}}
                 />
                 <TextField
                 disabled
