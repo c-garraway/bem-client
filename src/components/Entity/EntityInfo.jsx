@@ -92,7 +92,7 @@ function EntityInfo() {
                 }}
                 sx={{
                     "& .MuiInputBase-input.Mui-disabled": {
-                      WebkitTextFillColor: "#000000", textAlign: "-webkit-left"
+                      WebkitTextFillColor: "#000000"
                     },
                 }}
                 size="small"

@@ -134,7 +134,6 @@ function UserLogin() {
             }
             <div >
                 <TextField
-                autoFocus
                 required
                 id="outlined-required"
                 label="Email"

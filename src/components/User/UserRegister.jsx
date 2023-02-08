@@ -94,7 +94,6 @@ function UserRegister() {
             }
             <div>
                 <TextField
-                    autoFocus
                     required
                     id="outlined-required"
                     label="Email"
