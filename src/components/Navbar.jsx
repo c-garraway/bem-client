@@ -2,9 +2,11 @@ import { AppBar, Avatar, Box, Button, Menu, MenuItem, styled, Toolbar, Typograph
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCurrentUser, resetUserData, selectIsLoggedIn } from "../features/userData/userDataSlice";
+import { selectCurrentUser, resetUserData, selectIsLoggedIn, setIsLoggedIn, setCurrentUser } from "../features/userData/userDataSlice";
 import { resetEntityData } from "../features/entityData/entityDataSlice";
 import { logoutUser } from "../api/logout";
+import { useEffect } from "react";
+import { getLocalUser } from "../api/localLogin";
 
 const StyledToolbar = styled(Toolbar) ({
     display: "flex",
@@ -51,6 +53,33 @@ function Navbar() {
   const displayButtons = loggedIn ? "none" : "block"
   const displayAvatar = loggedIn ? "flex" : "none"
 
+  useEffect(() => {
+    async function getUser() {
+      const guser = await getLocalUser();
+      if(guser?.message) {
+        return;
+      }
+      if(guser.id) {
+        dispatch(setCurrentUser({
+          id: guser.id,
+          email: guser.email,
+          firstName: guser.firstname,
+          lastName: guser.lastname,
+          companyName: guser.companyname,
+          avatar: guser.avatar
+        }));
+        dispatch(setIsLoggedIn());
+        if(guser.companyname === null) {
+          navigate('/profile');
+          return;
+        }
+      };
+    };
+
+    getUser();
+    
+  },[loggedIn, dispatch, navigate]);
+
   const handleRegister = () => {
     navigate('/register')   
 
@@ -62,11 +91,11 @@ function Navbar() {
   const handleLogout = (event) => {
     setAnchorEl(event.currentTarget);
 
-    dispatch(resetUserData());
-    dispatch(resetEntityData());
-    handleClose();
-    logoutUser();
-    navigate('/');   
+    dispatch(resetUserData())
+    dispatch(resetEntityData())
+    handleClose()
+    logoutUser()
+    navigate('/')
     
   };
   const handleProfile = (event) => {

@@ -2,7 +2,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 
 export const  logoutUser = async () => {
     
-        const response = await fetch(`${BASE_URL}/users/logout`,
+        const response = await fetch(`${BASE_URL}/auth/logout`,
         {
             method: 'POST',
             credentials: "include",

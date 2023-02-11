@@ -3,7 +3,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 export const  getEntityCorporateJurisdictions = async (entityID) => {
 
         if(entityID){ 
-            const response = await fetch(`${BASE_URL}/cj/${entityID}`) 
+            const response = await fetch(`${BASE_URL}/cj/${entityID}`,
+            {
+                method: 'GET',
+                credentials: "include",
+            }) 
             const corporateJurisdictions = await response.json();
             return corporateJurisdictions;
         }
@@ -13,6 +17,7 @@ export const updateEntityCJ = async (cjToUpdate) => {
     const response = await fetch(`${BASE_URL}/cj`,
         {
             method: 'PUT',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -34,6 +39,7 @@ export const addEntityCJ = async (cjToAdd) => {
     const response = await fetch(`${BASE_URL}/cj`,
         {
             method: 'POST',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },

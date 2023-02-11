@@ -3,7 +3,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 export const  getEntityDo = async (entityID) => {
 
         if(entityID){ 
-            const response = await fetch(`${BASE_URL}/do/${entityID}`) 
+            const response = await fetch(`${BASE_URL}/do/${entityID}`,
+            {
+                method: 'GET',
+                credentials: "include",
+            }) 
             const dOs = await response.json();
             return dOs;
         }
@@ -13,6 +17,7 @@ export const updateEntityDo = async (doToUpdate) => {
     const response = await fetch(`${BASE_URL}/do`,
         {
             method: 'PUT',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -38,6 +43,7 @@ export const addEntityDo = async (doToAdd) => {
     const response = await fetch(`${BASE_URL}/do`,
         {
             method: 'POST',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },

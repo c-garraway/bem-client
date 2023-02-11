@@ -2,9 +2,10 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 
 export const  loginLocalUser = async (email, password) => {
     
-    const response = await fetch(`${BASE_URL}/users/login`,
+    const response = await fetch(`${BASE_URL}/auth/login`,
     {
         method: 'POST',
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
@@ -21,7 +22,7 @@ export const  loginLocalUser = async (email, password) => {
 };
 
 export const getLocalUser = async () => {
-    const response = await fetch(`${BASE_URL}/users/getUser`,
+    const response = await fetch(`${BASE_URL}/auth/getUser`,
         {
             method: 'GET',
             credentials: "include",

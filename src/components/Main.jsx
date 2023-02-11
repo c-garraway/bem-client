@@ -1,55 +1,9 @@
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import EntityInfo from "./Entity/EntityInfo";
 import EntityDetails from "./Entity/EntityDetails";
-import { useNavigate } from "react-router";
-import { selectIsLoggedIn, setCurrentUser, setIsLoggedIn } from "../features/userData/userDataSlice"
-import { useDispatch, useSelector } from "react-redux";
-import { getGoogleUser } from "../api/googleLogin";
-/* import { resetEntityData } from "../features/entityData/entityDataSlice"; */
 
 function Main() {
-  const dispatch = useDispatch();
-  const loggedIn = useSelector(selectIsLoggedIn);
-  const navigate = useNavigate();
-  /* dispatch(resetEntityData()) */
-  useEffect(() => {
-    async function getUser() {
-      const guser = await getGoogleUser();
-      if(guser?.message) {
-        return;
-      }
-      if(guser.id) {
-        dispatch(setCurrentUser({
-          id: guser.id,
-          email: guser.email,
-          firstName: guser.firstname,
-          lastName: guser.lastname,
-          companyName: guser.companyname,
-          avatar: guser.avatar
-      }));
-      dispatch(setIsLoggedIn());
-      if(guser.companyname === null) {
-        navigate('/profile');
-        return;
-      }
-      navigate('/main');
-      //return;
-      };
-    }
-
-    getUser();
-    
-    if(loggedIn === false) {   
-      return  (
-        navigate('/login') 
-       )
-    }
-    
-    // eslint-disable-next-line
-  },[]);
-
-  
 
   return (
     <Box

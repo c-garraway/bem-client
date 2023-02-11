@@ -3,7 +3,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 export const  getEntityBusinessNames = async (entityID) => {
 
         if(entityID){ 
-            const response = await fetch(`${BASE_URL}/bn/${entityID}`) 
+            const response = await fetch(`${BASE_URL}/bn/${entityID}`,
+            {
+                method: 'GET',
+                credentials: "include",
+            }) 
             const businessNames = await response.json();
             return businessNames;
         }
@@ -13,6 +17,7 @@ export const updateEntityBn = async (bnToUpdate) => {
     const response = await fetch(`${BASE_URL}/bn`,
         {
             method: 'PUT',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -36,6 +41,7 @@ export const addEntityBn = async (bnToAdd) => {
     const response = await fetch(`${BASE_URL}/bn`,
         {
             method: 'POST',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },

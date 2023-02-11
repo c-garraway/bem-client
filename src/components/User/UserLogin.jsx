@@ -2,7 +2,7 @@ import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCurrentUser, setIsLoggedIn } from "../../features/userData/userDataSlice";
+import { setIsLoggedIn } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg';
 import { loginLocalUser } from "../../api/localLogin";
 import { loginGoogleUser } from "../../api/googleLogin";
@@ -46,62 +46,20 @@ function UserLogin() {
             setErrorMessage('All fields are required!') 
             return;
         };
-        const user = await loginLocalUser(email, password);
-
-        if(user.message) {
+        const user = await loginLocalUser(email, password)
+        if(user.status === 'error') {
             setErrorMessage(user.message);
             return;
-        }
-        if(user.firstName === 'undefined') {
-            dispatch(setCurrentUser({
-                id: user.id,
-                email: user.email,
-            }));
-            navigate('/profile')
-            return;
-        };
-        if(user) {
-            dispatch(setCurrentUser({
-                id: user.id,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                companyName: user.companyName,
-                entityDataIndex: 0
-            }));
+        } else {
             dispatch(setIsLoggedIn());
             navigate('/main');
-            return;
-        };
+        }
+
     };
     const handleGuestUser = async () => {
-        const user = await loginLocalUser('guest@email.ca', 'guestPassword');
-
-        if(user.message) {
-            setErrorMessage(user.message);
-            return;
-        }
-        if(user.firstName === 'undefined') {
-            dispatch(setCurrentUser({
-                id: user.id,
-                email: user.email,
-            }));
-            navigate('/profile')
-            return;
-        };
-        if(user) {
-            dispatch(setCurrentUser({
-                id: user.id,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                companyName: user.companyName,
-                entityDataIndex: 0
-            }));
-            dispatch(setIsLoggedIn());
-            navigate('/main');
-            return;
-        };  
+        await loginLocalUser('guest@email.ca', 'guestPassword');
+        dispatch(setIsLoggedIn());
+        navigate('/main');
     };
     const handleGoogleUser =  () => {
         loginGoogleUser();

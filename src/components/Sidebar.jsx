@@ -25,9 +25,10 @@ function Sidebar() {
             dispatch(loadExistingEntities(entities))
     
         }
+
         getEntities();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+
+    },[currentUser, dispatch])
     
     const entityData = useSelector(selectEntityData);
     /* console.log(entityData) */

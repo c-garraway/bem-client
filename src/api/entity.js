@@ -3,22 +3,26 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 export const  getUserEntities = async (userID) => {
 
         if(userID){ 
-            const response = await fetch(`${BASE_URL}/entities/${userID}`) 
+            const response = await fetch(`${BASE_URL}/entities/${userID}`,
+            {
+                method: 'GET',
+                credentials: "include",
+            }) 
             const entities = await response.json();
             return entities;
         }
 };
 
 export const updateUserEntity = async (entityToUpdate) => {
-    const response = await fetch(`${BASE_URL}/entities`,
+    const response = await fetch(`${BASE_URL}/entities/${entityToUpdate.userID}`,
         {
             method: 'PUT',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "id": `${entityToUpdate.id}`,
-                "userID": `${entityToUpdate.userID}`,
                 "name": `${entityToUpdate.name}`,
                 "address": `${entityToUpdate.address}`,
                 "dateCreated": `${entityToUpdate.dateCreated}`,
@@ -32,14 +36,14 @@ export const updateUserEntity = async (entityToUpdate) => {
 };
 
 export const addUserEntity = async (entityToAdd) => {
-    const response = await fetch(`${BASE_URL}/entities`,
+    const response = await fetch(`${BASE_URL}/entities/${entityToAdd.userID}`,
         {
             method: 'POST',
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "userID": `${entityToAdd.userID}`,
                 "name": `${entityToAdd.name}`,
                 "address": `${entityToAdd.address}`,
                 "dateCreated": `${entityToAdd.dateCreated}`,
