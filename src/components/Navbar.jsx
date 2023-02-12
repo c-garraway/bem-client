@@ -4,38 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectCurrentUser, resetUserData, selectIsLoggedIn, setIsLoggedIn, setCurrentUser } from "../features/userData/userDataSlice";
 import { resetEntityData } from "../features/entityData/entityDataSlice";
-import { logoutUser } from "../api/logout";
+import { logoutUser, getUser } from "../api/auth";
 import { useEffect } from "react";
-import { getLocalUser } from "../api/localLogin";
 
 const StyledToolbar = styled(Toolbar) ({
     display: "flex",
     justifyContent: "space-between",
 });
-
-/* const Search = styled("div")(({ theme }) => ({
-    backgroundColor: "white",
-    padding: "0 10px",
-    borderRadius: theme.shape.borderRadius,
-    width: "50%"
-})); */
-
-/* const Icons = styled(Box)(({ theme }) => ({
-    gap: "20px",
-    alignItems: "center",
-    [theme.breakpoints.up("sm")]:{
-        display: "flex"
-    }
-})); */
-
-/* const UserBox = styled(Box)(({ theme }) => ({
-    display: "flex", 
-    gap: "10px",
-    alignItems: "center",
-    [theme.breakpoints.up("sm")]:{
-        display: "none"
-    }
-})); */
 
 function Navbar() {
 
@@ -54,8 +29,8 @@ function Navbar() {
   const displayAvatar = loggedIn ? "flex" : "none"
 
   useEffect(() => {
-    async function getUser() {
-      const guser = await getLocalUser();
+    async function getCurrentUser() {
+      const guser = await getUser();
       if(guser?.message) {
         return;
       }
@@ -76,7 +51,7 @@ function Navbar() {
       };
     };
 
-    getUser();
+    getCurrentUser();
     
   },[loggedIn, dispatch, navigate]);
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate,  } from "react-router-dom";
 import { setCurrentUser, resetUserData, selectCurrentUser, selectIsLoggedIn } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg'
-import { addUserProfile } from "../../api/addProfile";
+import { addUserProfile } from "../../api/auth";
 
 const formStyle = {
     position: 'absolute',
@@ -33,34 +33,8 @@ function AddUserProfile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-
-/*     useEffect(() => {
-        async function getUser() {
-          const guser = await getGoogleUser();
-            if(guser) {
-                dispatch(setCurrentUser({
-                    id: guser.id,
-                    email: guser.email,
-                    firstName: guser.firstname,
-                    lastName: guser.lastname,
-                    companyName: guser.companyname,
-                    avatar: guser.avatar
-                }));
-                //dispatch(setIsLoggedIn());
-                return;
-            };
-        };
-    
-        getUser();
-        // eslint-disable-next-line
-    },[]); */
-
-
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const currentUser = useSelector(selectCurrentUser);
-
-    //console.log('isloggedIn: ' + isLoggedIn);
-    //console.log('currentUser: ' + currentUser?.email);
 
     const [email, /* setEmail */] = useState(currentUser?.email);
     const [firstName, setFirstName] = useState(currentUser?.firstName);

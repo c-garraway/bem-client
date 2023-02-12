@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setIsLoggedIn } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg';
-import { loginLocalUser } from "../../api/localLogin";
-import { loginGoogleUser } from "../../api/googleLogin";
+import { loginLocalUser, loginGoogleUser } from "../../api/auth";
 //import { loadExistingEntities } from "../../features/entityData/entityDataSlice";
 import GoogleIcon from '@mui/icons-material/Google';
 
