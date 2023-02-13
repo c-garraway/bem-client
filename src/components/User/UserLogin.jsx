@@ -2,7 +2,7 @@ import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setIsLoggedIn } from "../../features/userData/userDataSlice";
+import { setIsLoggedIn, setUserType } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg';
 import { loginLocalUser, loginGoogleUser } from "../../api/auth";
 //import { loadExistingEntities } from "../../features/entityData/entityDataSlice";
@@ -51,6 +51,7 @@ function UserLogin() {
             return;
         } else {
             dispatch(setIsLoggedIn());
+            dispatch(setUserType('Local'))
             navigate('/main');
         }
 
@@ -58,10 +59,13 @@ function UserLogin() {
     const handleGuestUser = async () => {
         await loginLocalUser('guest@email.ca', 'guestPassword');
         dispatch(setIsLoggedIn());
+        dispatch(setUserType('Guest'))
         navigate('/main');
     };
     const handleGoogleUser =  () => {
         loginGoogleUser();
+        dispatch(setUserType('Google'))
+
     };
     const handleKeyDown = (e) => {
         if(e.key === 'Enter') {

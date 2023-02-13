@@ -2,7 +2,7 @@ import { AppBar, Avatar, Box, Button, Menu, MenuItem, styled, Toolbar, Typograph
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCurrentUser, resetUserData, selectIsLoggedIn, setIsLoggedIn, setCurrentUser } from "../features/userData/userDataSlice";
+import { selectCurrentUser, resetUserData, selectIsLoggedIn, setIsLoggedIn, setCurrentUser, selectUserType } from "../features/userData/userDataSlice";
 import { resetEntityData } from "../features/entityData/entityDataSlice";
 import { logoutUser, getUser } from "../api/auth";
 import { useEffect } from "react";
@@ -18,6 +18,7 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
+  const currentUserType = useSelector(selectUserType);
   const currentUser = useSelector(selectCurrentUser);
   const currentUserName = currentUser?.firstName;
   const companyName = currentUser?.companyName;
@@ -50,10 +51,12 @@ function Navbar() {
         }
       };
     };
-
-    getCurrentUser();
     
-  },[loggedIn, dispatch, navigate]);
+    if(currentUserType) {
+      getCurrentUser();
+    }
+    
+  },[loggedIn, dispatch, navigate, currentUserType]);
 
   const handleRegister = () => {
     navigate('/register')   
