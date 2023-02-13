@@ -669,7 +669,7 @@ const entityDataSlice = createSlice({
     }
 });
 
-export const {resetEntityData, loadExistingEntities, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, updateEntity, updateCF, setCurrentCJ, addNewCJ, updateCJ, loadExistingDOs, loadExistingBNs, loadExistingBNFs, loadExistingCFs, loadExistingCJs } = entityDataSlice.actions
+export const {resetEntityData, loadExistingEntities, addNewEntity, addNewDO, setCurrentEntity, addNewBN, addNewBNF, addNewCF, setCurrentDO, updateDO, /* setCurrentBN, updateBN, setCurrentBNF, updateBNF, setCurrentCF, setCurrentCJ, */ updateEntity, updateCF, addNewCJ, updateCJ, loadExistingDOs, loadExistingBNs, loadExistingBNFs, loadExistingCFs, loadExistingCJs } = entityDataSlice.actions
 export const selectEntityData = (state) => state.entityData.entities
 export const selectCurrentEntity = (state) => state.entityData.currentEntity
 export default entityDataSlice.reducer

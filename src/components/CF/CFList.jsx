@@ -21,7 +21,7 @@ export default function CFList() {
   React.useEffect(() => {
     async function getCFs() {
       const CFs = await getEntityCorporateFilings(entityID);
-      console.log('CFs: ' + CFs);
+      //console.log('CFs: ' + CFs);
       if(CFs?.message) {
           return;
       }

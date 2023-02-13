@@ -31,7 +31,7 @@ export default function DOList() {
   },[entityID])
 
   const rows = entityData[entityIndex].dO
-  console.log(`rows do: ${rows}`)
+  //console.log(`rows do: ${rows}`)
 
   return (
     <TableContainer component={Paper}>

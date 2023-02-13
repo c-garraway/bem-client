@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { loadExistingBNs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,15 +38,25 @@ const StyledButton = styled(Button) ({
  */
 });
 
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 export default function BNAdd() {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
   const entityID = entityData[entityIndex].id;
+  const disabled = entityData[0].name === '' ? true : false;
 
   const [open, setOpen] = React.useState(false);
-
   const [businessName, setBusinessName] = React.useState();
   const [address, setAddress] = React.useState();
   const [status, setStatus] = React.useState();
@@ -72,7 +82,6 @@ export default function BNAdd() {
 
   const handleSave = async () => {
     if(businessName === undefined  || status === undefined || creationDate === undefined || jurisdiction === undefined ) {
-console.log(creationDate)
       setErrorMessage('Required field(s) empty!')
       return;
     }
@@ -97,6 +106,7 @@ console.log(creationDate)
   return (
     <div >
       <Button 
+        disabled={disabled}
         variant="outlined"
         onClick={handleOpen}
         startIcon={<Add/>}
@@ -137,7 +147,7 @@ console.log(creationDate)
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setBusinessName(e.currentTarget.value)}
+                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 id="outlined"
@@ -145,17 +155,23 @@ console.log(creationDate)
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setAddress(e.currentTarget.value)}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
                 />                
                 <TextField
                 required
                 id="outlined-required"
+                select
                 label="Status"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />
+                defaultValue=""
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                 required
                 id="outlined-required"
@@ -163,7 +179,7 @@ console.log(creationDate)
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -173,7 +189,7 @@ console.log(creationDate)
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setCreationDate(e.currentTarget.value)}
+                onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 id="outlined"
@@ -182,7 +198,7 @@ console.log(creationDate)
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setCloseDate(e.currentTarget.value)}
+                onChange={(e) => {setCloseDate(e.currentTarget.value); setErrorMessage('')}}
                 />                             
             </div>
         </Box>

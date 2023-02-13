@@ -44,9 +44,9 @@ export default function BNFAdd() {
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
   const entityID = entityData[entityIndex].id;
+  const disabled = entityData[0].name === '' ? true : false;
 
   const [open, setOpen] = React.useState(false);
-  
   const [businessName, setBusinessName] = React.useState();
   const [subName, setSubName] = React.useState();
   const [confirmation, setConfirmation] = React.useState();
@@ -90,6 +90,7 @@ export default function BNFAdd() {
   return (
     <div >
       <Button 
+        disabled={disabled}
         variant="outlined"
         onClick={handleOpen}
         startIcon={<Add/>}
@@ -130,7 +131,7 @@ export default function BNFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setBusinessName(e.currentTarget.value)}
+                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -139,7 +140,7 @@ export default function BNFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setSubName(e.currentTarget.value)}
+                onChange={(e) => {setSubName(e.currentTarget.value); setErrorMessage('')}}
                 />                
                 <TextField
                 required
@@ -148,7 +149,7 @@ export default function BNFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setConfirmation(e.currentTarget.value)}
+                onChange={(e) => {setConfirmation(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -157,7 +158,7 @@ export default function BNFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -167,7 +168,7 @@ export default function BNFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                onChange={(e) => {setDueDate(e.currentTarget.value); setErrorMessage('')}}
                 />                               
             </div>
         </Box>

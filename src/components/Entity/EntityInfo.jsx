@@ -33,8 +33,6 @@ function EntityInfo() {
         }            
     })
 
-    console.log(activeJurisdictions)
-    
 
   return (
     <>

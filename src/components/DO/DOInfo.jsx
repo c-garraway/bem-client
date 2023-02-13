@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingDOs } from "../../features/entityData/entityDataSlice";
 import { getEntityDo, updateEntityDo } from '../../api/dO';
@@ -31,6 +31,17 @@ const StyledButton = styled(Button) ({
       }
  */
 });
+
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 
 export default function DOInfo({currentDOIndex}) {
@@ -138,14 +149,14 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Name"
                 defaultValue={currentDO.name}
-                onChange={(e) => setName(e.currentTarget.value)}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined"
                 label="Address"
                 defaultValue={currentDO.address}
-                onChange={(e) => setAddress(e.currentTarget.value)}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
                 />
                 
                 <TextField
@@ -154,29 +165,45 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Position"
                 defaultValue={currentDO.position}
-                onChange={(e) => setPosition(e.currentTarget.value)}
+                onChange={(e) => {setPosition(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined"
                 label="Phone"
                 defaultValue={currentDO.phone}
-                onChange={(e) => setPhone(e.currentTarget.value)}
+                onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage('')}}
                 />
-                <TextField
+{/*                 <TextField
                 required
                 disabled = {disabled}
                 id="outlined-required"
                 label="Status"
                 defaultValue={currentDO.status}
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                /> */}
+                <TextField
+                disabled = {disabled}
+                required
+                id="outlined-required"
+                select
+                label="Status"
+                defaultValue={currentDO.status}
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                 disabled = {disabled}
                 id="outlined"
                 label="Email"
                 defaultValue={currentDO.email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
+                onChange={(e) => {setEmail(e.currentTarget.value); setErrorMessage('')}}
                 />  
                 <TextField
                 required
@@ -188,7 +215,7 @@ export default function DOInfo({currentDOIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentDO.startDate}
-                onChange={(e) => setStartDate(e.currentTarget.value)}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
                 />  
                 <TextField
                 disabled = {disabled}
@@ -199,7 +226,7 @@ export default function DOInfo({currentDOIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentDO.endDate}
-                onChange={(e) => setEndDate(e.currentTarget.value)}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
                 />                  
             </div>
         </Box>

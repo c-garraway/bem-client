@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { selectCurrentEntity, selectEntityData, loadExistingEntities, loadExistingDOs, loadExistingBNs, loadExistingBNFs, loadExistingCFs, loadExistingCJs } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserEntities, updateUserEntity } from "../../api/entity";
@@ -37,6 +37,16 @@ const StyledButton = styled(Button) ({
  */
 });
 
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 export default function EntityEdit() {
   const dispatch = useDispatch()
@@ -45,7 +55,7 @@ export default function EntityEdit() {
   const currentEntity = entityData[entityIndex];
   const entityID = entityData[entityIndex].id;
   const currentTab = useSelector(selectCurrentTab);
-
+  const disabled = entityData[0].name === '' ? true : false;
   const currentUser = useSelector(selectCurrentUser);
 
   const [open, setOpen] = useState(false);
@@ -74,7 +84,7 @@ export default function EntityEdit() {
   };
   const handleSave = async () => {
 
-    if(name?.length < 1 || address?.length < 1 || dateCreated?.length < 1 || status?.length < 1 || corpID?.length < 1) {
+    if(name?.length < 1 || address?.length < 1 || dateCreated === null || status?.length < 1 || corpID?.length < 1) {
       setErrorMessage('All fields are required to edit entity!')
       
       return;
@@ -165,6 +175,7 @@ export default function EntityEdit() {
   return (    
     <div >
       <StyledButton 
+            disabled={disabled}
             variant="outlined"
             onClick={handleOpen}
             >Edit</StyledButton>
@@ -204,14 +215,14 @@ export default function EntityEdit() {
                 id="outlined-required"
                 label="Name"
                 defaultValue={currentEntity.name}
-                onChange={(e) => setName(e.currentTarget.value)}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Address"
                 defaultValue={currentEntity.address}
-                onChange={(e) => setAddress(e.currentTarget.value)}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
                 />                
                 <TextField
                 required
@@ -222,21 +233,36 @@ export default function EntityEdit() {
                   shrink: true,
                 }}
                 defaultValue={currentEntity.dateCreated}
-                onChange={(e) => setDateCreated(e.currentTarget.value)}
+                onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage('')}}
                 />
-                <TextField
+{/*                 <TextField
                 required
                 id="outlined-required"
                 label="Status"
                 defaultValue={currentEntity.status}
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                /> */}
+                <TextField
+                required
+                id="outlined-required"
+                select
+                label="Status"
+                defaultValue={currentEntity.status}
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                 required
                 id="outlined"
                 label="Corporate ID"
                 defaultValue={currentEntity.corpID}
-                onChange={(e) => setCorpID(e.currentTarget.value)}
+                onChange={(e) => {setCorpID(e.currentTarget.value); setErrorMessage('')}}
                 />             
             </div>
         </Box>  

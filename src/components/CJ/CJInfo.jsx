@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingCJs } from "../../features/entityData/entityDataSlice";
 import { getEntityCorporateJurisdictions, updateEntityCJ } from '../../api/cJ';
@@ -31,6 +31,17 @@ const StyledButton = styled(Button) ({
       }
  */
 });
+
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 
 export default function CJInfo({currentCJIndex}) {
@@ -119,16 +130,32 @@ export default function CJInfo({currentCJIndex}) {
                 id="outlined-required"
                 label="Jurisdiction"
                 defaultValue={currentCJ.jurisdiction}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />
-                <TextField
+{/*                 <TextField
                 required
                 disabled = {disabled}
                 id="outlined-required"
                 label="Status"
                 defaultValue={currentCJ.status}
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />              
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                /> */}
+                <TextField
+                disabled = {disabled}
+                required
+                id="outlined-required"
+                select
+                label="Status"
+                defaultValue={currentCJ.status}
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>              
                 <TextField
                 required
                 disabled = {disabled}
@@ -139,7 +166,7 @@ export default function CJInfo({currentCJIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentCJ.startDate}
-                onChange={(e) => setStartDate(e.currentTarget.value)}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 disabled = {disabled}
@@ -150,7 +177,7 @@ export default function CJInfo({currentCJIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentCJ.endDate}
-                onChange={(e) => setEndDate(e.currentTarget.value)}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
                 />               
             </div>
         </Box>

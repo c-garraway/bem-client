@@ -33,6 +33,7 @@ const StyledButton = styled(Button) ({
 });
 
 
+
 export default function BNFInfo({currentBNIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
@@ -117,7 +118,7 @@ export default function BNFInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Business Name"
                 defaultValue={currentBNF.businessName}
-                onChange={(e) => setBusinessName(e.currentTarget.value)}
+                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -125,7 +126,7 @@ export default function BNFInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Jurisdiction"
                 defaultValue={currentBNF.jurisdiction}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />
                 
                 <TextField
@@ -134,7 +135,7 @@ export default function BNFInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Name (submitter)"
                 defaultValue={currentBNF.subName}
-                onChange={(e) => setSubName(e.currentTarget.value)}
+                onChange={(e) => {setSubName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -146,7 +147,7 @@ export default function BNFInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBNF.dueDate}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                onChange={(e) => {setDueDate(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -154,7 +155,7 @@ export default function BNFInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Confirmation"
                 defaultValue={currentBNF.confirmation}
-                onChange={(e) => setConfirmation(e.currentTarget.value)}
+                onChange={(e) => {setConfirmation(e.currentTarget.value); setErrorMessage('')}}
                 />                
             </div>
         </Box>

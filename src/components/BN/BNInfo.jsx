@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingBNs } from "../../features/entityData/entityDataSlice";
 import { getEntityBusinessNames, updateEntityBn } from '../../api/bN';
@@ -32,6 +32,16 @@ const StyledButton = styled(Button) ({
  */
 });
 
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 export default function BNInfo({currentBNIndex}) {
   const dispatch = useDispatch();
@@ -120,22 +130,21 @@ export default function BNInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Business Name"
                 defaultValue={currentBN.businessName}
-                onChange={(e) => setBusinessName(e.currentTarget.value)}
+                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Jurisdiction"
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 defaultValue={currentBN.jurisdiction}
-                />
-                
+                />                
                 <TextField
                 disabled = {disabled}
                 id="outlined-required"
                 label="Address"
                 defaultValue={currentBN.address}
-                onChange={(e) => setAddress(e.currentTarget.value)}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 disabled = {disabled}
@@ -146,15 +155,31 @@ export default function BNInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBN.creationDate}
-                onChange={(e) => setCreationDate(e.currentTarget.value)}
+                onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage('')}}
                 />
-                <TextField
+{/*                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Status"
                 defaultValue={currentBN.status}
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                /> */}
+                <TextField
+                disabled = {disabled}
+                required
+                id="outlined-required"
+                select
+                label="Status"
+                defaultValue={currentBN.status}
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField> 
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
@@ -164,7 +189,7 @@ export default function BNInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBN.closeDate}
-                onChange={(e) => setCloseDate(e.currentTarget.value)}
+                onChange={(e) => {setCloseDate(e.currentTarget.value); setErrorMessage('')}}
                 />                  
             </div>
         </Box>

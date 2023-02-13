@@ -45,9 +45,9 @@ export default function CFAdd() {
   const entityData = useSelector(selectEntityData);
   const currentEntity = entityData[entityIndex];
   const entityID = entityData[entityIndex].id;
+  const disabled = entityData[0].name === '' ? true : false;
 
   const [open, setOpen] = React.useState(false);
-
   const [subName, setSubName] = React.useState();
   const [confirmation, setConfirmation] = React.useState();
   const [jurisdiction, setJurisdiction] = React.useState();
@@ -88,6 +88,7 @@ export default function CFAdd() {
   return (
     <div >
       <Button 
+        disabled={disabled}
         variant="outlined"
         onClick={handleOpen}
         startIcon={<Add/>}
@@ -121,15 +122,6 @@ export default function CFAdd() {
             
             >
             <div>
-                {/* <TextField
-                required
-                id="outlined-required"
-                label="Name"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setName(e.currentTarget.value)}
-                /> */}
                 <TextField
                 required
                 id="outlined-required"
@@ -137,7 +129,7 @@ export default function CFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setSubName(e.currentTarget.value)}
+                onChange={(e) => {setSubName(e.currentTarget.value); setErrorMessage('')}}
                 />                
                 <TextField
                 required
@@ -146,7 +138,7 @@ export default function CFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setConfirmation(e.currentTarget.value)}
+                onChange={(e) => {setConfirmation(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -155,7 +147,7 @@ export default function CFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -165,7 +157,7 @@ export default function CFAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                onChange={(e) => {setDueDate(e.currentTarget.value); setErrorMessage('')}}
                 />                  
             </div>
         </Box>

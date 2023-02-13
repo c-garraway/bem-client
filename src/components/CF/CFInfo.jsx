@@ -33,6 +33,7 @@ const StyledButton = styled(Button) ({
 });
 
 
+
 export default function CFInfo({currentCFIndex}) {
   const dispatch = useDispatch();
   const entityIndex = useSelector(selectCurrentEntity);
@@ -114,21 +115,13 @@ export default function CFInfo({currentCFIndex}) {
             >
             <div
              >
-                {/* <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Name"
-                defaultValue={currentCF.name}
-                onChange={(e) => setName(e.currentTarget.value)}
-                /> */}
                 <TextField
                 required
                 disabled = {disabled}
                 id="outlined-required"
                 label="Jurisdiction"
                 defaultValue={currentCF.jurisdiction}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />                
                 <TextField
                 required
@@ -136,7 +129,7 @@ export default function CFInfo({currentCFIndex}) {
                 id="outlined-required"
                 label="Name (submitter)"
                 defaultValue={currentCF.subName}
-                onChange={(e) => setSubName(e.currentTarget.value)}
+                onChange={(e) => {setSubName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -148,7 +141,7 @@ export default function CFInfo({currentCFIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentCF.dueDate}
-                onChange={(e) => setDueDate(e.currentTarget.value)}
+                onChange={(e) => {setDueDate(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
@@ -156,7 +149,7 @@ export default function CFInfo({currentCFIndex}) {
                 id="outlined-required"
                 label="Confirmation"
                 defaultValue={currentCF.confirmation}
-                onChange={(e) => setConfirmation(e.currentTarget.value)}
+                onChange={(e) => {setConfirmation(e.currentTarget.value); setErrorMessage('')}}
                 />                
             </div>
         </Box>

@@ -20,7 +20,7 @@ export default function BNList() {
   React.useEffect(() => {
     async function getBNs() {
       const BNs = await getEntityBusinessNames(entityID);
-      console.log('BNs: ' + BNs);
+      //console.log('BNs: ' + BNs);
       if(BNs?.message) {
           return null;
       }

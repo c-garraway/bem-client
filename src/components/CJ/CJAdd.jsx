@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { loadExistingCJs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,17 +38,26 @@ const StyledButton = styled(Button) ({
  */
 });
 
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 export default function CJAdd() {
   const dispatch = useDispatch()
   const entityIndex = useSelector(selectCurrentEntity);
   const entityData = useSelector(selectEntityData);
   const entityID = entityData[entityIndex].id;
-
+  const disabled = entityData[0].name === '' ? true : false;
   const currentEntity = entityData[entityIndex];
 
   const [open, setOpen] = React.useState(false);
-
   const [jurisdiction, setJurisdiction] = React.useState();
   const [status, setStatus] = React.useState();
   const [startDate, setStartDate] = React.useState();
@@ -87,6 +96,7 @@ export default function CJAdd() {
   return (
     <div >
       <Button 
+        disabled={disabled}
         variant="outlined"
         onClick={handleOpen}
         startIcon={<Add/>}
@@ -127,17 +137,23 @@ export default function CJAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setJurisdiction(e.currentTarget.value)}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
                 />                
                 <TextField
                 required
                 id="outlined-required"
+                select
                 label="Status"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />
+                defaultValue=""
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                 required
                 id="outlined-required"
@@ -146,7 +162,7 @@ export default function CJAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setStartDate(e.currentTarget.value)}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 id="outlined-required"
@@ -155,7 +171,7 @@ export default function CJAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setEndDate(e.currentTarget.value)}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
                 />                  
             </div>
         </Box>

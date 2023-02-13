@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { styled, TextField } from '@mui/material';
+import { MenuItem, styled, TextField } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { loadExistingEntities } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +32,17 @@ const StyledButton = styled(Button) ({
       }
  */
 });
+
+const statusField = [
+  {
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    value: 'INACTIVE',
+    label: 'INACTIVE'
+  },
+]
 
 
 export default function EntityAdd() {
@@ -116,13 +127,13 @@ export default function EntityAdd() {
                 required
                 id="outlined-required"
                 label="Name"
-                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('testing')}} //FOLLOW UP
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Address"
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('testing')}} //FOLLOW UP
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}} 
                 />                
                 <TextField
                 required
@@ -132,19 +143,28 @@ export default function EntityAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setDateCreated(e.currentTarget.value)}
+                onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage('')}}
                 />
                 <TextField
                 required
                 id="outlined-required"
+                select
                 label="Status"
-                onChange={(e) => setStatus(e.currentTarget.value)}
-                />
+                defaultValue=""
+                helperText="Please select status"
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                >
+                  {statusField.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                 required
                 id="outlined"
                 label="Corporate ID"
-                onChange={(e) => setCorpID(e.currentTarget.value)}
+                onChange={(e) => {setCorpID(e.currentTarget.value); setErrorMessage('')}}
                 />             
             </div>
         </Box>  

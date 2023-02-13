@@ -17,10 +17,10 @@ function Sidebar() {
 
     useEffect(() => {
         async function getEntities() {
-            const entities = await getUserEntities(currentUser.id)
-            console.log(entities.message);
-            if(entities?.message) {
-                return null;
+            const entities = await getUserEntities(currentUser.id);
+            //console.log(entities);
+            if(!entities) {
+                return ;
             }
             dispatch(loadExistingEntities(entities))
     
@@ -28,7 +28,7 @@ function Sidebar() {
 
         getEntities();
 
-    },[currentUser, dispatch])
+    },[currentUser.id, dispatch])
     
     const entityData = useSelector(selectEntityData);
     /* console.log(entityData) */
