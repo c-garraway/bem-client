@@ -49,6 +49,7 @@ const statusField = [
   },
 ]
 
+
 export default function DOAdd() {
   const dispatch = useDispatch()
   const entityIndex = useSelector(selectCurrentEntity);
@@ -86,6 +87,7 @@ export default function DOAdd() {
       setErrorMessage('Required field(s) empty!')
       return;
     }
+    /* console.log(entityID); */
     await addEntityDo({
       entity: entityID,
       name: name,
@@ -158,7 +160,7 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 id="outlined"
@@ -166,7 +168,7 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />
                 
                 <TextField
@@ -176,7 +178,7 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setPosition(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setPosition(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 id="outlined"
@@ -184,8 +186,17 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage()}}
                 />
+{/*                 <TextField
+                required
+                id="outlined-required"
+                label="Status"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
+                /> */}
                 <TextField
                 required
                 id="outlined-required"
@@ -193,7 +204,7 @@ export default function DOAdd() {
                 label="Status"
                 defaultValue=""
                 helperText="Please select status"
-                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage()}}
                 >
                   {statusField.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -208,7 +219,7 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setEmail(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setEmail(e.currentTarget.value); setErrorMessage()}}
                 />  
                 <TextField
                 required
@@ -218,7 +229,7 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />  
                 <TextField
                 id="outlined"
@@ -227,7 +238,7 @@ export default function DOAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage()}}
                 />                  
             </div>
         </Box>

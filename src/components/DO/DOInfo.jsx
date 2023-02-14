@@ -54,15 +54,15 @@ export default function DOInfo({currentDOIndex}) {
 
   const [open, setOpen] = React.useState(false);
   const [disabled, setDisabled] = React.useState(true);
-  const [name, setName] = React.useState('');
-  const [position, setPosition] = React.useState('');
-  const [status, setStatus] = React.useState('');
-  const [startDate, setStartDate] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [phone, setPhone] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [name, setName] = React.useState();
+  const [position, setPosition] = React.useState();
+  const [status, setStatus] = React.useState();
+  const [startDate, setStartDate] = React.useState();
+  const [address, setAddress] = React.useState();
+  const [phone, setPhone] = React.useState();
+  const [email, setEmail] = React.useState();
   const [endDate, setEndDate] = React.useState();
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState();
 
   useEffect(() => {
     setName(currentDO.name);
@@ -80,7 +80,7 @@ export default function DOInfo({currentDOIndex}) {
   const handleClose = () => {
     setOpen(false);
     setDisabled(true);
-    setErrorMessage('');
+    setErrorMessage();
   };
 
   const handleEdit = () => setDisabled(false);
@@ -149,14 +149,14 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Name"
                 defaultValue={currentDO.name}
-                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined"
                 label="Address"
                 defaultValue={currentDO.address}
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />
                 
                 <TextField
@@ -165,14 +165,14 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Position"
                 defaultValue={currentDO.position}
-                onChange={(e) => {setPosition(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setPosition(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined"
                 label="Phone"
                 defaultValue={currentDO.phone}
-                onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage()}}
                 />
 {/*                 <TextField
                 required
@@ -180,7 +180,7 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined-required"
                 label="Status"
                 defaultValue={currentDO.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
                 /> */}
                 <TextField
                 disabled = {disabled}
@@ -203,7 +203,7 @@ export default function DOInfo({currentDOIndex}) {
                 id="outlined"
                 label="Email"
                 defaultValue={currentDO.email}
-                onChange={(e) => {setEmail(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setEmail(e.currentTarget.value); setErrorMessage()}}
                 />  
                 <TextField
                 required
@@ -215,7 +215,7 @@ export default function DOInfo({currentDOIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentDO.startDate}
-                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />  
                 <TextField
                 disabled = {disabled}
@@ -226,7 +226,7 @@ export default function DOInfo({currentDOIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentDO.endDate}
-                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage()}}
                 />                  
             </div>
         </Box>

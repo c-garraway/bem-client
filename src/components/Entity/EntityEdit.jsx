@@ -215,14 +215,14 @@ export default function EntityEdit() {
                 id="outlined-required"
                 label="Name"
                 defaultValue={currentEntity.name}
-                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Address"
                 defaultValue={currentEntity.address}
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />                
                 <TextField
                 required
@@ -233,14 +233,14 @@ export default function EntityEdit() {
                   shrink: true,
                 }}
                 defaultValue={currentEntity.dateCreated}
-                onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage()}}
                 />
 {/*                 <TextField
                 required
                 id="outlined-required"
                 label="Status"
                 defaultValue={currentEntity.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
                 /> */}
                 <TextField
                 required
@@ -249,7 +249,7 @@ export default function EntityEdit() {
                 label="Status"
                 defaultValue={currentEntity.status}
                 helperText="Please select status"
-                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage()}}
                 >
                   {statusField.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -262,7 +262,7 @@ export default function EntityEdit() {
                 id="outlined"
                 label="Corporate ID"
                 defaultValue={currentEntity.corpID}
-                onChange={(e) => {setCorpID(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setCorpID(e.currentTarget.value); setErrorMessage()}}
                 />             
             </div>
         </Box>  

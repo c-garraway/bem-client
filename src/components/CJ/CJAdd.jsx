@@ -137,8 +137,17 @@ export default function CJAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage()}}
                 />                
+{/*                 <TextField
+                required
+                id="outlined-required"
+                label="Status"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
+                /> */}
                 <TextField
                 required
                 id="outlined-required"
@@ -146,7 +155,7 @@ export default function CJAdd() {
                 label="Status"
                 defaultValue=""
                 helperText="Please select status"
-                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage()}}
                 >
                   {statusField.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -162,7 +171,7 @@ export default function CJAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 id="outlined-required"
@@ -171,7 +180,7 @@ export default function CJAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage()}}
                 />                  
             </div>
         </Box>

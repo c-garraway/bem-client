@@ -82,6 +82,7 @@ export default function BNAdd() {
 
   const handleSave = async () => {
     if(businessName === undefined  || status === undefined || creationDate === undefined || jurisdiction === undefined ) {
+console.log(creationDate)
       setErrorMessage('Required field(s) empty!')
       return;
     }
@@ -147,7 +148,7 @@ export default function BNAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 id="outlined"
@@ -155,8 +156,17 @@ export default function BNAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />                
+{/*                 <TextField
+                required
+                id="outlined-required"
+                label="Status"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                /> */}
                 <TextField
                 required
                 id="outlined-required"
@@ -164,7 +174,7 @@ export default function BNAdd() {
                 label="Status"
                 defaultValue=""
                 helperText="Please select status"
-                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage()}}
                 >
                   {statusField.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -179,7 +189,7 @@ export default function BNAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 required
@@ -189,7 +199,7 @@ export default function BNAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 id="outlined"
@@ -198,7 +208,7 @@ export default function BNAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setCloseDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setCloseDate(e.currentTarget.value); setErrorMessage()}}
                 />                             
             </div>
         </Box>

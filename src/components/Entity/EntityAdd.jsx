@@ -127,13 +127,13 @@ export default function EntityAdd() {
                 required
                 id="outlined-required"
                 label="Name"
-                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setName(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 required
                 id="outlined"
                 label="Address"
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}} 
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}} 
                 />                
                 <TextField
                 required
@@ -143,8 +143,14 @@ export default function EntityAdd() {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage()}}
                 />
+{/*                 <TextField
+                required
+                id="outlined-required"
+                label="Status"
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
+                /> */}
                 <TextField
                 required
                 id="outlined-required"
@@ -152,7 +158,7 @@ export default function EntityAdd() {
                 label="Status"
                 defaultValue=""
                 helperText="Please select status"
-                onChange={(e) => {setStatus(e.target.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.target.value); setErrorMessage()}}
                 >
                   {statusField.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -164,7 +170,7 @@ export default function EntityAdd() {
                 required
                 id="outlined"
                 label="Corporate ID"
-                onChange={(e) => {setCorpID(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setCorpID(e.currentTarget.value); setErrorMessage()}}
                 />             
             </div>
         </Box>  

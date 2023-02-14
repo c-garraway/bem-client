@@ -130,7 +130,7 @@ export default function CJInfo({currentCJIndex}) {
                 id="outlined-required"
                 label="Jurisdiction"
                 defaultValue={currentCJ.jurisdiction}
-                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage()}}
                 />
 {/*                 <TextField
                 required
@@ -138,7 +138,7 @@ export default function CJInfo({currentCJIndex}) {
                 id="outlined-required"
                 label="Status"
                 defaultValue={currentCJ.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
                 /> */}
                 <TextField
                 disabled = {disabled}
@@ -166,7 +166,7 @@ export default function CJInfo({currentCJIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentCJ.startDate}
-                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 disabled = {disabled}
@@ -177,7 +177,7 @@ export default function CJInfo({currentCJIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentCJ.endDate}
-                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setEndDate(e.currentTarget.value); setErrorMessage()}}
                 />               
             </div>
         </Box>

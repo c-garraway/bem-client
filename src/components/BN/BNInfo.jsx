@@ -130,13 +130,13 @@ export default function BNInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Business Name"
                 defaultValue={currentBN.businessName}
-                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setBusinessName(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Jurisdiction"
-                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage()}}
                 defaultValue={currentBN.jurisdiction}
                 />                
                 <TextField
@@ -144,7 +144,7 @@ export default function BNInfo({currentBNIndex}) {
                 id="outlined-required"
                 label="Address"
                 defaultValue={currentBN.address}
-                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
                 disabled = {disabled}
@@ -155,14 +155,14 @@ export default function BNInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBN.creationDate}
-                onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage()}}
                 />
 {/*                 <TextField
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Status"
                 defaultValue={currentBN.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
                 /> */}
                 <TextField
                 disabled = {disabled}
@@ -189,7 +189,7 @@ export default function BNInfo({currentBNIndex}) {
                   shrink: true,
                 }}
                 defaultValue={currentBN.closeDate}
-                onChange={(e) => {setCloseDate(e.currentTarget.value); setErrorMessage('')}}
+                onChange={(e) => {setCloseDate(e.currentTarget.value); setErrorMessage()}}
                 />                  
             </div>
         </Box>
