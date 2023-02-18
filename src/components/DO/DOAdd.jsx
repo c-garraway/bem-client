@@ -8,6 +8,7 @@ import { Add } from '@mui/icons-material';
 import { loadExistingDOs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEntityDo, getEntityDo } from '../../api/dO';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -223,6 +224,7 @@ export default function DOAdd() {
                 />  
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Start Date"
                 type="date"
@@ -232,6 +234,7 @@ export default function DOAdd() {
                 onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />  
                 <TextField
+                className="left-input"
                 id="outlined"
                 label="End Date"
                 type="date"                

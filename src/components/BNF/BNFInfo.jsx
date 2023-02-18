@@ -8,6 +8,7 @@ import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingBNFs } from "../../features/entityData/entityDataSlice";
 import { getEntityBusinessNameFilings, updateEntityBNF } from '../../api/bNF';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -139,6 +140,7 @@ export default function BNFInfo({currentBNIndex}) {
                 />
                 <TextField
                 required
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-required"
                 label="Due Date"

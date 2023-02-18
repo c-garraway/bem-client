@@ -5,7 +5,7 @@ import { getEntityCorporateJurisdictions } from "../../api/cJ";
 import { loadExistingCJs, selectCurrentEntity } from "../../features/entityData/entityDataSlice";
 import { selectEntityData } from "../../features/entityData/entityDataSlice";
 import EntityEdit from "./EntityEdit";
-
+import '../../styles.css'
 
 function EntityInfo() {
     const dispatch = useDispatch();
@@ -80,6 +80,7 @@ function EntityInfo() {
                 value={currentEntity.address}
                 />                
                 <TextField
+                className="left-input"
                 disabled
                 id="standard-disabled"
                 label="Date Created"
@@ -88,7 +89,6 @@ function EntityInfo() {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                inputProps={{ style: { textAlign: 'left' }}}
                 sx={{
                     "& .MuiInputBase-input.Mui-disabled": {
                         WebkitTextFillColor: "#000000"

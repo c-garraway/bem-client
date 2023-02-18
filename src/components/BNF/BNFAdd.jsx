@@ -8,6 +8,7 @@ import { Add } from '@mui/icons-material';
 import { loadExistingBNFs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEntityBNF, getEntityBusinessNameFilings } from '../../api/bNF';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -162,6 +163,7 @@ export default function BNFAdd() {
                 />
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Due Date"
                 type="date"

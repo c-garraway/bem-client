@@ -9,6 +9,7 @@ import { loadExistingEntities } from '../../features/entityData/entityDataSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserEntity, getUserEntities } from '../../api/entity';
 import { selectCurrentUser } from '../../features/userData/userDataSlice';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -137,6 +138,7 @@ export default function EntityAdd() {
                 />                
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Date Created"
                 type="date"

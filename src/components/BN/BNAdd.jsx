@@ -8,6 +8,7 @@ import { Add } from '@mui/icons-material';
 import { loadExistingBNs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEntityBn, getEntityBusinessNames } from '../../api/bN';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -193,6 +194,7 @@ console.log(creationDate)
                 />
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Create Date"
                 type="date"
@@ -202,6 +204,7 @@ console.log(creationDate)
                 onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
+                className="left-input"
                 id="outlined"
                 label="Close Date"
                 type="date"

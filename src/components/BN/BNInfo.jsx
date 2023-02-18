@@ -8,6 +8,7 @@ import { MenuItem, styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingBNs } from "../../features/entityData/entityDataSlice";
 import { getEntityBusinessNames, updateEntityBn } from '../../api/bN';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -147,6 +148,7 @@ export default function BNInfo({currentBNIndex}) {
                 onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Creation Date"
@@ -181,6 +183,7 @@ export default function BNInfo({currentBNIndex}) {
                   ))}
                 </TextField> 
                 <TextField
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-disabled"
                 label="Close Date"

@@ -8,6 +8,7 @@ import { Add } from '@mui/icons-material';
 import { loadExistingCFs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEntityCF, getEntityCorporateFilings } from '../../api/cF';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -151,6 +152,7 @@ export default function CFAdd() {
                 />
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Due Date"
                 type="date"

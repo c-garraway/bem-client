@@ -8,6 +8,7 @@ import { MenuItem, styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingCJs } from "../../features/entityData/entityDataSlice";
 import { getEntityCorporateJurisdictions, updateEntityCJ } from '../../api/cJ';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -158,6 +159,7 @@ export default function CJInfo({currentCJIndex}) {
                 </TextField>              
                 <TextField
                 required
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-required"
                 label="Start Date"
@@ -169,6 +171,7 @@ export default function CJInfo({currentCJIndex}) {
                 onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-required"
                 label="End Date"

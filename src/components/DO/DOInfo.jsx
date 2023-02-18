@@ -8,6 +8,7 @@ import { MenuItem, styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingDOs } from "../../features/entityData/entityDataSlice";
 import { getEntityDo, updateEntityDo } from '../../api/dO';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -207,6 +208,7 @@ export default function DOInfo({currentDOIndex}) {
                 />  
                 <TextField
                 required
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-required"
                 label="Start Date"
@@ -218,6 +220,7 @@ export default function DOInfo({currentDOIndex}) {
                 onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />  
                 <TextField
+                className="left-input"
                 disabled = {disabled}
                 id="outlined"
                 label="End Date"

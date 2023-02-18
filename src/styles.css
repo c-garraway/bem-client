@@ -1,0 +1,6 @@
+.left-input input[type="date"]::-webkit-inner-spin-button,
+.left-input input[type="date"]::-webkit-calendar-picker-indicator {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}

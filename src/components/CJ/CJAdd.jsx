@@ -8,6 +8,7 @@ import { Add } from '@mui/icons-material';
 import { loadExistingCJs, selectCurrentEntity, selectEntityData } from '../../features/entityData/entityDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEntityCJ, getEntityCorporateJurisdictions } from '../../api/cJ';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',

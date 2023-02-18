@@ -8,6 +8,7 @@ import { styled, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux"
 import { selectEntityData, selectCurrentEntity, loadExistingCFs } from "../../features/entityData/entityDataSlice";
 import { getEntityCorporateFilings, updateEntityCF } from '../../api/cF';
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -133,6 +134,7 @@ export default function CFInfo({currentCFIndex}) {
                 />
                 <TextField
                 required
+                className="left-input"
                 disabled = {disabled}
                 id="outlined-required"
                 label="Due Date"
