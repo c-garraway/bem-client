@@ -88,12 +88,10 @@ function EntityInfo() {
                 InputLabelProps={{
                     shrink: true,
                 }}
+                inputProps={{ style: { textAlign: 'left' }}}
                 sx={{
                     "& .MuiInputBase-input.Mui-disabled": {
                         WebkitTextFillColor: "#000000"
-                    },
-                    "& .MuiOutlinedInput-input": {
-                        WebkitDateAndTimeValue: { textAlign: "left"}
                     }
                 }}
                 size="small"
