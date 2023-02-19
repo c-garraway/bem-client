@@ -159,13 +159,6 @@ export default function BNInfo({currentBNIndex}) {
                 defaultValue={currentBN.creationDate}
                 onChange={(e) => {setCreationDate(e.currentTarget.value); setErrorMessage()}}
                 />
-{/*                 <TextField
-                disabled = {disabled}
-                id="outlined-disabled"
-                label="Status"
-                defaultValue={currentBN.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 disabled = {disabled}
                 required

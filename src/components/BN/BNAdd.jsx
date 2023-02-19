@@ -159,15 +159,6 @@ console.log(creationDate)
                 }}
                 onChange={(e) => {setAddress(e.currentTarget.value); setErrorMessage()}}
                 />                
-{/*                 <TextField
-                required
-                id="outlined-required"
-                label="Status"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage('')}}
-                /> */}
                 <TextField
                 required
                 id="outlined-required"

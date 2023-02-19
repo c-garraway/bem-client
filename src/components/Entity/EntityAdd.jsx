@@ -147,12 +147,6 @@ export default function EntityAdd() {
                 }}
                 onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage()}}
                 />
-{/*                 <TextField
-                required
-                id="outlined-required"
-                label="Status"
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 required
                 id="outlined-required"

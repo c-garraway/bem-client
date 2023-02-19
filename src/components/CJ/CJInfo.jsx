@@ -133,14 +133,6 @@ export default function CJInfo({currentCJIndex}) {
                 defaultValue={currentCJ.jurisdiction}
                 onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage()}}
                 />
-{/*                 <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Status"
-                defaultValue={currentCJ.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 disabled = {disabled}
                 required

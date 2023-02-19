@@ -13,6 +13,7 @@ import { getEntityBusinessNames } from "../../api/bN";
 import { getEntityBusinessNameFilings } from "../../api/bNF";
 import { getEntityCorporateFilings } from "../../api/cF";
 import { getEntityCorporateJurisdictions } from "../../api/cJ";
+import '../../styles.css'
 
 const style = {
   position: 'absolute',
@@ -179,13 +180,6 @@ export default function EntityEdit() {
             variant="outlined"
             onClick={handleOpen}
             >Edit</StyledButton>
-      {/* <Button 
-        onClick={handleOpen}
-        startIcon={<Add/>}
-        color="primary"
-        sx={{ width: '100%', bgcolor: 'background.paper', marginBottom: '3px' }}
-        >Add Entity
-      </Button> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -226,6 +220,7 @@ export default function EntityEdit() {
                 />                
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Date Created"
                 type="date"
@@ -235,13 +230,6 @@ export default function EntityEdit() {
                 defaultValue={currentEntity.dateCreated}
                 onChange={(e) => {setDateCreated(e.currentTarget.value); setErrorMessage()}}
                 />
-{/*                 <TextField
-                required
-                id="outlined-required"
-                label="Status"
-                defaultValue={currentEntity.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 required
                 id="outlined-required"

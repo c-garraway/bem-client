@@ -189,15 +189,6 @@ export default function DOAdd() {
                 }}
                 onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage()}}
                 />
-{/*                 <TextField
-                required
-                id="outlined-required"
-                label="Status"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 required
                 id="outlined-required"

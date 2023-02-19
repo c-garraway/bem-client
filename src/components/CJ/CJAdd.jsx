@@ -24,12 +24,7 @@ const style = {
   p: 4,
 };
 
-/* const StyledTextField = styled(TextField) ({
-  InputLabelProps: {
-    shrink: true,
-  },
-});
- */
+
 const StyledButton = styled(Button) ({
     margin: 5,
     /* '&:hover':{
@@ -140,15 +135,6 @@ export default function CJAdd() {
                 }}
                 onChange={(e) => {setJurisdiction(e.currentTarget.value); setErrorMessage()}}
                 />                
-{/*                 <TextField
-                required
-                id="outlined-required"
-                label="Status"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 required
                 id="outlined-required"
@@ -166,6 +152,7 @@ export default function CJAdd() {
                 </TextField>
                 <TextField
                 required
+                className="left-input"
                 id="outlined-required"
                 label="Start Date"
                 type="date"
@@ -175,6 +162,7 @@ export default function CJAdd() {
                 onChange={(e) => {setStartDate(e.currentTarget.value); setErrorMessage()}}
                 />
                 <TextField
+                className="left-input"
                 id="outlined-required"
                 label="End Date"
                 type="date"

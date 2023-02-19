@@ -175,14 +175,6 @@ export default function DOInfo({currentDOIndex}) {
                 defaultValue={currentDO.phone}
                 onChange={(e) => {setPhone(e.currentTarget.value); setErrorMessage()}}
                 />
-{/*                 <TextField
-                required
-                disabled = {disabled}
-                id="outlined-required"
-                label="Status"
-                defaultValue={currentDO.status}
-                onChange={(e) => {setStatus(e.currentTarget.value); setErrorMessage()}}
-                /> */}
                 <TextField
                 disabled = {disabled}
                 required

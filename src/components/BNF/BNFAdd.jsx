@@ -24,12 +24,6 @@ const style = {
   p: 4,
 };
 
-/* const StyledTextField = styled(TextField) ({
-  InputLabelProps: {
-    shrink: true,
-  },
-});
- */
 const StyledButton = styled(Button) ({
     margin: 5,
     /* '&:hover':{
