@@ -51,7 +51,7 @@ function UserRegister() {
             return;
         }
         const user = await registerLocalUser(email, password, confirmPassword);
-        console.log(user);
+        //console.log(user);
         if(user?.errors) {
             setErrorMessage(user?.errors)
             return;

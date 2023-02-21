@@ -19,10 +19,12 @@ function Sidebar() {
         async function getEntities() {
             const entities = await getUserEntities(currentUser.id);
             //console.log(entities);
-            if(!entities) {
+            if(entities.message) {
                 return ;
+            
+            } else {
+                dispatch(loadExistingEntities(entities))
             }
-            dispatch(loadExistingEntities(entities))
     
         }
 
@@ -52,7 +54,7 @@ function Sidebar() {
             />
             { search.length > 0 ?
                 <Box>
-                    {entityData.map((entity, index) => {
+                    {entityData?.map((entity, index) => {
                         const changeCurrentEntity = () => {
                             dispatch(setCurrentEntity(index))
                         }
@@ -70,7 +72,7 @@ function Sidebar() {
                 </Box> 
                 :
                 <Box>
-                    { entityData[0].name === '' ?
+                    { entityData[0]?.name === '' ?
                         <div>                           
                             <ListItem component="div" disablePadding>
                             <ListItemButton>
@@ -80,7 +82,7 @@ function Sidebar() {
                         </div>
                         :
                         <div>
-                            {entityData.map((entity, index) => {
+                            {entityData?.map((entity, index) => {
                                 const changeCurrentEntity = () => {
                                     dispatch(setCurrentEntity(index))
                                 }

@@ -58,7 +58,7 @@ function AddUserProfile() {
             companyName,
         );
         dispatch(resetUserData());
-        navigate('/main');
+        navigate('/login');
     };
     const handleUpdate = () => {
         if(firstName?.length < 1 || lastName?.length < 1 || companyName?.length < 1 ) {
