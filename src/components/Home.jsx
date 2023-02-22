@@ -1,6 +1,9 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectIsLoggedIn } from "../features/userData/userDataSlice";
 import background from '../images/background.jpg'
 
 const backgroundStyle = {
@@ -43,6 +46,16 @@ const typeStyle2 = {
 //{ mb: 2, textAlign: "center", bgcolor: 'white', p: '20px' }
 
 function Home() {
+
+  const loggedIn = useSelector(selectIsLoggedIn);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(loggedIn) {
+      navigate('/main')
+    }
+  })
+
   return (
     <Box
         sx={backgroundStyle}        

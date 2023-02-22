@@ -9,7 +9,7 @@ import { selectCurrentUser } from "../features/userData/userDataSlice";
 
 
 function Sidebar() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()  
 
     const [search, setSearch] = React.useState('');
     const currentUser = useSelector(selectCurrentUser);
@@ -17,15 +17,18 @@ function Sidebar() {
 
     useEffect(() => {
         async function getEntities() {
-            const entities = await getUserEntities(currentUser.id);
-            //console.log(entities);
-            if(entities.message) {
-                return ;
-            
-            } else {
+            try {
+                const entities = await getUserEntities(currentUser.id);
+
+                if(entities === undefined || 'message' in entities) {
+                    return ;
+                }
+
                 dispatch(loadExistingEntities(entities))
+                
+            } catch (error) {
+                console.log(error)
             }
-    
         }
 
         getEntities();

@@ -1,8 +1,8 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setIsLoggedIn, setUserType } from "../../features/userData/userDataSlice";
+import { selectIsLoggedIn, setIsLoggedIn, setUserType } from "../../features/userData/userDataSlice";
 import background from '../../images/background.jpg';
 import { loginLocalUser, loginGoogleUser } from "../../api/auth";
 //import { loadExistingEntities } from "../../features/entityData/entityDataSlice";
@@ -35,6 +35,13 @@ const backgroundStyle = {
 function UserLogin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const loggedIn = useSelector(selectIsLoggedIn);
+  
+    useEffect(() => {
+      if(loggedIn) {
+        navigate('/main')
+      }
+    })
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

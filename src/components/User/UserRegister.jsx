@@ -1,9 +1,9 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import background from '../../images/background.jpg'
-import { setCurrentUser } from "../../features/userData/userDataSlice";
-import { useDispatch } from "react-redux";
+import { selectIsLoggedIn, setCurrentUser } from "../../features/userData/userDataSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { loginGoogleUser, registerLocalUser } from "../../api/auth";
 
 const formStyle = {
@@ -35,6 +35,13 @@ const inputProps = {
 function UserRegister() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const loggedIn = useSelector(selectIsLoggedIn);
+  
+    useEffect(() => {
+      if(loggedIn) {
+        navigate('/main')
+      }
+    })
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
