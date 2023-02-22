@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Box, Button, Menu, MenuItem, styled, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Box, Button, ListItemIcon, Menu, MenuItem, styled, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,9 @@ import { selectCurrentUser, resetUserData, selectIsLoggedIn, setIsLoggedIn, setC
 import { resetEntityData } from "../features/entityData/entityDataSlice";
 import { logoutUser, getUser } from "../api/auth";
 import { useEffect } from "react";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { Logout } from "@mui/icons-material";
 
 const StyledToolbar = styled(Toolbar) ({
     display: "flex",
@@ -134,12 +137,19 @@ function Navbar() {
                 <Avatar 
                 sx={{width: 35, height: 35, border: '1px solid lightblue'}} 
                 src={avatar}
-                /> 
-                <Typography 
-                  variant="span"
-                  sx={{ml: "10px", cursor: "pointer"}}
-                  onClick={handleClick}
-                  >{currentUserName}</Typography>               
+                />  
+              <Button
+                id="customized-button"
+                aria-controls={open ? 'customized-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                variant="contained"
+                disableElevation
+                onClick={handleClick}
+                endIcon={<KeyboardArrowDownIcon />}
+              >
+                {currentUserName}
+              </Button>          
            </Box>
         </StyledToolbar>
         <Menu
@@ -159,10 +169,16 @@ function Navbar() {
           >
           <MenuItem
             onClick={handleProfile} >
+            <ListItemIcon>
+              <AccountCircleOutlinedIcon fontSize="small" />
+            </ListItemIcon>
             Profile
           </MenuItem>
           <MenuItem
             onClick={handleLogout} >
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
             Logout
           </MenuItem>
         </Menu>
