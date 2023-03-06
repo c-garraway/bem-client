@@ -64,7 +64,7 @@ function UserLogin() {
 
     };
     const handleGuestUser = async () => {
-        await loginLocalUser('guest@email.ca', 'guestPassword');
+        await loginLocalUser(process.env.REACT_APP_GUEST_EMAIL, process.env.REACT_APP_GUEST_PW);
         dispatch(setIsLoggedIn());
         dispatch(setUserType('Guest'))
         navigate('/main');
